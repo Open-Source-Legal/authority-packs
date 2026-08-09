@@ -70,6 +70,21 @@ The OpenContracts platform itself remains MIT-licensed; packs are data loaded
 at runtime and impose no licensing obligation on the platform or on
 deployments' own documents.
 
+## Contributing a pack
+
+Open a PR — the template walks through provenance, licensing, and validation.
+CI runs `scripts/validate_pack.py` (a dependency-light structural mirror of the
+OpenContracts preflight) against every pack on every PR; run it locally first:
+
+```bash
+pip install pyyaml
+python scripts/validate_pack.py <pack_name>     # or --all
+```
+
+The canonical validator remains OpenContracts' own preflight
+(`manage.py load_authority_pack --check`); run it before shipping a pack to a
+real deployment.
+
 ## Authoring new packs
 
 See the OpenContracts guide:

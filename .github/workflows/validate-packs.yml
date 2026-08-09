@@ -1,0 +1,44 @@
+name: Validate packs
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install validator dependency
+        run: pip install pyyaml
+
+      - name: Validator self-test (prove the checks can fail)
+        run: python scripts/validate_pack.py --self-test
+
+      - name: Validate all packs
+        run: python scripts/validate_pack.py --all
+
+      - name: Every pack is listed in the catalog README
+        run: |
+          missing=0
+          for manifest in */pack.yaml; do
+            pack=$(dirname "$manifest")
+            if ! grep -q "\`$pack\`" README.md; then
+              echo "::error::pack '$pack' is missing from the README catalog table"
+              missing=1
+            fi
+          done
+          exit $missing
+
+      - name: Licensing files present
+        run: |
+          test -f LICENSE || { echo "::error::LICENSE missing at repo root"; exit 1; }
