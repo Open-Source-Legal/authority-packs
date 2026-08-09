@@ -1,0 +1,22 @@
+title: "Fort Worth Code of Ordinances (procurement-related provisions)"
+slug: "fort-worth-city-code"
+purpose: >
+  Provide the currently effective Fort Worth Code of Ordinances provisions
+  that the city's contract templates cite, so contract citations resolve to
+  verbatim ordinance text.
+include:
+  - "Chapter 2 Article I (contract execution, incl. the § 2-9 $100,000 council-approval threshold)"
+  - "Chapter 2 Article VII (Code of Ethics)"
+  - "Chapter 17 (Human Relations; Article III discrimination provisions)"
+  - "Chapter 20 Article X (Business Equity)"
+  - "Chapter 21 (Small Business Program)"
+exclude:
+  - "chapters not referenced by city contract templates"
+  - "superseded ordinance text"
+authority_tiers:
+  default: "CONTROLLING"
+update_expectation: "event_driven"
+current_as_of: "2026-08-09"
+approval_status: "pending_legal_review"
+legal_owner: null
+technical_owner: null

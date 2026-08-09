@@ -1,0 +1,17 @@
+title: "Texas Procurement & Contracting Statutes (municipal)"
+slug: "texas-procurement-law"
+purpose: >
+  Provide verbatim Texas statutes governing municipal purchasing and the
+  standard contract-verification clauses recited in Fort Worth contracts.
+include:
+  - "Local Government Code Chapters 176, 252, and 271 Subchapter F"
+  - "Government Code Sec. 2252.908 and Chapters 2271, 2274, 2276"
+exclude:
+  - "state agency (non-municipal) procurement statutes"
+authority_tiers:
+  default: "CONTROLLING"
+update_expectation: "event_driven"
+current_as_of: "2026-08-09"
+approval_status: "pending_legal_review"
+legal_owner: null
+technical_owner: null

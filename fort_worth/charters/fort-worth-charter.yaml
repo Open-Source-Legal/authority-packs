@@ -1,0 +1,19 @@
+title: "Charter of the City of Fort Worth (selected chapters)"
+slug: "fort-worth-charter"
+purpose: >
+  Provide the Fort Worth City Charter chapters that govern the budget, the
+  city manager's contracting authority, and audit oversight.
+include:
+  - "Chapter V (The City Manager)"
+  - "Chapter X (The Budget and Financial Procedure)"
+  - "Chapter XXVII (Miscellaneous)"
+  - "Chapter XXVIII (Department of Internal Audit)"
+exclude:
+  - "charter chapters without fiscal or contracting relevance"
+authority_tiers:
+  default: "CONTROLLING"
+update_expectation: "event_driven"
+current_as_of: "2026-08-09"
+approval_status: "pending_legal_review"
+legal_owner: null
+technical_owner: null

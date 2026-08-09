@@ -1,0 +1,122 @@
+# Fort Worth, Texas authority pack — namespace registry + citation taxonomy.
+#
+# Same schema as opencontractserver/enrichment/data/authority_mappings.yaml,
+# plus the pack-only extensions (abbreviations). Loaded idempotently by
+# `manage.py load_authority_pack`. Aliases are lowercased surface strings and
+# drive Tier-1 citation extraction ("Section N of the <alias>" / "<alias>
+# Section N"). Chapter-style citations ("Chapter 252 of the Local Government
+# Code") are caught by the LLM tier and folded onto canonical keys via the
+# equivalences below.
+prefixes:
+  muni-fort-worth:
+    display_name: "Fort Worth Code of Ordinances"
+    jurisdiction: "us-tx-fort-worth"
+    authority_type: "municipal-ordinance"
+    aliases:
+      - "fort worth code of ordinances"
+      - "fort worth city code"
+      - "city code of the city of fort worth"
+      - "code of the city of fort worth"
+      - "city code"
+  fw-charter:
+    display_name: "Charter of the City of Fort Worth"
+    jurisdiction: "us-tx-fort-worth"
+    authority_type: "constitution"
+    aliases:
+      - "fort worth city charter"
+      - "charter of the city of fort worth"
+      - "city charter"
+  tx-local-gov:
+    display_name: "Texas Local Government Code"
+    jurisdiction: "us-tx"
+    authority_type: "statute"
+    aliases:
+      - "texas local government code"
+      - "local government code"
+      - "tex. local gov't code"
+      - "texas local gov't code"
+  tx-gov:
+    display_name: "Texas Government Code"
+    jurisdiction: "us-tx"
+    authority_type: "statute"
+    aliases:
+      - "texas government code"
+      - "government code"
+      - "tex. gov't code"
+  tx-admin-code:
+    display_name: "Texas Administrative Code"
+    jurisdiction: "us-tx"
+    authority_type: "regulation"
+    aliases:
+      - "texas administrative code"
+
+# act:<slug> keys are what the LLM tier derives from verbatim chapter-style
+# citations; fold the predictable spellings onto canonical chapter keys.
+equivalences:
+  - { from_key: "tx-gov:2270", to_key: "tx-gov:2271", note: "Ch. 2270 renumbered to 2271 (86th Leg.)" }
+  - { from_key: "act:chapter-252-of-the-texas-local-government-code", to_key: "tx-local-gov:252" }
+  - { from_key: "act:chapter-252-of-the-local-government-code", to_key: "tx-local-gov:252" }
+  - { from_key: "act:texas-local-government-code-chapter-252", to_key: "tx-local-gov:252" }
+  - { from_key: "act:texas-government-code-chapter-252", to_key: "tx-local-gov:252" }
+  - { from_key: "act:chapter-271-of-the-texas-local-government-code", to_key: "tx-local-gov:271" }
+  - { from_key: "act:chapter-176-of-the-local-government-code", to_key: "tx-local-gov:176" }
+  - { from_key: "act:chapter-176-local-government-code", to_key: "tx-local-gov:176" }
+  - { from_key: "act:chapter-2270-of-the-texas-government-code", to_key: "tx-gov:2271" }
+  - { from_key: "act:chapter-2271-of-the-texas-government-code", to_key: "tx-gov:2271" }
+  - { from_key: "act:chapter-2274-of-the-texas-government-code", to_key: "tx-gov:2274" }
+  - { from_key: "act:chapter-2276-of-the-texas-government-code", to_key: "tx-gov:2276" }
+  - { from_key: "act:chapter-2274-of-the-government-code", to_key: "tx-gov:2274" }
+  - { from_key: "act:chapter-2276-of-the-government-code", to_key: "tx-gov:2276" }
+  - { from_key: "act:chapter-2271-of-the-government-code", to_key: "tx-gov:2271" }
+  - { from_key: "muni-fort-worth:ord-25165-10-2021", to_key: "muni-fort-worth:20-367", note: "Business Equity Ordinance codified at Ch. 20 Art. X" }
+  - { from_key: "muni-fort-worth:ord-20020-12-2011", to_key: "muni-fort-worth:20-367", note: "Predecessor Business Diversity ordinance" }
+  # Observed LLM-derived slug variants from the discover sample (2026-08-09),
+  # incl. OCR-noise spellings that recur across the shared contract template.
+  - { from_key: "act:chapter-2252-of-the-texas-government-code", to_key: "tx-gov:2252" }
+  - { from_key: "act:tex-govf-code-ch-2271", to_key: "tx-gov:2271" }
+  - { from_key: "act:tex-gov-r-code-ch-2276", to_key: "tx-gov:2276" }
+  - { from_key: "act:tex-gov-r-code-ch-2274", to_key: "tx-gov:2274" }
+  - { from_key: "act:chapter-252-local-government-code", to_key: "tx-local-gov:252" }
+  - { from_key: "act:chapter-176-of-the-texas-local-government-code", to_key: "tx-local-gov:176" }
+  - { from_key: "act:chapter-271-of-the-local-government-code", to_key: "tx-local-gov:271" }
+
+rewrite_rules: []
+
+shape_rules:
+  - pattern: '^fw-charter$'
+    jurisdiction: "us-tx-fort-worth"
+    authority_type: "constitution"
+
+abbreviations:
+  state:
+    "Texas Local Government Code":
+      prefix: "tx-local-gov"
+      jurisdiction: "us-tx"
+      authority_type: "statute"
+      requires_section_marker: true
+    "Tex. Local Government Code":
+      prefix: "tx-local-gov"
+      jurisdiction: "us-tx"
+      authority_type: "statute"
+      requires_section_marker: true
+    "Texas Government Code":
+      prefix: "tx-gov"
+      jurisdiction: "us-tx"
+      authority_type: "statute"
+      requires_section_marker: true
+    "Tex. Gov't Code":
+      prefix: "tx-gov"
+      jurisdiction: "us-tx"
+      authority_type: "statute"
+      requires_section_marker: true
+  municipal:
+    "Fort Worth City Code":
+      prefix: "muni-fort-worth"
+      jurisdiction: "us-tx-fort-worth"
+      authority_type: "municipal-ordinance"
+      requires_section_marker: true
+    "City Code of the City of Fort Worth":
+      prefix: "muni-fort-worth"
+      jurisdiction: "us-tx-fort-worth"
+      authority_type: "municipal-ordinance"
+      requires_section_marker: true

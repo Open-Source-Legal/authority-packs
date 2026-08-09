@@ -1,0 +1,59 @@
+schema_version: 2
+name: "fort_worth"
+display_name: "Fort Worth, Texas — Municipal Law & Procurement Authorities"
+description: >
+  The law governing City of Fort Worth contracting: the City Charter (budget,
+  city manager, internal audit), the Code of Ordinances provisions the city's
+  standard contract templates cite (contract execution under § 2-9, Code of
+  Ethics, Chapter 17 discrimination clauses, Chapter 20 Article X Business
+  Equity, Chapter 21 small business program), and the Texas statutes those
+  contracts recite (Local Government Code Chapters 176, 252, 271; Government
+  Code Chapters 2252, 2271, 2274, 2276).
+jurisdiction: "us-tx-fort-worth"
+mappings: "authority_mappings.fort_worth.yaml"
+source_hosts:
+  - "codelibrary.amlegal.com"
+  - "statutes.capitol.texas.gov"
+  - "texas.public.law"
+corpora:
+  - slug: "fort-worth-city-code"
+    title: "Fort Worth Code of Ordinances (procurement-related provisions)"
+    authority_prefixes:
+      - "muni-fort-worth"
+    description: >
+      Provisions of the Fort Worth Code of Ordinances cited by the city's
+      contract templates: Chapter 2 (Administration, incl. § 2-9 contract
+      execution and the Article VII Code of Ethics), Chapter 17 (Human
+      Relations / discrimination in employment practices), Chapter 20 Article
+      X (Business Equity), and Chapter 21 (Small Business Program).
+    charter: "charters/fort-worth-city-code.yaml"
+    spec: "specs/fort-worth-city-code.json"
+    persona: "personas/fort-worth-city-code.txt"
+    default_authority_weight: "CONTROLLING"
+  - slug: "fort-worth-charter"
+    title: "Charter of the City of Fort Worth (selected chapters)"
+    authority_prefixes:
+      - "fw-charter"
+    description: >
+      Selected chapters of the Fort Worth City Charter: Chapter V (City
+      Manager), Chapter X (Budget and Financial Procedure), Chapter XXVII
+      (Miscellaneous), and Chapter XXVIII (Department of Internal Audit).
+    charter: "charters/fort-worth-charter.yaml"
+    spec: "specs/fort-worth-charter.json"
+    persona: "personas/fort-worth-charter.txt"
+    default_authority_weight: "CONTROLLING"
+  - slug: "texas-procurement-law"
+    title: "Texas Procurement & Contracting Statutes (municipal)"
+    authority_prefixes:
+      - "tx-local-gov"
+      - "tx-gov"
+    description: >
+      Texas statutes governing municipal purchasing that Fort Worth contracts
+      recite: Local Government Code Chapters 176 (conflict disclosure), 252
+      (competitive bidding), and 271 Subchapter F (cooperative purchasing);
+      Government Code Sec. 2252.908 (Form 1295 disclosure) and Chapters 2271,
+      2274, 2276 (contract verification requirements).
+    charter: "charters/texas-procurement-law.yaml"
+    spec: "specs/texas-procurement-law.json"
+    persona: "personas/texas-procurement-law.txt"
+    default_authority_weight: "CONTROLLING"
