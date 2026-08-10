@@ -1,0 +1,30 @@
+title: "Fort Worth Local Amendments to the 2021 International Residential Code"
+slug: "fort-worth-residential-code-amendments"
+purpose: >
+  Carry Fort Worth's local amendments to the 2021 International Residential
+  Code, keyed by the model-code section each one amends, so that a homeowner
+  question about a deck, a water heater, a smoke alarm or a foundation can be
+  answered with the Fort Worth delta rather than with generic model-code text.
+include:
+  - "City Code § 7-62 amendments to the 2021 IRC, decomposed by amended IRC section"
+  - "IRC R-series (building), N-series (energy), M-series (mechanical), G-series (fuel gas), P-series (plumbing) amendments as adopted"
+  - "adopted by Ord. 25383-03-2022, eff. 2022-04-01"
+exclude:
+  - "the unamended base text of the ICC model code (not reproduced; see notes)"
+  - "commercial-only amendments (International Building Code — City Code § 7-47)"
+authority_tiers:
+  default: "CONTROLLING"
+notes: >
+  Only Fort Worth's amendments are reproduced. Where Fort Worth has not
+  amended a model-code section, this corpus is silent and the base 2021 IRC
+  section governs — the agent must say so rather than infer a local rule.
+  Under Veeck v. SBCCI (5th Cir. 2002, en banc) a model code adopted as law
+  enters the public domain in this circuit; not reproducing the unamended base
+  text is a conservative editorial choice, not a legal necessity.
+  The prefix is `fw-res-code`, never `irc` — that prefix is bound globally to
+  the Internal Revenue Code.
+update_expectation: "event_driven"
+current_as_of: "2026-08-09"
+approval_status: "pending_legal_review"
+legal_owner: null
+technical_owner: null

@@ -49,6 +49,53 @@ prefixes:
     authority_type: "regulation"
     aliases:
       - "texas administrative code"
+  # --- Residential construction / homeowner permitting -------------------
+  # NOTE: the International Residential Code deliberately does NOT use the
+  # prefix `irc` — that prefix is already bound, globally, to the Internal
+  # Revenue Code. Nor is bare "irc" registered as an alias here, for the same
+  # collision reason.
+  fw-admin-code:
+    display_name: "Fort Worth Building Administrative Code"
+    jurisdiction: "us-tx-fort-worth"
+    authority_type: "municipal-ordinance"
+    aliases:
+      - "fort worth building administrative code"
+      - "building administrative code"
+      - "fw building administrative code"
+  fw-res-code:
+    display_name: "Fort Worth Residential Code (2021 IRC as locally amended)"
+    jurisdiction: "us-tx-fort-worth"
+    authority_type: "municipal-ordinance"
+    aliases:
+      - "fort worth residential code"
+      - "international residential code"
+      - "2021 international residential code"
+      - "residential code"
+  fw-zoning:
+    display_name: "Fort Worth Zoning Ordinance"
+    jurisdiction: "us-tx-fort-worth"
+    authority_type: "municipal-ordinance"
+    aliases:
+      - "fort worth zoning ordinance"
+      - "zoning ordinance"
+      - "fort worth zoning regulations"
+  tx-occ:
+    display_name: "Texas Occupations Code"
+    jurisdiction: "us-tx"
+    authority_type: "statute"
+    aliases:
+      - "texas occupations code"
+      - "occupations code"
+      - "tex. occ. code"
+      - "tex. occupations code"
+  tx-prop:
+    display_name: "Texas Property Code"
+    jurisdiction: "us-tx"
+    authority_type: "statute"
+    aliases:
+      - "texas property code"
+      - "property code"
+      - "tex. prop. code"
 
 # act:<slug> keys are what the LLM tier derives from verbatim chapter-style
 # citations; fold the predictable spellings onto canonical chapter keys.
@@ -79,6 +126,21 @@ equivalences:
   - { from_key: "act:chapter-252-local-government-code", to_key: "tx-local-gov:252" }
   - { from_key: "act:chapter-176-of-the-texas-local-government-code", to_key: "tx-local-gov:176" }
   - { from_key: "act:chapter-271-of-the-local-government-code", to_key: "tx-local-gov:271" }
+  # Residential construction / homeowner permitting. Permit guides cite in
+  # chapter form ("Chapter 1301 of the Occupations Code"), which only the LLM
+  # tier catches; these fold the predictable slugs onto canonical keys.
+  - { from_key: "act:chapter-1301-of-the-texas-occupations-code", to_key: "tx-occ:1301" }
+  - { from_key: "act:chapter-1301-of-the-occupations-code", to_key: "tx-occ:1301" }
+  - { from_key: "act:chapter-1302-of-the-texas-occupations-code", to_key: "tx-occ:1302" }
+  - { from_key: "act:chapter-1305-of-the-texas-occupations-code", to_key: "tx-occ:1305" }
+  - { from_key: "act:chapter-1305-of-the-occupations-code", to_key: "tx-occ:1305" }
+  - { from_key: "act:texas-plumbing-license-law", to_key: "tx-occ:1301" }
+  - { from_key: "act:chapter-202-of-the-texas-property-code", to_key: "tx-prop:202" }
+  - { from_key: "act:chapter-202-of-the-property-code", to_key: "tx-prop:202" }
+  - { from_key: "act:chapter-209-of-the-texas-property-code", to_key: "tx-prop:209" }
+  - { from_key: "act:texas-residential-property-owners-protection-act", to_key: "tx-prop:209" }
+  - { from_key: "act:chapter-7-of-the-fort-worth-city-code", to_key: "muni-fort-worth:7-1" }
+  - { from_key: "act:fort-worth-building-administrative-code", to_key: "fw-admin-code:101" }
 
 rewrite_rules: []
 
@@ -109,7 +171,42 @@ abbreviations:
       jurisdiction: "us-tx"
       authority_type: "statute"
       requires_section_marker: true
+    "Texas Occupations Code":
+      prefix: "tx-occ"
+      jurisdiction: "us-tx"
+      authority_type: "statute"
+      requires_section_marker: true
+    "Tex. Occ. Code":
+      prefix: "tx-occ"
+      jurisdiction: "us-tx"
+      authority_type: "statute"
+      requires_section_marker: true
+    "Texas Property Code":
+      prefix: "tx-prop"
+      jurisdiction: "us-tx"
+      authority_type: "statute"
+      requires_section_marker: true
+    "Tex. Prop. Code":
+      prefix: "tx-prop"
+      jurisdiction: "us-tx"
+      authority_type: "statute"
+      requires_section_marker: true
   municipal:
+    "Fort Worth Building Administrative Code":
+      prefix: "fw-admin-code"
+      jurisdiction: "us-tx-fort-worth"
+      authority_type: "municipal-ordinance"
+      requires_section_marker: true
+    "Fort Worth Residential Code":
+      prefix: "fw-res-code"
+      jurisdiction: "us-tx-fort-worth"
+      authority_type: "municipal-ordinance"
+      requires_section_marker: true
+    "Fort Worth Zoning Ordinance":
+      prefix: "fw-zoning"
+      jurisdiction: "us-tx-fort-worth"
+      authority_type: "municipal-ordinance"
+      requires_section_marker: true
     "Fort Worth City Code":
       prefix: "muni-fort-worth"
       jurisdiction: "us-tx-fort-worth"

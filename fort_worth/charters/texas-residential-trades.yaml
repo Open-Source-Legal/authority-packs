@@ -1,0 +1,30 @@
+title: "Texas Residential Trade Licensing & Property Restrictions"
+slug: "texas-residential-trades"
+purpose: >
+  Provide the Texas statutes that decide whether a homeowner may lawfully do
+  the work themselves, and what a homeowners association may and may not
+  forbid — the state-law layer beneath Fort Worth's permit rules.
+include:
+  - "Occupations Code ch. 1301 (Plumbing License Law), incl. § 1301.051 homestead exemption"
+  - "Occupations Code ch. 1302 (Air Conditioning and Refrigeration Contractors)"
+  - "Occupations Code ch. 1305 (Electricians), incl. § 1305.003 exemptions"
+  - "Property Code ch. 202 (Restrictive Covenants), incl. § 202.010 solar devices"
+  - "Property Code ch. 209 (Residential Property Owners Protection Act)"
+exclude:
+  - "Local Government Code ch. 214 (municipal building standards enforcement) — the Fort Worth analogue is City Code ch. 7 art. IV"
+  - "trade board administrative rules (Texas Administrative Code)"
+authority_tiers:
+  default: "CONTROLLING"
+notes: >
+  The two homeowner exemptions are NOT symmetrical, and conflating them is the
+  most likely error this corpus exists to prevent:
+  Occupations Code § 1301.051 exempts a property owner from plumbing
+  LICENSURE in their own homestead, unconditionally as to municipal rules;
+  § 1305.003(a)(6) exempts electrical work in an owner-occupied dwelling only
+  where that work is "not specifically regulated by a municipal ordinance."
+  Neither exemption waives the Fort Worth permit or the inspection.
+update_expectation: "legislative_session"
+current_as_of: "2026-08-09"
+approval_status: "pending_legal_review"
+legal_owner: null
+technical_owner: null

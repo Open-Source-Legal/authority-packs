@@ -1,14 +1,23 @@
 schema_version: 2
 name: "fort_worth"
-display_name: "Fort Worth, Texas — Municipal Law & Procurement Authorities"
+display_name: "Fort Worth, Texas — Municipal Law, Procurement & Residential Construction"
 description: >
-  The law governing City of Fort Worth contracting: the City Charter (budget,
-  city manager, internal audit), the Code of Ordinances provisions the city's
-  standard contract templates cite (contract execution under § 2-9, Code of
-  Ethics, Chapter 17 discrimination clauses, Chapter 20 Article X Business
-  Equity, Chapter 21 small business program), and the Texas statutes those
-  contracts recite (Local Government Code Chapters 176, 252, 271; Government
-  Code Chapters 2252, 2271, 2274, 2276).
+  The law of the City of Fort Worth across two bodies of practice.
+
+  Contracting: the City Charter (budget, city manager, internal audit), the
+  Code of Ordinances provisions the city's standard contract templates cite
+  (contract execution under § 2-9, Code of Ethics, Chapter 17 discrimination
+  clauses, Chapter 20 Article X Business Equity, Chapter 21 small business
+  program), and the Texas statutes those contracts recite (Local Government
+  Code Chapters 176, 252, 271; Government Code Chapters 2252, 2271, 2274,
+  2276).
+
+  Residential construction and permitting: City Code Chapter 7 (Buildings)
+  with the adopted technical codes, the Fort Worth Building Administrative
+  Code (permits, fees, inspections, contractor registration), Fort Worth's
+  local amendments to the 2021 International Residential Code, the Zoning
+  Ordinance provisions that govern residential lots, and the Texas trade
+  licensing and restrictive covenant statutes that sit beneath them.
 jurisdiction: "us-tx-fort-worth"
 mappings: "authority_mappings.fort_worth.yaml"
 source_hosts:
@@ -17,15 +26,24 @@ source_hosts:
   - "texas.public.law"
 corpora:
   - slug: "fort-worth-city-code"
-    title: "Fort Worth Code of Ordinances (procurement-related provisions)"
+    title: "Fort Worth Code of Ordinances (procurement and construction provisions)"
     authority_prefixes:
       - "muni-fort-worth"
     description: >
-      Provisions of the Fort Worth Code of Ordinances cited by the city's
-      contract templates: Chapter 2 (Administration, incl. § 2-9 contract
-      execution and the Article VII Code of Ethics), Chapter 17 (Human
-      Relations / discrimination in employment practices), Chapter 20 Article
-      X (Business Equity), and Chapter 21 (Small Business Program).
+      Provisions of the Fort Worth Code of Ordinances across both practice
+      areas this pack serves.
+
+      Contracting: Chapter 2 (Administration, incl. § 2-9 contract execution
+      and the Article VII Code of Ethics), Chapter 17 (Human Relations /
+      discrimination in employment practices), Chapter 20 Article X (Business
+      Equity), and Chapter 21 (Small Business Program).
+
+      Construction: Chapter 7 (Buildings) in full — the adoption sections and
+      amendments for the International Building, Residential, Mechanical,
+      Energy, Existing Building and Swimming Pool and Spa codes, the Minimum
+      Building Standards Code, demolition, floodplain provisions, and one- and
+      two-family dwelling registration — together with Chapter 11
+      (Electricity), Chapter 15 (Gas) and Chapter 26 (Plumbing).
     charter: "charters/fort-worth-city-code.yaml"
     spec: "specs/fort-worth-city-code.json"
     persona: "personas/fort-worth-city-code.txt"
@@ -41,6 +59,65 @@ corpora:
     charter: "charters/fort-worth-charter.yaml"
     spec: "specs/fort-worth-charter.json"
     persona: "personas/fort-worth-charter.txt"
+    default_authority_weight: "CONTROLLING"
+  - slug: "fort-worth-building-admin-code"
+    title: "Fort Worth Building Administrative Code"
+    authority_prefixes:
+      - "fw-admin-code"
+    description: >
+      The administrative rules behind every Fort Worth construction permit —
+      §§ 101-119 as adopted by City Code § 7-1 — including § 105 (Permits and
+      the work exempt from permit), § 109 (Fees), § 110 (Inspections), § 111
+      (Certificate of Occupancy), § 118 (Contractor Registration and City
+      Licensing) and § 119 (Fee Tables).
+    charter: "charters/fort-worth-building-admin-code.yaml"
+    spec: "specs/fort-worth-building-admin-code.json"
+    persona: "personas/fort-worth-building-admin-code.txt"
+    default_authority_weight: "CONTROLLING"
+  - slug: "fort-worth-residential-code-amendments"
+    title: "Fort Worth Local Amendments to the 2021 International Residential Code"
+    authority_prefixes:
+      - "fw-res-code"
+    description: >
+      Fort Worth's local amendments to the 2021 International Residential Code
+      (Ord. 25383-03-2022, codified at City Code § 7-62), keyed by the IRC
+      section each amendment changes, across the R (building), N (energy), M
+      (mechanical), G (fuel gas) and P (plumbing) series. Only the local deltas
+      are carried; where Fort Worth has not amended, the base IRC governs.
+    charter: "charters/fort-worth-residential-code-amendments.yaml"
+    spec: "specs/fort-worth-residential-code-amendments.json"
+    persona: "personas/fort-worth-residential-code-amendments.txt"
+    default_authority_weight: "CONTROLLING"
+  - slug: "fort-worth-zoning"
+    title: "Fort Worth Zoning Ordinance (residential provisions)"
+    authority_prefixes:
+      - "fw-zoning"
+    description: >
+      City Code Appendix A provisions that decide whether a residential project
+      is allowed and where it may sit on the lot: general provisions, review
+      procedures (variances and special exceptions), district regulations for
+      the one- and two-family districts, supplemental use standards (accessory
+      buildings, home occupations), development standards (fences, screening)
+      and definitions.
+    charter: "charters/fort-worth-zoning.yaml"
+    spec: "specs/fort-worth-zoning.json"
+    persona: "personas/fort-worth-zoning.txt"
+    default_authority_weight: "CONTROLLING"
+  - slug: "texas-residential-trades"
+    title: "Texas Residential Trade Licensing & Property Restrictions"
+    authority_prefixes:
+      - "tx-occ"
+      - "tx-prop"
+    description: >
+      The Texas statutes that decide whether a homeowner may lawfully do the
+      work themselves and what an HOA may forbid: Occupations Code chs. 1301
+      (plumbing, incl. the § 1301.051 homestead exemption), 1302 (air
+      conditioning and refrigeration) and 1305 (electricians, incl. the
+      § 1305.003 exemptions); Property Code chs. 202 (restrictive covenants,
+      incl. § 202.010 solar devices) and 209.
+    charter: "charters/texas-residential-trades.yaml"
+    spec: "specs/texas-residential-trades.json"
+    persona: "personas/texas-residential-trades.txt"
     default_authority_weight: "CONTROLLING"
   - slug: "texas-procurement-law"
     title: "Texas Procurement & Contracting Statutes (municipal)"

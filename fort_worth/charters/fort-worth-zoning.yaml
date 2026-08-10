@@ -1,0 +1,31 @@
+title: "Fort Worth Zoning Ordinance"
+slug: "fort-worth-zoning"
+purpose: >
+  Provide the zoning provisions that decide whether a residential project is
+  allowed at all, and where on the lot it may go — the questions a building
+  permit cannot answer. Setbacks, lot coverage, accessory buildings, fences
+  and screening, home occupations, and the variance / special-exception route
+  when a project does not comply.
+include:
+  - "Appendix A ch. 1 (General Provisions)"
+  - "Appendix A ch. 3 (Review Procedures — variances, special exceptions, Board of Adjustment)"
+  - "Appendix A ch. 4 (District Regulations — one- and two-family districts, setbacks, lot standards)"
+  - "Appendix A ch. 5 (Supplemental Use Standards — accessory uses, home occupations)"
+  - "Appendix A ch. 6 (Development Standards — fences, screening, bufferyards, parking)"
+  - "Appendix A ch. 9 (Definitions)"
+exclude:
+  - "ch. 2 (Review Bodies), ch. 7 (Nonconformities), ch. 8 (Enforcement)"
+  - "zoning map / district boundaries — parcel-specific, not carried here"
+authority_tiers:
+  default: "CONTROLLING"
+notes: >
+  This corpus does not know which district a given parcel is in. Every answer
+  that depends on district must state the assumption or tell the reader to
+  confirm their zoning district first.
+  Historic and urban-design overlay districts impose additional review that is
+  not modelled here.
+update_expectation: "event_driven"
+current_as_of: "2026-08-09"
+approval_status: "pending_legal_review"
+legal_owner: null
+technical_owner: null
