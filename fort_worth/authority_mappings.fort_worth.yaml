@@ -141,6 +141,19 @@ equivalences:
   - { from_key: "act:texas-residential-property-owners-protection-act", to_key: "tx-prop:209" }
   - { from_key: "act:chapter-7-of-the-fort-worth-city-code", to_key: "muni-fort-worth:7-1" }
   - { from_key: "act:fort-worth-building-administrative-code", to_key: "fw-admin-code:101" }
+  # SECTION-form slugs. The LLM tier slugifies the whole citation and turns the
+  # section number's dots into dashes, so "Section 1301.051 of the Texas
+  # Occupations Code" arrives as `act:section-1301-051-of-the-texas-occupations-code`
+  # -- a different key from the chapter-form rows above, and the one that
+  # actually carries the operative text a homeowner needs.
+  - { from_key: "act:section-1301-051-of-the-texas-occupations-code", to_key: "tx-occ:1301.051" }
+  - { from_key: "act:section-1301-051-of-the-occupations-code", to_key: "tx-occ:1301.051" }
+  - { from_key: "act:section-1305-003-of-the-texas-occupations-code", to_key: "tx-occ:1305.003" }
+  - { from_key: "act:section-1305-003-of-the-occupations-code", to_key: "tx-occ:1305.003" }
+  - { from_key: "act:section-202-010-of-the-texas-property-code", to_key: "tx-prop:202.010" }
+  - { from_key: "act:section-202-010-of-the-property-code", to_key: "tx-prop:202.010" }
+  - { from_key: "act:section-1301-052-of-the-texas-occupations-code", to_key: "tx-occ:1301.052" }
+  - { from_key: "act:section-1301-053-of-the-texas-occupations-code", to_key: "tx-occ:1301.053" }
 
   # --- International Residential Code citations -------------------------
   # The extractor derives the prefix from the abbreviation printed in the
