@@ -142,6 +142,95 @@ equivalences:
   - { from_key: "act:chapter-7-of-the-fort-worth-city-code", to_key: "muni-fort-worth:7-1" }
   - { from_key: "act:fort-worth-building-administrative-code", to_key: "fw-admin-code:101" }
 
+  # --- International Residential Code citations -------------------------
+  # The extractor derives the prefix from the abbreviation printed in the
+  # document, so "IRC R311" becomes `irc:r311` -- and `irc` is bound
+  # GLOBALLY to the INTERNAL REVENUE CODE. Without these rows every Fort
+  # Worth residential building-code citation lands in federal tax law.
+  # Only alphanumeric section IDs are mapped; genuine tax citations are
+  # purely numeric (irc:501(c)(3)) and are never touched.
+  - { from_key: "irc:r202", to_key: "fw-res-code:r202" }
+  - { from_key: "irc:r301.2(1)", to_key: "fw-res-code:r301.2(1)" }
+  - { from_key: "irc:r301.5", to_key: "fw-res-code:r301.5" }
+  - { from_key: "irc:r302", to_key: "fw-res-code:r302" }
+  - { from_key: "irc:r303", to_key: "fw-res-code:r303" }
+  - { from_key: "irc:r311", to_key: "fw-res-code:r311" }
+  - { from_key: "irc:r312", to_key: "fw-res-code:r312" }
+  - { from_key: "irc:r314", to_key: "fw-res-code:r314" }
+  - { from_key: "irc:r315", to_key: "fw-res-code:r315" }
+  - { from_key: "irc:r317", to_key: "fw-res-code:r317" }
+  - { from_key: "irc:r318", to_key: "fw-res-code:r318" }
+  - { from_key: "irc:r322", to_key: "fw-res-code:r322" }
+  - { from_key: "irc:r327", to_key: "fw-res-code:r327" }
+  - { from_key: "irc:r331", to_key: "fw-res-code:r331" }
+  - { from_key: "irc:r332", to_key: "fw-res-code:r332" }
+  - { from_key: "irc:r401", to_key: "fw-res-code:r401" }
+  - { from_key: "irc:r403", to_key: "fw-res-code:r403" }
+  - { from_key: "irc:r602", to_key: "fw-res-code:r602" }
+  - { from_key: "irc:r703", to_key: "fw-res-code:r703" }
+  - { from_key: "irc:r802", to_key: "fw-res-code:r802" }
+  - { from_key: "irc:r902", to_key: "fw-res-code:r902" }
+  - { from_key: "irc:r908", to_key: "fw-res-code:r908" }
+  - { from_key: "irc:n1101", to_key: "fw-res-code:n1101" }
+  - { from_key: "irc:m1305", to_key: "fw-res-code:m1305" }
+  - { from_key: "irc:m1411", to_key: "fw-res-code:m1411" }
+  - { from_key: "irc:m1502", to_key: "fw-res-code:m1502" }
+  - { from_key: "irc:m1503", to_key: "fw-res-code:m1503" }
+  - { from_key: "irc:m1505", to_key: "fw-res-code:m1505" }
+  - { from_key: "irc:m2005", to_key: "fw-res-code:m2005" }
+  - { from_key: "irc:g2404", to_key: "fw-res-code:g2404" }
+  - { from_key: "irc:g2412", to_key: "fw-res-code:g2412" }
+  - { from_key: "irc:g2415", to_key: "fw-res-code:g2415" }
+  - { from_key: "irc:g2417", to_key: "fw-res-code:g2417" }
+  - { from_key: "irc:g2420", to_key: "fw-res-code:g2420" }
+  - { from_key: "irc:g2421", to_key: "fw-res-code:g2421" }
+  - { from_key: "irc:g2439", to_key: "fw-res-code:g2439" }
+  - { from_key: "irc:g2445", to_key: "fw-res-code:g2445" }
+  - { from_key: "irc:g2448", to_key: "fw-res-code:g2448" }
+  - { from_key: "irc:p2503", to_key: "fw-res-code:p2503" }
+  - { from_key: "irc:p2602", to_key: "fw-res-code:p2602" }
+  - { from_key: "irc:p2603", to_key: "fw-res-code:p2603" }
+  - { from_key: "irc:p2706", to_key: "fw-res-code:p2706" }
+  - { from_key: "irc:p2709", to_key: "fw-res-code:p2709" }
+  - { from_key: "irc:p2801", to_key: "fw-res-code:p2801" }
+  - { from_key: "irc:p2804", to_key: "fw-res-code:p2804" }
+  - { from_key: "irc:p2902", to_key: "fw-res-code:p2902" }
+  - { from_key: "irc:p2903", to_key: "fw-res-code:p2903" }
+  - { from_key: "irc:p3001", to_key: "fw-res-code:p3001" }
+  - { from_key: "irc:p3005.4.1", to_key: "fw-res-code:p3005.4.1" }
+  - { from_key: "irc:p3005.4.2", to_key: "fw-res-code:p3005.4.2" }
+  - { from_key: "irc:p3103", to_key: "fw-res-code:p3103" }
+  - { from_key: "irc:p3111", to_key: "fw-res-code:p3111" }
+  - { from_key: "irc:r301.2", to_key: "fw-res-code:r301.2(1)", note: "subsection -> amended section" }
+  - { from_key: "fw-res-code:r301.2", to_key: "fw-res-code:r301.2(1)", note: "subsection -> amended section" }
+  - { from_key: "irc:r317.1", to_key: "fw-res-code:r317", note: "subsection -> amended section" }
+  - { from_key: "fw-res-code:r317.1", to_key: "fw-res-code:r317", note: "subsection -> amended section" }
+  - { from_key: "irc:r317.5", to_key: "fw-res-code:r317", note: "subsection -> amended section" }
+  - { from_key: "fw-res-code:r317.5", to_key: "fw-res-code:r317", note: "subsection -> amended section" }
+  - { from_key: "irc:r318.1", to_key: "fw-res-code:r318", note: "subsection -> amended section" }
+  - { from_key: "fw-res-code:r318.1", to_key: "fw-res-code:r318", note: "subsection -> amended section" }
+  - { from_key: "irc:r322.1", to_key: "fw-res-code:r322", note: "subsection -> amended section" }
+  - { from_key: "fw-res-code:r322.1", to_key: "fw-res-code:r322", note: "subsection -> amended section" }
+  - { from_key: "irc:r327.1.1", to_key: "fw-res-code:r327", note: "subsection -> amended section" }
+  - { from_key: "fw-res-code:r327.1.1", to_key: "fw-res-code:r327", note: "subsection -> amended section" }
+  - { from_key: "irc:r401.2", to_key: "fw-res-code:r401", note: "subsection -> amended section" }
+  - { from_key: "fw-res-code:r401.2", to_key: "fw-res-code:r401", note: "subsection -> amended section" }
+  - { from_key: "irc:r401.3", to_key: "fw-res-code:r401", note: "subsection -> amended section" }
+  - { from_key: "fw-res-code:r401.3", to_key: "fw-res-code:r401", note: "subsection -> amended section" }
+  - { from_key: "irc:r401.5", to_key: "fw-res-code:r401", note: "subsection -> amended section" }
+  - { from_key: "fw-res-code:r401.5", to_key: "fw-res-code:r401", note: "subsection -> amended section" }
+  - { from_key: "irc:r403.1.1", to_key: "fw-res-code:r403", note: "subsection -> amended section" }
+  - { from_key: "fw-res-code:r403.1.1", to_key: "fw-res-code:r403", note: "subsection -> amended section" }
+  - { from_key: "irc:r403.4", to_key: "fw-res-code:r403", note: "subsection -> amended section" }
+  - { from_key: "fw-res-code:r403.4", to_key: "fw-res-code:r403", note: "subsection -> amended section" }
+  - { from_key: "irc:r602.6.1", to_key: "fw-res-code:r602", note: "subsection -> amended section" }
+  - { from_key: "fw-res-code:r602.6.1", to_key: "fw-res-code:r602", note: "subsection -> amended section" }
+
+# NOTE: `rewrite_rules` are deliberately empty. A pack's rewrite rules are NOT
+# loaded — authority_mapping_loader.py reads a pack's `equivalences` only, and
+# rewrite rules remain a core-shipped mechanism. The `irc:` -> `fw-res-code:`
+# problem below is therefore solved with explicit equivalences, which a pack
+# CAN contribute.
 rewrite_rules: []
 
 shape_rules:
