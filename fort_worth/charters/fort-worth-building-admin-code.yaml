@@ -1,0 +1,33 @@
+title: "Fort Worth Building Administrative Code"
+slug: "fort-worth-building-admin-code"
+purpose: >
+  Provide the administrative rules that govern every Fort Worth construction
+  permit — when a permit is required, what is exempt, how it is applied for,
+  what it costs, which inspections are called, and who must be a registered
+  contractor — so that homeowner questions resolve to a pinpoint section
+  rather than to a 165,000-character block of Chapter 7.
+include:
+  - "Fort Worth Building Administrative Code §§ 101-119, as adopted by City Code § 7-1"
+  - "§ 105 Permits (including the work exempt from permit)"
+  - "§ 109 Fees and § 119 Fee Tables"
+  - "§ 110 Inspections"
+  - "§ 111 Certificate of Occupancy"
+  - "§ 118 Contractor Registration and City Licensing"
+exclude:
+  - "the technical codes themselves (carried in their own corpora)"
+  - "superseded editions of the administrative code"
+authority_tiers:
+  default: "CONTROLLING"
+notes: >
+  City Code § 7-1 adopts this code and reproduces it verbatim. To avoid
+  returning every permit answer twice, § 7-1 in the fort-worth-city-code
+  corpus keeps its adopting language and points here; the operative text lives
+  in this corpus under its own section numbers.
+  The fee tables in § 119 are the codified ordinance fees. They are law, but
+  the city's separately published Development Fees Schedule is revised more
+  often — treat a dollar figure as verify-before-relying.
+update_expectation: "event_driven"
+current_as_of: "2026-08-09"
+approval_status: "pending_legal_review"
+legal_owner: null
+technical_owner: null

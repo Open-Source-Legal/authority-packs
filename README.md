@@ -43,7 +43,7 @@ python manage.py load_authority_pack --path /srv/authority-packs/fort_worth --cr
 
 | Pack | Jurisdiction | Corpora | Sections |
 |---|---|---|---|
-| [`fort_worth`](fort_worth/) | City of Fort Worth, Texas (us-tx-fort-worth) | City Code procurement provisions · City Charter (selected chapters) · Texas procurement & contract-verification statutes | 147 |
+| [`fort_worth`](fort_worth/) | City of Fort Worth, Texas (us-tx-fort-worth) | City Code procurement **and construction** provisions · City Charter (selected chapters) · Texas procurement & contract-verification statutes · Building Administrative Code · local amendments to the 2021 IRC · Zoning Ordinance (residential) · Texas residential trade licensing & restrictive covenants | 881 |
 
 Each pack's `README.md` documents its contents, provenance, and design notes.
 
