@@ -1,0 +1,36 @@
+title: "DDTC Guidance, FAQs and Commodity Jurisdiction Practice"
+slug: "ddtc-guidance"
+purpose: >
+  Carry the interpretive layer that functions as working law — DDTC FAQs,
+  advisory opinions, guidelines, and the CJ process — while keeping it
+  structurally distinct from binding regulation.
+include:
+  - "511 published DDTC FAQs across 8 topics, grouped one document per subtopic"
+  - "each FAQ's KB number and published/updated dates, so answers are datable"
+  - "the commodity jurisdiction process and how to request a determination"
+exclude:
+  - "case-specific CJ determinations not published by DDTC"
+  - "practitioner client alerts — ADVOCACY/INFORMAL, not this corpus"
+  - "DECCS IT-support FAQs — helpdesk material, not guidance on the regulations"
+authority_tiers:
+  default: "INTERPRETIVE"
+notes: >
+  The weight is the point. Guidance drives compliance in practice but is not
+  binding, and after Loper Bright its status is more contestable. Encoding that
+  as INTERPRETIVE weight is more durable than a sentence in a prompt.
+
+  Unpublished determinations are a due-process problem, not a source: Pulungan
+  held the government could not treat an unpublished CJ determination as
+  conclusive. Never carry one as authority.
+
+  DATE EVERYTHING. Guidance is revised without notice and many of these FAQs
+  were published years before their last update; both dates travel with each
+  answer in the document body and in `metadata.kb_numbers`. Where an answer
+  cites a regulation, the document carries an INTERPRETS relationship to that
+  ITAR section, extracted mechanically from the answer text and marked
+  unverified.
+update_expectation: "continuous"
+current_as_of: "2026-08-13 (DDTC public portal)"
+approval_status: "harvested_unreviewed"
+legal_owner: null
+technical_owner: null

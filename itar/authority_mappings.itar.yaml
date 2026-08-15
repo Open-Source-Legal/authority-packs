@@ -1,0 +1,2559 @@
+# ITAR pack — namespace registry + citation taxonomy.
+#
+# Same schema as opencontractserver/enrichment/data/authority_mappings.yaml plus
+# the pack-only `abbreviations` extension. Loaded idempotently by
+# `manage.py load_authority_pack`.
+#
+# Aliases are LOWERCASED surface strings and drive Tier-1 extraction
+# ("Section N of the <alias>" / "<alias> Section N"). Anything the regexes
+# cannot reach -- chapter-style and prose citations -- is caught by the LLM tier
+# and folded onto canonical keys by `equivalences` below.
+
+prefixes:
+  aeca:
+    display_name: "Arms Export Control Act"
+    jurisdiction: "us"
+    authority_type: "statute"
+    aliases:
+      - "arms export control act"
+      - "aeca"
+      - "22 u.s.c."
+      - "22 usc"
+      - "title 22 of the united states code"
+
+  itar:
+    display_name: "International Traffic in Arms Regulations"
+    jurisdiction: "us"
+    authority_type: "regulation"
+    aliases:
+      - "international traffic in arms regulations"
+      - "itar"
+      - "22 c.f.r."
+      - "22 cfr"
+      - "title 22 of the code of federal regulations"
+
+  usml:
+    display_name: "United States Munitions List"
+    jurisdiction: "us"
+    authority_type: "regulation"
+    aliases:
+      - "united states munitions list"
+      - "u.s. munitions list"
+      - "us munitions list"
+      - "usml"
+      - "munitions list"
+
+  ear:
+    display_name: "Export Administration Regulations"
+    jurisdiction: "us"
+    authority_type: "regulation"
+    aliases:
+      - "export administration regulations"
+      - "ear"
+      - "15 c.f.r."
+      - "15 cfr"
+      - "title 15 of the code of federal regulations"
+
+  ccl:
+    display_name: "Commerce Control List"
+    jurisdiction: "us"
+    authority_type: "regulation"
+    aliases:
+      - "commerce control list"
+      - "ccl"
+      - "eccn"
+
+  ddtc:
+    display_name: "Directorate of Defense Trade Controls guidance"
+    jurisdiction: "us"
+    authority_type: "guidance"
+    aliases:
+      - "directorate of defense trade controls"
+      - "ddtc"
+      - "ddtc guidance"
+
+  # --- BEGIN GENERATED PREFIXES (build/declare_namespaces.py) ---
+  ofac:
+    display_name: "Office of Foreign Assets Control regulations"
+    jurisdiction: "us"
+    authority_type: "regulation"
+    aliases:
+      - "office of foreign assets control"
+      - "ofac"
+      - "31 c.f.r."
+      - "31 cfr"
+
+  cfius:
+    display_name: "Committee on Foreign Investment in the United States"
+    jurisdiction: "us"
+    authority_type: "regulation"
+    aliases:
+      - "cfius"
+      - "firrma"
+
+  dsp:
+    display_name: "DOJ Data Security Program"
+    jurisdiction: "us"
+    authority_type: "regulation"
+    aliases:
+      - "data security program"
+      - "28 c.f.r."
+      - "28 cfr"
+
+  nuke:
+    display_name: "Nuclear export controls (NRC and DOE)"
+    jurisdiction: "us"
+    authority_type: "regulation"
+    aliases:
+      - "10 c.f.r."
+      - "10 cfr"
+
+  nispom:
+    display_name: "National Industrial Security Program Operating Manual"
+    jurisdiction: "us"
+    authority_type: "regulation"
+    aliases:
+      - "nispom"
+      - "32 c.f.r."
+      - "32 cfr"
+
+  dfars:
+    display_name: "Defense Federal Acquisition Regulation Supplement"
+    jurisdiction: "us"
+    authority_type: "regulation"
+    aliases:
+      - "dfars"
+      - "48 c.f.r."
+      - "48 cfr"
+
+  ecra:
+    display_name: "Export Control Reform Act and emergency powers statutes"
+    jurisdiction: "us"
+    authority_type: "statute"
+    aliases:
+      - "export control reform act"
+      - "ecra"
+      - "50 u.s.c."
+      - "50 usc"
+      - "international emergency economic powers act"
+      - "ieepa"
+
+  fr:
+    display_name: "Federal Register rulemaking record"
+    jurisdiction: "us"
+    authority_type: "guidance"
+    aliases:
+      - "federal register"
+
+  eo:
+    display_name: "Executive orders and presidential directives"
+    jurisdiction: "us"
+    authority_type: "statute"
+    aliases:
+      - "executive order"
+
+  ddtc-enf:
+    display_name: "DDTC enforcement actions and consent agreements"
+    jurisdiction: "us"
+    authority_type: "guidance"
+    aliases:
+      - "consent agreement"
+      - "charging letter"
+
+  cj:
+    display_name: "Commodity jurisdiction determinations"
+    jurisdiction: "us"
+    authority_type: "guidance"
+    aliases:
+      - "commodity jurisdiction determination"
+      - "ds-4076"
+
+  ao:
+    display_name: "DDTC advisory opinions"
+    jurisdiction: "us"
+    authority_type: "guidance"
+    aliases:
+      - "advisory opinion"
+
+  redline:
+    display_name: "DDTC published ITAR guidance"
+    jurisdiction: "us"
+    authority_type: "guidance"
+    aliases:
+      - "ddtc guidance"
+
+  case:
+    display_name: "Federal court decisions construing the AECA, ITAR and EAR"
+    jurisdiction: "us"
+    authority_type: "case"
+    aliases:
+      - "case law"
+      - "federal court decision"
+
+  wa:
+    display_name: "Wassenaar Arrangement Dual-Use List and Munitions List"
+    jurisdiction: "us"
+    authority_type: "treaty"
+    aliases:
+      - "wassenaar"
+      - "wassenaar arrangement"
+
+  mtcr:
+    display_name: "Missile Technology Control Regime Annex"
+    jurisdiction: "us"
+    authority_type: "treaty"
+    aliases:
+      - "mtcr"
+      - "missile technology control regime"
+
+  nsg:
+    display_name: "Nuclear Suppliers Group Guidelines (INFCIRC/254)"
+    jurisdiction: "us"
+    authority_type: "treaty"
+    aliases:
+      - "nuclear suppliers group"
+      - "nsg"
+      - "infcirc/254"
+      - "trigger list"
+
+  ag:
+    display_name: "Australia Group Common Control Lists"
+    jurisdiction: "us"
+    authority_type: "treaty"
+    aliases:
+      - "australia group"
+
+  # --- END GENERATED PREFIXES ---
+  # --- RESERVED --------------------------------------------------------------
+  # Declared but not bound to any corpus in this pack, so a later EAR/OFAC pack
+  # can claim them additively. A prefix binds to exactly ONE corpus and the
+  # installer refuses to move it, so reserving beats renaming later.
+  #
+  # BEFORE UNCOMMENTING, dump the target install's existing prefixes --
+  # `AuthorityNamespace.objects.values_list('prefix', flat=True)` -- and check
+  # for collisions. Precedent: `irc` is already bound globally to the INTERNAL
+  # REVENUE CODE. `ear` is exactly that kind of short, ambiguous word.
+  #
+  # ecra:     50 U.S.C. 4801-4852 (Export Control Reform Act of 2018)
+  # ieepa:    50 U.S.C. 1701-1706
+  # ofac:     31 C.F.R. Chapter V / SDN List
+
+# ---------------------------------------------------------------------------
+# equivalences: from_key -> to_key. Explicit rows are the ONLY mapping
+# mechanism a pack can contribute (see rewrite_rules note below).
+# ---------------------------------------------------------------------------
+equivalences:
+  # --- HAND-MAINTAINED -------------------------------------------------------
+  # Rows here are preserved by `build/gen_equivalences.py --write`, which only
+  # rewrites the GENERATED block below. This is where forms OBSERVED ON A LIVE
+  # CORPUS belong: after ingesting documents, read
+  # `CorpusReference.objects.values_list("canonical_key", flat=True)` and add
+  # what actually appeared. Observed forms beat guessed ones every time -- the
+  # fort_worth build's decisive fix was a slug no amount of a priori reasoning
+  # produced.
+  - { from_key: "act:title-22-part-121", to_key: "itar:121" }
+  # OBSERVED on a live corpus, 2026-08-13: "Supplement No. 4 to Part 774 of the
+  # EAR" extracts as `ear:774`, because the alias that matched is the EAR's.
+  # But Part 774 IS the Commerce Control List and lives in the `ccl` corpus, so
+  # there is no `ear:774` document and the reference resolved EXTERNAL. This is
+  # the cross-corpus seam that splitting `ccl` out of `ear` creates, and it is
+  # exactly the kind of row this hand-maintained block exists for — no amount
+  # of a priori reasoning produced it; one query against CorpusReference did.
+  - { from_key: "ear:774", to_key: "ccl:supplement-1-part-774", note: "Part 774 is the CCL" }
+  # "Section 2778(h)" slugifies with the subsection folded in and dots dashed.
+  - { from_key: "act:section-2778-h-of-the-arms-export-control-act", to_key: "aeca:2778" }
+
+  # --- BEGIN GENERATED (build/gen_equivalences.py) ---
+  # AECA dual numbering. Practitioners cite the Act's own section numbers
+  # and the codified U.S.C. sections interchangeably. Canonical form is the
+  # U.S.C. number. Every pairing below was read from the section's USLM
+  # sourceCredit — the enacting '(Pub. L. 90-629, ch. N, § M, ...)' clause —
+  # at release point 119/102, not from a mapping table.
+  - { from_key: "aeca:1", to_key: "aeca:2751", note: "AECA § 1 = 22 U.S.C. § 2751" }
+  - { from_key: "act:section-1-of-the-arms-export-control-act", to_key: "aeca:2751" }
+  - { from_key: "aeca:2", to_key: "aeca:2752", note: "AECA § 2 = 22 U.S.C. § 2752" }
+  - { from_key: "act:section-2-of-the-arms-export-control-act", to_key: "aeca:2752" }
+  - { from_key: "aeca:3", to_key: "aeca:2753", note: "AECA § 3 = 22 U.S.C. § 2753" }
+  - { from_key: "act:section-3-of-the-arms-export-control-act", to_key: "aeca:2753" }
+  - { from_key: "aeca:4", to_key: "aeca:2754", note: "AECA § 4 = 22 U.S.C. § 2754" }
+  - { from_key: "act:section-4-of-the-arms-export-control-act", to_key: "aeca:2754" }
+  - { from_key: "aeca:5", to_key: "aeca:2755", note: "AECA § 5 = 22 U.S.C. § 2755" }
+  - { from_key: "act:section-5-of-the-arms-export-control-act", to_key: "aeca:2755" }
+  - { from_key: "aeca:6", to_key: "aeca:2756", note: "AECA § 6 = 22 U.S.C. § 2756" }
+  - { from_key: "act:section-6-of-the-arms-export-control-act", to_key: "aeca:2756" }
+  - { from_key: "aeca:21", to_key: "aeca:2761", note: "AECA § 21 = 22 U.S.C. § 2761" }
+  - { from_key: "act:section-21-of-the-arms-export-control-act", to_key: "aeca:2761" }
+  - { from_key: "aeca:22", to_key: "aeca:2762", note: "AECA § 22 = 22 U.S.C. § 2762" }
+  - { from_key: "act:section-22-of-the-arms-export-control-act", to_key: "aeca:2762" }
+  - { from_key: "aeca:23", to_key: "aeca:2763", note: "AECA § 23 = 22 U.S.C. § 2763" }
+  - { from_key: "act:section-23-of-the-arms-export-control-act", to_key: "aeca:2763" }
+  - { from_key: "aeca:24", to_key: "aeca:2764", note: "AECA § 24 = 22 U.S.C. § 2764" }
+  - { from_key: "act:section-24-of-the-arms-export-control-act", to_key: "aeca:2764" }
+  - { from_key: "aeca:25", to_key: "aeca:2765", note: "AECA § 25 = 22 U.S.C. § 2765" }
+  - { from_key: "act:section-25-of-the-arms-export-control-act", to_key: "aeca:2765" }
+  - { from_key: "aeca:26", to_key: "aeca:2766", note: "AECA § 26 = 22 U.S.C. § 2766" }
+  - { from_key: "act:section-26-of-the-arms-export-control-act", to_key: "aeca:2766" }
+  - { from_key: "aeca:27", to_key: "aeca:2767", note: "AECA § 27 = 22 U.S.C. § 2767" }
+  - { from_key: "act:section-27-of-the-arms-export-control-act", to_key: "aeca:2767" }
+  - { from_key: "aeca:29", to_key: "aeca:2769", note: "AECA § 29 = 22 U.S.C. § 2769" }
+  - { from_key: "act:section-29-of-the-arms-export-control-act", to_key: "aeca:2769" }
+  - { from_key: "aeca:30", to_key: "aeca:2770", note: "AECA § 30 = 22 U.S.C. § 2770" }
+  - { from_key: "act:section-30-of-the-arms-export-control-act", to_key: "aeca:2770" }
+  - { from_key: "aeca:31", to_key: "aeca:2771", note: "AECA § 31 = 22 U.S.C. § 2771" }
+  - { from_key: "act:section-31-of-the-arms-export-control-act", to_key: "aeca:2771" }
+  - { from_key: "aeca:33", to_key: "aeca:2773", note: "AECA § 33 = 22 U.S.C. § 2773" }
+  - { from_key: "act:section-33-of-the-arms-export-control-act", to_key: "aeca:2773" }
+  - { from_key: "aeca:34", to_key: "aeca:2774", note: "AECA § 34 = 22 U.S.C. § 2774" }
+  - { from_key: "act:section-34-of-the-arms-export-control-act", to_key: "aeca:2774" }
+  - { from_key: "aeca:35", to_key: "aeca:2775", note: "AECA § 35 = 22 U.S.C. § 2775" }
+  - { from_key: "act:section-35-of-the-arms-export-control-act", to_key: "aeca:2775" }
+  - { from_key: "aeca:36", to_key: "aeca:2776", note: "AECA § 36 = 22 U.S.C. § 2776" }
+  - { from_key: "act:section-36-of-the-arms-export-control-act", to_key: "aeca:2776" }
+  - { from_key: "aeca:37", to_key: "aeca:2777", note: "AECA § 37 = 22 U.S.C. § 2777" }
+  - { from_key: "act:section-37-of-the-arms-export-control-act", to_key: "aeca:2777" }
+  - { from_key: "aeca:38", to_key: "aeca:2778", note: "AECA § 38 = 22 U.S.C. § 2778" }
+  - { from_key: "act:section-38-of-the-arms-export-control-act", to_key: "aeca:2778" }
+  - { from_key: "aeca:39", to_key: "aeca:2779", note: "AECA § 39 = 22 U.S.C. § 2779" }
+  - { from_key: "act:section-39-of-the-arms-export-control-act", to_key: "aeca:2779" }
+  - { from_key: "aeca:40", to_key: "aeca:2780", note: "AECA § 40 = 22 U.S.C. § 2780" }
+  - { from_key: "act:section-40-of-the-arms-export-control-act", to_key: "aeca:2780" }
+  - { from_key: "aeca:42", to_key: "aeca:2791", note: "AECA § 42 = 22 U.S.C. § 2791" }
+  - { from_key: "act:section-42-of-the-arms-export-control-act", to_key: "aeca:2791" }
+  - { from_key: "aeca:43", to_key: "aeca:2792", note: "AECA § 43 = 22 U.S.C. § 2792" }
+  - { from_key: "act:section-43-of-the-arms-export-control-act", to_key: "aeca:2792" }
+  - { from_key: "aeca:44", to_key: "aeca:2793", note: "AECA § 44 = 22 U.S.C. § 2793" }
+  - { from_key: "act:section-44-of-the-arms-export-control-act", to_key: "aeca:2793" }
+  - { from_key: "aeca:47", to_key: "aeca:2794", note: "AECA § 47 = 22 U.S.C. § 2794" }
+  - { from_key: "act:section-47-of-the-arms-export-control-act", to_key: "aeca:2794" }
+  - { from_key: "aeca:51", to_key: "aeca:2795", note: "AECA § 51 = 22 U.S.C. § 2795" }
+  - { from_key: "act:section-51-of-the-arms-export-control-act", to_key: "aeca:2795" }
+  - { from_key: "aeca:52", to_key: "aeca:2795a", note: "AECA § 52 = 22 U.S.C. § 2795a" }
+  - { from_key: "act:section-52-of-the-arms-export-control-act", to_key: "aeca:2795a" }
+  - { from_key: "aeca:61", to_key: "aeca:2796", note: "AECA § 61 = 22 U.S.C. § 2796" }
+  - { from_key: "act:section-61-of-the-arms-export-control-act", to_key: "aeca:2796" }
+  - { from_key: "aeca:62", to_key: "aeca:2796a", note: "AECA § 62 = 22 U.S.C. § 2796a" }
+  - { from_key: "act:section-62-of-the-arms-export-control-act", to_key: "aeca:2796a" }
+  - { from_key: "aeca:63", to_key: "aeca:2796b", note: "AECA § 63 = 22 U.S.C. § 2796b" }
+  - { from_key: "act:section-63-of-the-arms-export-control-act", to_key: "aeca:2796b" }
+  - { from_key: "aeca:64", to_key: "aeca:2796c", note: "AECA § 64 = 22 U.S.C. § 2796c" }
+  - { from_key: "act:section-64-of-the-arms-export-control-act", to_key: "aeca:2796c" }
+  - { from_key: "aeca:65", to_key: "aeca:2796d", note: "AECA § 65 = 22 U.S.C. § 2796d" }
+  - { from_key: "act:section-65-of-the-arms-export-control-act", to_key: "aeca:2796d" }
+  - { from_key: "aeca:71", to_key: "aeca:2797", note: "AECA § 71 = 22 U.S.C. § 2797" }
+  - { from_key: "act:section-71-of-the-arms-export-control-act", to_key: "aeca:2797" }
+  - { from_key: "aeca:72", to_key: "aeca:2797a", note: "AECA § 72 = 22 U.S.C. § 2797a" }
+  - { from_key: "act:section-72-of-the-arms-export-control-act", to_key: "aeca:2797a" }
+  - { from_key: "aeca:73", to_key: "aeca:2797b", note: "AECA § 73 = 22 U.S.C. § 2797b" }
+  - { from_key: "act:section-73-of-the-arms-export-control-act", to_key: "aeca:2797b" }
+  - { from_key: "aeca:74", to_key: "aeca:2797c", note: "AECA § 74 = 22 U.S.C. § 2797c" }
+  - { from_key: "act:section-74-of-the-arms-export-control-act", to_key: "aeca:2797c" }
+  - { from_key: "aeca:81", to_key: "aeca:2798", note: "AECA § 81 = 22 U.S.C. § 2798" }
+  - { from_key: "act:section-81-of-the-arms-export-control-act", to_key: "aeca:2798" }
+  - { from_key: "aeca:91", to_key: "aeca:2799", note: "AECA § 91 = 22 U.S.C. § 2799" }
+  - { from_key: "act:section-91-of-the-arms-export-control-act", to_key: "aeca:2799" }
+  - { from_key: "aeca:92", to_key: "aeca:2799a", note: "AECA § 92 = 22 U.S.C. § 2799a" }
+  - { from_key: "act:section-92-of-the-arms-export-control-act", to_key: "aeca:2799a" }
+  - { from_key: "aeca:93", to_key: "aeca:2799b", note: "AECA § 93 = 22 U.S.C. § 2799b" }
+  - { from_key: "act:section-93-of-the-arms-export-control-act", to_key: "aeca:2799b" }
+  - { from_key: "aeca:94", to_key: "aeca:2799c", note: "AECA § 94 = 22 U.S.C. § 2799c" }
+  - { from_key: "act:section-94-of-the-arms-export-control-act", to_key: "aeca:2799c" }
+  - { from_key: "aeca:95", to_key: "aeca:2799d", note: "AECA § 95 = 22 U.S.C. § 2799d" }
+  - { from_key: "act:section-95-of-the-arms-export-control-act", to_key: "aeca:2799d" }
+  - { from_key: "aeca:101", to_key: "aeca:2799aa", note: "AECA § 101 = 22 U.S.C. § 2799aa" }
+  - { from_key: "act:section-101-of-the-arms-export-control-act", to_key: "aeca:2799aa" }
+  - { from_key: "aeca:102", to_key: "aeca:2799aa-1", note: "AECA § 102 = 22 U.S.C. § 2799aa–1" }
+  - { from_key: "act:section-102-of-the-arms-export-control-act", to_key: "aeca:2799aa-1" }
+  - { from_key: "aeca:103", to_key: "aeca:2799aa-2", note: "AECA § 103 = 22 U.S.C. § 2799aa–2" }
+  - { from_key: "act:section-103-of-the-arms-export-control-act", to_key: "aeca:2799aa-2" }
+  - { from_key: "aeca:30a", to_key: "aeca:2770a", note: "AECA § 30A = 22 U.S.C. § 2770a" }
+  - { from_key: "act:section-30a-of-the-arms-export-control-act", to_key: "aeca:2770a" }
+  - { from_key: "aeca:39a", to_key: "aeca:2779a", note: "AECA § 39A = 22 U.S.C. § 2779a" }
+  - { from_key: "act:section-39a-of-the-arms-export-control-act", to_key: "aeca:2779a" }
+  - { from_key: "aeca:40a", to_key: "aeca:2785", note: "AECA § 40A = 22 U.S.C. § 2785" }
+  - { from_key: "act:section-40a-of-the-arms-export-control-act", to_key: "aeca:2785" }
+  - { from_key: "aeca:73a", to_key: "aeca:2797b-1", note: "AECA § 73A = 22 U.S.C. § 2797b–1" }
+  - { from_key: "act:section-73a-of-the-arms-export-control-act", to_key: "aeca:2797b-1" }
+  - { from_key: "aeca:73b", to_key: "aeca:2797b-2", note: "AECA § 73B = 22 U.S.C. § 2797b–2" }
+  - { from_key: "act:section-73b-of-the-arms-export-control-act", to_key: "aeca:2797b-2" }
+
+  # OLRC writes appended section numbers with an EN DASH; the citation
+  # extractor emits ASCII hyphens. Fold the en-dash form onto the key.
+  - { from_key: "aeca:2797b–1", to_key: "aeca:2797b-1", note: "en dash -> hyphen" }
+  - { from_key: "aeca:2797b–2", to_key: "aeca:2797b-2", note: "en dash -> hyphen" }
+  - { from_key: "aeca:2799aa–1", to_key: "aeca:2799aa-1", note: "en dash -> hyphen" }
+  - { from_key: "aeca:2799aa–2", to_key: "aeca:2799aa-2", note: "en dash -> hyphen" }
+
+  # Prose / LLM-tier slugs onto AECA sections.
+  - { from_key: "act:arms-export-control-act", to_key: "aeca:2751" }
+  - { from_key: "act:section-2751-of-title-22", to_key: "aeca:2751" }
+  - { from_key: "act:22-usc-2751", to_key: "aeca:2751" }
+  - { from_key: "usc-22:2751", to_key: "aeca:2751", note: "USC-prefixed form" }
+  - { from_key: "act:section-2752-of-title-22", to_key: "aeca:2752" }
+  - { from_key: "act:22-usc-2752", to_key: "aeca:2752" }
+  - { from_key: "usc-22:2752", to_key: "aeca:2752", note: "USC-prefixed form" }
+  - { from_key: "act:section-2753-of-title-22", to_key: "aeca:2753" }
+  - { from_key: "act:22-usc-2753", to_key: "aeca:2753" }
+  - { from_key: "usc-22:2753", to_key: "aeca:2753", note: "USC-prefixed form" }
+  - { from_key: "act:section-2754-of-title-22", to_key: "aeca:2754" }
+  - { from_key: "act:22-usc-2754", to_key: "aeca:2754" }
+  - { from_key: "usc-22:2754", to_key: "aeca:2754", note: "USC-prefixed form" }
+  - { from_key: "act:section-2755-of-title-22", to_key: "aeca:2755" }
+  - { from_key: "act:22-usc-2755", to_key: "aeca:2755" }
+  - { from_key: "usc-22:2755", to_key: "aeca:2755", note: "USC-prefixed form" }
+  - { from_key: "act:section-2756-of-title-22", to_key: "aeca:2756" }
+  - { from_key: "act:22-usc-2756", to_key: "aeca:2756" }
+  - { from_key: "usc-22:2756", to_key: "aeca:2756", note: "USC-prefixed form" }
+  - { from_key: "act:section-2761-of-title-22", to_key: "aeca:2761" }
+  - { from_key: "act:22-usc-2761", to_key: "aeca:2761" }
+  - { from_key: "usc-22:2761", to_key: "aeca:2761", note: "USC-prefixed form" }
+  - { from_key: "act:section-2762-of-title-22", to_key: "aeca:2762" }
+  - { from_key: "act:22-usc-2762", to_key: "aeca:2762" }
+  - { from_key: "usc-22:2762", to_key: "aeca:2762", note: "USC-prefixed form" }
+  - { from_key: "act:section-2763-of-title-22", to_key: "aeca:2763" }
+  - { from_key: "act:22-usc-2763", to_key: "aeca:2763" }
+  - { from_key: "usc-22:2763", to_key: "aeca:2763", note: "USC-prefixed form" }
+  - { from_key: "act:section-2764-of-title-22", to_key: "aeca:2764" }
+  - { from_key: "act:22-usc-2764", to_key: "aeca:2764" }
+  - { from_key: "usc-22:2764", to_key: "aeca:2764", note: "USC-prefixed form" }
+  - { from_key: "act:section-2765-of-title-22", to_key: "aeca:2765" }
+  - { from_key: "act:22-usc-2765", to_key: "aeca:2765" }
+  - { from_key: "usc-22:2765", to_key: "aeca:2765", note: "USC-prefixed form" }
+  - { from_key: "act:section-2766-of-title-22", to_key: "aeca:2766" }
+  - { from_key: "act:22-usc-2766", to_key: "aeca:2766" }
+  - { from_key: "usc-22:2766", to_key: "aeca:2766", note: "USC-prefixed form" }
+  - { from_key: "act:section-2767-of-title-22", to_key: "aeca:2767" }
+  - { from_key: "act:22-usc-2767", to_key: "aeca:2767" }
+  - { from_key: "usc-22:2767", to_key: "aeca:2767", note: "USC-prefixed form" }
+  - { from_key: "act:section-2769-of-title-22", to_key: "aeca:2769" }
+  - { from_key: "act:22-usc-2769", to_key: "aeca:2769" }
+  - { from_key: "usc-22:2769", to_key: "aeca:2769", note: "USC-prefixed form" }
+  - { from_key: "act:section-2770-of-title-22", to_key: "aeca:2770" }
+  - { from_key: "act:22-usc-2770", to_key: "aeca:2770" }
+  - { from_key: "usc-22:2770", to_key: "aeca:2770", note: "USC-prefixed form" }
+  - { from_key: "act:section-2770a-of-title-22", to_key: "aeca:2770a" }
+  - { from_key: "act:22-usc-2770a", to_key: "aeca:2770a" }
+  - { from_key: "usc-22:2770a", to_key: "aeca:2770a", note: "USC-prefixed form" }
+  - { from_key: "act:section-2771-of-title-22", to_key: "aeca:2771" }
+  - { from_key: "act:22-usc-2771", to_key: "aeca:2771" }
+  - { from_key: "usc-22:2771", to_key: "aeca:2771", note: "USC-prefixed form" }
+  - { from_key: "act:section-2773-of-title-22", to_key: "aeca:2773" }
+  - { from_key: "act:22-usc-2773", to_key: "aeca:2773" }
+  - { from_key: "usc-22:2773", to_key: "aeca:2773", note: "USC-prefixed form" }
+  - { from_key: "act:section-2774-of-title-22", to_key: "aeca:2774" }
+  - { from_key: "act:22-usc-2774", to_key: "aeca:2774" }
+  - { from_key: "usc-22:2774", to_key: "aeca:2774", note: "USC-prefixed form" }
+  - { from_key: "act:section-2775-of-title-22", to_key: "aeca:2775" }
+  - { from_key: "act:22-usc-2775", to_key: "aeca:2775" }
+  - { from_key: "usc-22:2775", to_key: "aeca:2775", note: "USC-prefixed form" }
+  - { from_key: "act:section-2776-of-title-22", to_key: "aeca:2776" }
+  - { from_key: "act:22-usc-2776", to_key: "aeca:2776" }
+  - { from_key: "usc-22:2776", to_key: "aeca:2776", note: "USC-prefixed form" }
+  - { from_key: "act:section-2777-of-title-22", to_key: "aeca:2777" }
+  - { from_key: "act:22-usc-2777", to_key: "aeca:2777" }
+  - { from_key: "usc-22:2777", to_key: "aeca:2777", note: "USC-prefixed form" }
+  - { from_key: "act:section-2778-of-title-22", to_key: "aeca:2778" }
+  - { from_key: "act:22-usc-2778", to_key: "aeca:2778" }
+  - { from_key: "usc-22:2778", to_key: "aeca:2778", note: "USC-prefixed form" }
+  - { from_key: "act:section-2778a-of-title-22", to_key: "aeca:2778a" }
+  - { from_key: "act:22-usc-2778a", to_key: "aeca:2778a" }
+  - { from_key: "usc-22:2778a", to_key: "aeca:2778a", note: "USC-prefixed form" }
+  - { from_key: "act:section-2779-of-title-22", to_key: "aeca:2779" }
+  - { from_key: "act:22-usc-2779", to_key: "aeca:2779" }
+  - { from_key: "usc-22:2779", to_key: "aeca:2779", note: "USC-prefixed form" }
+  - { from_key: "act:section-2779a-of-title-22", to_key: "aeca:2779a" }
+  - { from_key: "act:22-usc-2779a", to_key: "aeca:2779a" }
+  - { from_key: "usc-22:2779a", to_key: "aeca:2779a", note: "USC-prefixed form" }
+  - { from_key: "act:section-2780-of-title-22", to_key: "aeca:2780" }
+  - { from_key: "act:22-usc-2780", to_key: "aeca:2780" }
+  - { from_key: "usc-22:2780", to_key: "aeca:2780", note: "USC-prefixed form" }
+  - { from_key: "act:section-2781-of-title-22", to_key: "aeca:2781" }
+  - { from_key: "act:22-usc-2781", to_key: "aeca:2781" }
+  - { from_key: "usc-22:2781", to_key: "aeca:2781", note: "USC-prefixed form" }
+  - { from_key: "act:section-2785-of-title-22", to_key: "aeca:2785" }
+  - { from_key: "act:22-usc-2785", to_key: "aeca:2785" }
+  - { from_key: "usc-22:2785", to_key: "aeca:2785", note: "USC-prefixed form" }
+  - { from_key: "act:section-2791-of-title-22", to_key: "aeca:2791" }
+  - { from_key: "act:22-usc-2791", to_key: "aeca:2791" }
+  - { from_key: "usc-22:2791", to_key: "aeca:2791", note: "USC-prefixed form" }
+  - { from_key: "act:section-2792-of-title-22", to_key: "aeca:2792" }
+  - { from_key: "act:22-usc-2792", to_key: "aeca:2792" }
+  - { from_key: "usc-22:2792", to_key: "aeca:2792", note: "USC-prefixed form" }
+  - { from_key: "act:section-2793-of-title-22", to_key: "aeca:2793" }
+  - { from_key: "act:22-usc-2793", to_key: "aeca:2793" }
+  - { from_key: "usc-22:2793", to_key: "aeca:2793", note: "USC-prefixed form" }
+  - { from_key: "act:section-2794-of-title-22", to_key: "aeca:2794" }
+  - { from_key: "act:22-usc-2794", to_key: "aeca:2794" }
+  - { from_key: "usc-22:2794", to_key: "aeca:2794", note: "USC-prefixed form" }
+  - { from_key: "act:section-2795-of-title-22", to_key: "aeca:2795" }
+  - { from_key: "act:22-usc-2795", to_key: "aeca:2795" }
+  - { from_key: "usc-22:2795", to_key: "aeca:2795", note: "USC-prefixed form" }
+  - { from_key: "act:section-2795a-of-title-22", to_key: "aeca:2795a" }
+  - { from_key: "act:22-usc-2795a", to_key: "aeca:2795a" }
+  - { from_key: "usc-22:2795a", to_key: "aeca:2795a", note: "USC-prefixed form" }
+  - { from_key: "act:section-2796-of-title-22", to_key: "aeca:2796" }
+  - { from_key: "act:22-usc-2796", to_key: "aeca:2796" }
+  - { from_key: "usc-22:2796", to_key: "aeca:2796", note: "USC-prefixed form" }
+  - { from_key: "act:section-2796a-of-title-22", to_key: "aeca:2796a" }
+  - { from_key: "act:22-usc-2796a", to_key: "aeca:2796a" }
+  - { from_key: "usc-22:2796a", to_key: "aeca:2796a", note: "USC-prefixed form" }
+  - { from_key: "act:section-2796b-of-title-22", to_key: "aeca:2796b" }
+  - { from_key: "act:22-usc-2796b", to_key: "aeca:2796b" }
+  - { from_key: "usc-22:2796b", to_key: "aeca:2796b", note: "USC-prefixed form" }
+  - { from_key: "act:section-2796c-of-title-22", to_key: "aeca:2796c" }
+  - { from_key: "act:22-usc-2796c", to_key: "aeca:2796c" }
+  - { from_key: "usc-22:2796c", to_key: "aeca:2796c", note: "USC-prefixed form" }
+  - { from_key: "act:section-2796d-of-title-22", to_key: "aeca:2796d" }
+  - { from_key: "act:22-usc-2796d", to_key: "aeca:2796d" }
+  - { from_key: "usc-22:2796d", to_key: "aeca:2796d", note: "USC-prefixed form" }
+  - { from_key: "act:section-2797-of-title-22", to_key: "aeca:2797" }
+  - { from_key: "act:22-usc-2797", to_key: "aeca:2797" }
+  - { from_key: "usc-22:2797", to_key: "aeca:2797", note: "USC-prefixed form" }
+  - { from_key: "act:section-2797a-of-title-22", to_key: "aeca:2797a" }
+  - { from_key: "act:22-usc-2797a", to_key: "aeca:2797a" }
+  - { from_key: "usc-22:2797a", to_key: "aeca:2797a", note: "USC-prefixed form" }
+  - { from_key: "act:section-2797b-of-title-22", to_key: "aeca:2797b" }
+  - { from_key: "act:22-usc-2797b", to_key: "aeca:2797b" }
+  - { from_key: "usc-22:2797b", to_key: "aeca:2797b", note: "USC-prefixed form" }
+  - { from_key: "act:section-2797b-1-of-title-22", to_key: "aeca:2797b-1" }
+  - { from_key: "act:22-usc-2797b-1", to_key: "aeca:2797b-1" }
+  - { from_key: "usc-22:2797b-1", to_key: "aeca:2797b-1", note: "USC-prefixed form" }
+  - { from_key: "act:section-2797b-2-of-title-22", to_key: "aeca:2797b-2" }
+  - { from_key: "act:22-usc-2797b-2", to_key: "aeca:2797b-2" }
+  - { from_key: "usc-22:2797b-2", to_key: "aeca:2797b-2", note: "USC-prefixed form" }
+  - { from_key: "act:section-2797c-of-title-22", to_key: "aeca:2797c" }
+  - { from_key: "act:22-usc-2797c", to_key: "aeca:2797c" }
+  - { from_key: "usc-22:2797c", to_key: "aeca:2797c", note: "USC-prefixed form" }
+  - { from_key: "act:section-2798-of-title-22", to_key: "aeca:2798" }
+  - { from_key: "act:22-usc-2798", to_key: "aeca:2798" }
+  - { from_key: "usc-22:2798", to_key: "aeca:2798", note: "USC-prefixed form" }
+  - { from_key: "act:section-2799-of-title-22", to_key: "aeca:2799" }
+  - { from_key: "act:22-usc-2799", to_key: "aeca:2799" }
+  - { from_key: "usc-22:2799", to_key: "aeca:2799", note: "USC-prefixed form" }
+  - { from_key: "act:section-2799a-of-title-22", to_key: "aeca:2799a" }
+  - { from_key: "act:22-usc-2799a", to_key: "aeca:2799a" }
+  - { from_key: "usc-22:2799a", to_key: "aeca:2799a", note: "USC-prefixed form" }
+  - { from_key: "act:section-2799b-of-title-22", to_key: "aeca:2799b" }
+  - { from_key: "act:22-usc-2799b", to_key: "aeca:2799b" }
+  - { from_key: "usc-22:2799b", to_key: "aeca:2799b", note: "USC-prefixed form" }
+  - { from_key: "act:section-2799c-of-title-22", to_key: "aeca:2799c" }
+  - { from_key: "act:22-usc-2799c", to_key: "aeca:2799c" }
+  - { from_key: "usc-22:2799c", to_key: "aeca:2799c", note: "USC-prefixed form" }
+  - { from_key: "act:section-2799d-of-title-22", to_key: "aeca:2799d" }
+  - { from_key: "act:22-usc-2799d", to_key: "aeca:2799d" }
+  - { from_key: "usc-22:2799d", to_key: "aeca:2799d", note: "USC-prefixed form" }
+  - { from_key: "act:section-2799aa-of-title-22", to_key: "aeca:2799aa" }
+  - { from_key: "act:22-usc-2799aa", to_key: "aeca:2799aa" }
+  - { from_key: "usc-22:2799aa", to_key: "aeca:2799aa", note: "USC-prefixed form" }
+  - { from_key: "act:section-2799aa-1-of-title-22", to_key: "aeca:2799aa-1" }
+  - { from_key: "act:22-usc-2799aa-1", to_key: "aeca:2799aa-1" }
+  - { from_key: "usc-22:2799aa-1", to_key: "aeca:2799aa-1", note: "USC-prefixed form" }
+  - { from_key: "act:section-2799aa-2-of-title-22", to_key: "aeca:2799aa-2" }
+  - { from_key: "act:22-usc-2799aa-2", to_key: "aeca:2799aa-2" }
+  - { from_key: "usc-22:2799aa-2", to_key: "aeca:2799aa-2", note: "USC-prefixed form" }
+
+  # USML categories. Keys are LOWERCASE roman numerals: authority-key
+  # matching is case-sensitive on the section part and the extractor
+  # lowercases, so usml:VIII is unreachable from any real citation.
+  - { from_key: "usml:1", to_key: "usml:i", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-i", to_key: "usml:i" }
+  - { from_key: "act:usml-category-1", to_key: "usml:i" }
+  - { from_key: "act:category-i-of-the-united-states-munitions-list", to_key: "usml:i" }
+  - { from_key: "act:category-i-of-the-usml", to_key: "usml:i" }
+  - { from_key: "act:usml-cat-i", to_key: "usml:i" }
+  - { from_key: "itar:121.1(i)", to_key: "usml:i", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:2", to_key: "usml:ii", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-ii", to_key: "usml:ii" }
+  - { from_key: "act:usml-category-2", to_key: "usml:ii" }
+  - { from_key: "act:category-ii-of-the-united-states-munitions-list", to_key: "usml:ii" }
+  - { from_key: "act:category-ii-of-the-usml", to_key: "usml:ii" }
+  - { from_key: "act:usml-cat-ii", to_key: "usml:ii" }
+  - { from_key: "itar:121.1(ii)", to_key: "usml:ii", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:3", to_key: "usml:iii", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-iii", to_key: "usml:iii" }
+  - { from_key: "act:usml-category-3", to_key: "usml:iii" }
+  - { from_key: "act:category-iii-of-the-united-states-munitions-list", to_key: "usml:iii" }
+  - { from_key: "act:category-iii-of-the-usml", to_key: "usml:iii" }
+  - { from_key: "act:usml-cat-iii", to_key: "usml:iii" }
+  - { from_key: "itar:121.1(iii)", to_key: "usml:iii", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:4", to_key: "usml:iv", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-iv", to_key: "usml:iv" }
+  - { from_key: "act:usml-category-4", to_key: "usml:iv" }
+  - { from_key: "act:category-iv-of-the-united-states-munitions-list", to_key: "usml:iv" }
+  - { from_key: "act:category-iv-of-the-usml", to_key: "usml:iv" }
+  - { from_key: "act:usml-cat-iv", to_key: "usml:iv" }
+  - { from_key: "itar:121.1(iv)", to_key: "usml:iv", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:5", to_key: "usml:v", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-v", to_key: "usml:v" }
+  - { from_key: "act:usml-category-5", to_key: "usml:v" }
+  - { from_key: "act:category-v-of-the-united-states-munitions-list", to_key: "usml:v" }
+  - { from_key: "act:category-v-of-the-usml", to_key: "usml:v" }
+  - { from_key: "act:usml-cat-v", to_key: "usml:v" }
+  - { from_key: "itar:121.1(v)", to_key: "usml:v", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:6", to_key: "usml:vi", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-vi", to_key: "usml:vi" }
+  - { from_key: "act:usml-category-6", to_key: "usml:vi" }
+  - { from_key: "act:category-vi-of-the-united-states-munitions-list", to_key: "usml:vi" }
+  - { from_key: "act:category-vi-of-the-usml", to_key: "usml:vi" }
+  - { from_key: "act:usml-cat-vi", to_key: "usml:vi" }
+  - { from_key: "itar:121.1(vi)", to_key: "usml:vi", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:7", to_key: "usml:vii", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-vii", to_key: "usml:vii" }
+  - { from_key: "act:usml-category-7", to_key: "usml:vii" }
+  - { from_key: "act:category-vii-of-the-united-states-munitions-list", to_key: "usml:vii" }
+  - { from_key: "act:category-vii-of-the-usml", to_key: "usml:vii" }
+  - { from_key: "act:usml-cat-vii", to_key: "usml:vii" }
+  - { from_key: "itar:121.1(vii)", to_key: "usml:vii", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:8", to_key: "usml:viii", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-viii", to_key: "usml:viii" }
+  - { from_key: "act:usml-category-8", to_key: "usml:viii" }
+  - { from_key: "act:category-viii-of-the-united-states-munitions-list", to_key: "usml:viii" }
+  - { from_key: "act:category-viii-of-the-usml", to_key: "usml:viii" }
+  - { from_key: "act:usml-cat-viii", to_key: "usml:viii" }
+  - { from_key: "itar:121.1(viii)", to_key: "usml:viii", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:9", to_key: "usml:ix", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-ix", to_key: "usml:ix" }
+  - { from_key: "act:usml-category-9", to_key: "usml:ix" }
+  - { from_key: "act:category-ix-of-the-united-states-munitions-list", to_key: "usml:ix" }
+  - { from_key: "act:category-ix-of-the-usml", to_key: "usml:ix" }
+  - { from_key: "act:usml-cat-ix", to_key: "usml:ix" }
+  - { from_key: "itar:121.1(ix)", to_key: "usml:ix", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:10", to_key: "usml:x", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-x", to_key: "usml:x" }
+  - { from_key: "act:usml-category-10", to_key: "usml:x" }
+  - { from_key: "act:category-x-of-the-united-states-munitions-list", to_key: "usml:x" }
+  - { from_key: "act:category-x-of-the-usml", to_key: "usml:x" }
+  - { from_key: "act:usml-cat-x", to_key: "usml:x" }
+  - { from_key: "itar:121.1(x)", to_key: "usml:x", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:11", to_key: "usml:xi", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-xi", to_key: "usml:xi" }
+  - { from_key: "act:usml-category-11", to_key: "usml:xi" }
+  - { from_key: "act:category-xi-of-the-united-states-munitions-list", to_key: "usml:xi" }
+  - { from_key: "act:category-xi-of-the-usml", to_key: "usml:xi" }
+  - { from_key: "act:usml-cat-xi", to_key: "usml:xi" }
+  - { from_key: "itar:121.1(xi)", to_key: "usml:xi", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:12", to_key: "usml:xii", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-xii", to_key: "usml:xii" }
+  - { from_key: "act:usml-category-12", to_key: "usml:xii" }
+  - { from_key: "act:category-xii-of-the-united-states-munitions-list", to_key: "usml:xii" }
+  - { from_key: "act:category-xii-of-the-usml", to_key: "usml:xii" }
+  - { from_key: "act:usml-cat-xii", to_key: "usml:xii" }
+  - { from_key: "itar:121.1(xii)", to_key: "usml:xii", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:13", to_key: "usml:xiii", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-xiii", to_key: "usml:xiii" }
+  - { from_key: "act:usml-category-13", to_key: "usml:xiii" }
+  - { from_key: "act:category-xiii-of-the-united-states-munitions-list", to_key: "usml:xiii" }
+  - { from_key: "act:category-xiii-of-the-usml", to_key: "usml:xiii" }
+  - { from_key: "act:usml-cat-xiii", to_key: "usml:xiii" }
+  - { from_key: "itar:121.1(xiii)", to_key: "usml:xiii", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:14", to_key: "usml:xiv", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-xiv", to_key: "usml:xiv" }
+  - { from_key: "act:usml-category-14", to_key: "usml:xiv" }
+  - { from_key: "act:category-xiv-of-the-united-states-munitions-list", to_key: "usml:xiv" }
+  - { from_key: "act:category-xiv-of-the-usml", to_key: "usml:xiv" }
+  - { from_key: "act:usml-cat-xiv", to_key: "usml:xiv" }
+  - { from_key: "itar:121.1(xiv)", to_key: "usml:xiv", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:15", to_key: "usml:xv", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-xv", to_key: "usml:xv" }
+  - { from_key: "act:usml-category-15", to_key: "usml:xv" }
+  - { from_key: "act:category-xv-of-the-united-states-munitions-list", to_key: "usml:xv" }
+  - { from_key: "act:category-xv-of-the-usml", to_key: "usml:xv" }
+  - { from_key: "act:usml-cat-xv", to_key: "usml:xv" }
+  - { from_key: "itar:121.1(xv)", to_key: "usml:xv", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:16", to_key: "usml:xvi", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-xvi", to_key: "usml:xvi" }
+  - { from_key: "act:usml-category-16", to_key: "usml:xvi" }
+  - { from_key: "act:category-xvi-of-the-united-states-munitions-list", to_key: "usml:xvi" }
+  - { from_key: "act:category-xvi-of-the-usml", to_key: "usml:xvi" }
+  - { from_key: "act:usml-cat-xvi", to_key: "usml:xvi" }
+  - { from_key: "itar:121.1(xvi)", to_key: "usml:xvi", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:17", to_key: "usml:xvii", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-xvii", to_key: "usml:xvii" }
+  - { from_key: "act:usml-category-17", to_key: "usml:xvii" }
+  - { from_key: "act:category-xvii-of-the-united-states-munitions-list", to_key: "usml:xvii" }
+  - { from_key: "act:category-xvii-of-the-usml", to_key: "usml:xvii" }
+  - { from_key: "act:usml-cat-xvii", to_key: "usml:xvii" }
+  - { from_key: "itar:121.1(xvii)", to_key: "usml:xvii", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:18", to_key: "usml:xviii", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-xviii", to_key: "usml:xviii" }
+  - { from_key: "act:usml-category-18", to_key: "usml:xviii" }
+  - { from_key: "act:category-xviii-of-the-united-states-munitions-list", to_key: "usml:xviii" }
+  - { from_key: "act:category-xviii-of-the-usml", to_key: "usml:xviii" }
+  - { from_key: "act:usml-cat-xviii", to_key: "usml:xviii" }
+  - { from_key: "itar:121.1(xviii)", to_key: "usml:xviii", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:19", to_key: "usml:xix", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-xix", to_key: "usml:xix" }
+  - { from_key: "act:usml-category-19", to_key: "usml:xix" }
+  - { from_key: "act:category-xix-of-the-united-states-munitions-list", to_key: "usml:xix" }
+  - { from_key: "act:category-xix-of-the-usml", to_key: "usml:xix" }
+  - { from_key: "act:usml-cat-xix", to_key: "usml:xix" }
+  - { from_key: "itar:121.1(xix)", to_key: "usml:xix", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:20", to_key: "usml:xx", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-xx", to_key: "usml:xx" }
+  - { from_key: "act:usml-category-20", to_key: "usml:xx" }
+  - { from_key: "act:category-xx-of-the-united-states-munitions-list", to_key: "usml:xx" }
+  - { from_key: "act:category-xx-of-the-usml", to_key: "usml:xx" }
+  - { from_key: "act:usml-cat-xx", to_key: "usml:xx" }
+  - { from_key: "itar:121.1(xx)", to_key: "usml:xx", note: "22 CFR 121.1 subsection form" }
+  - { from_key: "usml:21", to_key: "usml:xxi", note: "arabic -> roman" }
+  - { from_key: "act:usml-category-xxi", to_key: "usml:xxi" }
+  - { from_key: "act:usml-category-21", to_key: "usml:xxi" }
+  - { from_key: "act:category-xxi-of-the-united-states-munitions-list", to_key: "usml:xxi" }
+  - { from_key: "act:category-xxi-of-the-usml", to_key: "usml:xxi" }
+  - { from_key: "act:usml-cat-xxi", to_key: "usml:xxi" }
+  - { from_key: "itar:121.1(xxi)", to_key: "usml:xxi", note: "22 CFR 121.1 subsection form" }
+
+  # ITAR parts and sections. NOTE the dot -> dash conversion: the LLM tier
+  # slugifies a whole citation, so 'Section 120.10 of the ITAR' arrives as
+  # act:section-120-10-of-the-itar — a DIFFERENT key from any part-level row.
+  - { from_key: "act:section-120-of-the-itar", to_key: "itar:120" }
+  - { from_key: "act:section-120-of-the-international-traffic-in-arms-regulations", to_key: "itar:120" }
+  - { from_key: "act:22-cfr-120", to_key: "itar:120" }
+  - { from_key: "cfr-22:120", to_key: "itar:120", note: "CFR-prefixed form" }
+  - { from_key: "act:part-120-of-the-itar", to_key: "itar:120" }
+  - { from_key: "act:section-120-1-of-the-itar", to_key: "itar:120.1" }
+  - { from_key: "act:section-120-1-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.1" }
+  - { from_key: "act:22-cfr-120-1", to_key: "itar:120.1" }
+  - { from_key: "cfr-22:120.1", to_key: "itar:120.1", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-1", to_key: "itar:120.1", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-2-of-the-itar", to_key: "itar:120.2" }
+  - { from_key: "act:section-120-2-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.2" }
+  - { from_key: "act:22-cfr-120-2", to_key: "itar:120.2" }
+  - { from_key: "cfr-22:120.2", to_key: "itar:120.2", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-2", to_key: "itar:120.2", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-3-of-the-itar", to_key: "itar:120.3" }
+  - { from_key: "act:section-120-3-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.3" }
+  - { from_key: "act:22-cfr-120-3", to_key: "itar:120.3" }
+  - { from_key: "cfr-22:120.3", to_key: "itar:120.3", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-3", to_key: "itar:120.3", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-4-of-the-itar", to_key: "itar:120.4" }
+  - { from_key: "act:section-120-4-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.4" }
+  - { from_key: "act:22-cfr-120-4", to_key: "itar:120.4" }
+  - { from_key: "cfr-22:120.4", to_key: "itar:120.4", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-4", to_key: "itar:120.4", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-5-of-the-itar", to_key: "itar:120.5" }
+  - { from_key: "act:section-120-5-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.5" }
+  - { from_key: "act:22-cfr-120-5", to_key: "itar:120.5" }
+  - { from_key: "cfr-22:120.5", to_key: "itar:120.5", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-5", to_key: "itar:120.5", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-6-of-the-itar", to_key: "itar:120.6" }
+  - { from_key: "act:section-120-6-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.6" }
+  - { from_key: "act:22-cfr-120-6", to_key: "itar:120.6" }
+  - { from_key: "cfr-22:120.6", to_key: "itar:120.6", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-6", to_key: "itar:120.6", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-7-of-the-itar", to_key: "itar:120.7" }
+  - { from_key: "act:section-120-7-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.7" }
+  - { from_key: "act:22-cfr-120-7", to_key: "itar:120.7" }
+  - { from_key: "cfr-22:120.7", to_key: "itar:120.7", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-7", to_key: "itar:120.7", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-10-of-the-itar", to_key: "itar:120.10" }
+  - { from_key: "act:section-120-10-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.10" }
+  - { from_key: "act:22-cfr-120-10", to_key: "itar:120.10" }
+  - { from_key: "cfr-22:120.10", to_key: "itar:120.10", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-10", to_key: "itar:120.10", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-11-of-the-itar", to_key: "itar:120.11" }
+  - { from_key: "act:section-120-11-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.11" }
+  - { from_key: "act:22-cfr-120-11", to_key: "itar:120.11" }
+  - { from_key: "cfr-22:120.11", to_key: "itar:120.11", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-11", to_key: "itar:120.11", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-12-of-the-itar", to_key: "itar:120.12" }
+  - { from_key: "act:section-120-12-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.12" }
+  - { from_key: "act:22-cfr-120-12", to_key: "itar:120.12" }
+  - { from_key: "cfr-22:120.12", to_key: "itar:120.12", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-12", to_key: "itar:120.12", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-13-of-the-itar", to_key: "itar:120.13" }
+  - { from_key: "act:section-120-13-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.13" }
+  - { from_key: "act:22-cfr-120-13", to_key: "itar:120.13" }
+  - { from_key: "cfr-22:120.13", to_key: "itar:120.13", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-13", to_key: "itar:120.13", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-14-of-the-itar", to_key: "itar:120.14" }
+  - { from_key: "act:section-120-14-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.14" }
+  - { from_key: "act:22-cfr-120-14", to_key: "itar:120.14" }
+  - { from_key: "cfr-22:120.14", to_key: "itar:120.14", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-14", to_key: "itar:120.14", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-15-of-the-itar", to_key: "itar:120.15" }
+  - { from_key: "act:section-120-15-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.15" }
+  - { from_key: "act:22-cfr-120-15", to_key: "itar:120.15" }
+  - { from_key: "cfr-22:120.15", to_key: "itar:120.15", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-15", to_key: "itar:120.15", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-16-of-the-itar", to_key: "itar:120.16" }
+  - { from_key: "act:section-120-16-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.16" }
+  - { from_key: "act:22-cfr-120-16", to_key: "itar:120.16" }
+  - { from_key: "cfr-22:120.16", to_key: "itar:120.16", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-16", to_key: "itar:120.16", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-17-of-the-itar", to_key: "itar:120.17" }
+  - { from_key: "act:section-120-17-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.17" }
+  - { from_key: "act:22-cfr-120-17", to_key: "itar:120.17" }
+  - { from_key: "cfr-22:120.17", to_key: "itar:120.17", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-17", to_key: "itar:120.17", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-18-of-the-itar", to_key: "itar:120.18" }
+  - { from_key: "act:section-120-18-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.18" }
+  - { from_key: "act:22-cfr-120-18", to_key: "itar:120.18" }
+  - { from_key: "cfr-22:120.18", to_key: "itar:120.18", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-18", to_key: "itar:120.18", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-19-of-the-itar", to_key: "itar:120.19" }
+  - { from_key: "act:section-120-19-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.19" }
+  - { from_key: "act:22-cfr-120-19", to_key: "itar:120.19" }
+  - { from_key: "cfr-22:120.19", to_key: "itar:120.19", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-19", to_key: "itar:120.19", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-20-of-the-itar", to_key: "itar:120.20" }
+  - { from_key: "act:section-120-20-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.20" }
+  - { from_key: "act:22-cfr-120-20", to_key: "itar:120.20" }
+  - { from_key: "cfr-22:120.20", to_key: "itar:120.20", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-20", to_key: "itar:120.20", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-21-of-the-itar", to_key: "itar:120.21" }
+  - { from_key: "act:section-120-21-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.21" }
+  - { from_key: "act:22-cfr-120-21", to_key: "itar:120.21" }
+  - { from_key: "cfr-22:120.21", to_key: "itar:120.21", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-21", to_key: "itar:120.21", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-22-of-the-itar", to_key: "itar:120.22" }
+  - { from_key: "act:section-120-22-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.22" }
+  - { from_key: "act:22-cfr-120-22", to_key: "itar:120.22" }
+  - { from_key: "cfr-22:120.22", to_key: "itar:120.22", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-22", to_key: "itar:120.22", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-23-of-the-itar", to_key: "itar:120.23" }
+  - { from_key: "act:section-120-23-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.23" }
+  - { from_key: "act:22-cfr-120-23", to_key: "itar:120.23" }
+  - { from_key: "cfr-22:120.23", to_key: "itar:120.23", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-23", to_key: "itar:120.23", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-30-of-the-itar", to_key: "itar:120.30" }
+  - { from_key: "act:section-120-30-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.30" }
+  - { from_key: "act:22-cfr-120-30", to_key: "itar:120.30" }
+  - { from_key: "cfr-22:120.30", to_key: "itar:120.30", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-30", to_key: "itar:120.30", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-31-of-the-itar", to_key: "itar:120.31" }
+  - { from_key: "act:section-120-31-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.31" }
+  - { from_key: "act:22-cfr-120-31", to_key: "itar:120.31" }
+  - { from_key: "cfr-22:120.31", to_key: "itar:120.31", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-31", to_key: "itar:120.31", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-32-of-the-itar", to_key: "itar:120.32" }
+  - { from_key: "act:section-120-32-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.32" }
+  - { from_key: "act:22-cfr-120-32", to_key: "itar:120.32" }
+  - { from_key: "cfr-22:120.32", to_key: "itar:120.32", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-32", to_key: "itar:120.32", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-33-of-the-itar", to_key: "itar:120.33" }
+  - { from_key: "act:section-120-33-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.33" }
+  - { from_key: "act:22-cfr-120-33", to_key: "itar:120.33" }
+  - { from_key: "cfr-22:120.33", to_key: "itar:120.33", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-33", to_key: "itar:120.33", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-34-of-the-itar", to_key: "itar:120.34" }
+  - { from_key: "act:section-120-34-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.34" }
+  - { from_key: "act:22-cfr-120-34", to_key: "itar:120.34" }
+  - { from_key: "cfr-22:120.34", to_key: "itar:120.34", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-34", to_key: "itar:120.34", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-36-of-the-itar", to_key: "itar:120.36" }
+  - { from_key: "act:section-120-36-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.36" }
+  - { from_key: "act:22-cfr-120-36", to_key: "itar:120.36" }
+  - { from_key: "cfr-22:120.36", to_key: "itar:120.36", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-36", to_key: "itar:120.36", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-37-of-the-itar", to_key: "itar:120.37" }
+  - { from_key: "act:section-120-37-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.37" }
+  - { from_key: "act:22-cfr-120-37", to_key: "itar:120.37" }
+  - { from_key: "cfr-22:120.37", to_key: "itar:120.37", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-37", to_key: "itar:120.37", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-38-of-the-itar", to_key: "itar:120.38" }
+  - { from_key: "act:section-120-38-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.38" }
+  - { from_key: "act:22-cfr-120-38", to_key: "itar:120.38" }
+  - { from_key: "cfr-22:120.38", to_key: "itar:120.38", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-38", to_key: "itar:120.38", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-39-of-the-itar", to_key: "itar:120.39" }
+  - { from_key: "act:section-120-39-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.39" }
+  - { from_key: "act:22-cfr-120-39", to_key: "itar:120.39" }
+  - { from_key: "cfr-22:120.39", to_key: "itar:120.39", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-39", to_key: "itar:120.39", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-40-of-the-itar", to_key: "itar:120.40" }
+  - { from_key: "act:section-120-40-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.40" }
+  - { from_key: "act:22-cfr-120-40", to_key: "itar:120.40" }
+  - { from_key: "cfr-22:120.40", to_key: "itar:120.40", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-40", to_key: "itar:120.40", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-41-of-the-itar", to_key: "itar:120.41" }
+  - { from_key: "act:section-120-41-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.41" }
+  - { from_key: "act:22-cfr-120-41", to_key: "itar:120.41" }
+  - { from_key: "cfr-22:120.41", to_key: "itar:120.41", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-41", to_key: "itar:120.41", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-42-of-the-itar", to_key: "itar:120.42" }
+  - { from_key: "act:section-120-42-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.42" }
+  - { from_key: "act:22-cfr-120-42", to_key: "itar:120.42" }
+  - { from_key: "cfr-22:120.42", to_key: "itar:120.42", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-42", to_key: "itar:120.42", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-43-of-the-itar", to_key: "itar:120.43" }
+  - { from_key: "act:section-120-43-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.43" }
+  - { from_key: "act:22-cfr-120-43", to_key: "itar:120.43" }
+  - { from_key: "cfr-22:120.43", to_key: "itar:120.43", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-43", to_key: "itar:120.43", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-45-of-the-itar", to_key: "itar:120.45" }
+  - { from_key: "act:section-120-45-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.45" }
+  - { from_key: "act:22-cfr-120-45", to_key: "itar:120.45" }
+  - { from_key: "cfr-22:120.45", to_key: "itar:120.45", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-45", to_key: "itar:120.45", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-50-of-the-itar", to_key: "itar:120.50" }
+  - { from_key: "act:section-120-50-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.50" }
+  - { from_key: "act:22-cfr-120-50", to_key: "itar:120.50" }
+  - { from_key: "cfr-22:120.50", to_key: "itar:120.50", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-50", to_key: "itar:120.50", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-51-of-the-itar", to_key: "itar:120.51" }
+  - { from_key: "act:section-120-51-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.51" }
+  - { from_key: "act:22-cfr-120-51", to_key: "itar:120.51" }
+  - { from_key: "cfr-22:120.51", to_key: "itar:120.51", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-51", to_key: "itar:120.51", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-52-of-the-itar", to_key: "itar:120.52" }
+  - { from_key: "act:section-120-52-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.52" }
+  - { from_key: "act:22-cfr-120-52", to_key: "itar:120.52" }
+  - { from_key: "cfr-22:120.52", to_key: "itar:120.52", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-52", to_key: "itar:120.52", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-53-of-the-itar", to_key: "itar:120.53" }
+  - { from_key: "act:section-120-53-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.53" }
+  - { from_key: "act:22-cfr-120-53", to_key: "itar:120.53" }
+  - { from_key: "cfr-22:120.53", to_key: "itar:120.53", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-53", to_key: "itar:120.53", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-54-of-the-itar", to_key: "itar:120.54" }
+  - { from_key: "act:section-120-54-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.54" }
+  - { from_key: "act:22-cfr-120-54", to_key: "itar:120.54" }
+  - { from_key: "cfr-22:120.54", to_key: "itar:120.54", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-54", to_key: "itar:120.54", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-55-of-the-itar", to_key: "itar:120.55" }
+  - { from_key: "act:section-120-55-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.55" }
+  - { from_key: "act:22-cfr-120-55", to_key: "itar:120.55" }
+  - { from_key: "cfr-22:120.55", to_key: "itar:120.55", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-55", to_key: "itar:120.55", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-56-of-the-itar", to_key: "itar:120.56" }
+  - { from_key: "act:section-120-56-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.56" }
+  - { from_key: "act:22-cfr-120-56", to_key: "itar:120.56" }
+  - { from_key: "cfr-22:120.56", to_key: "itar:120.56", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-56", to_key: "itar:120.56", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-57-of-the-itar", to_key: "itar:120.57" }
+  - { from_key: "act:section-120-57-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.57" }
+  - { from_key: "act:22-cfr-120-57", to_key: "itar:120.57" }
+  - { from_key: "cfr-22:120.57", to_key: "itar:120.57", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-57", to_key: "itar:120.57", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-58-of-the-itar", to_key: "itar:120.58" }
+  - { from_key: "act:section-120-58-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.58" }
+  - { from_key: "act:22-cfr-120-58", to_key: "itar:120.58" }
+  - { from_key: "cfr-22:120.58", to_key: "itar:120.58", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-58", to_key: "itar:120.58", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-60-of-the-itar", to_key: "itar:120.60" }
+  - { from_key: "act:section-120-60-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.60" }
+  - { from_key: "act:22-cfr-120-60", to_key: "itar:120.60" }
+  - { from_key: "cfr-22:120.60", to_key: "itar:120.60", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-60", to_key: "itar:120.60", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-61-of-the-itar", to_key: "itar:120.61" }
+  - { from_key: "act:section-120-61-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.61" }
+  - { from_key: "act:22-cfr-120-61", to_key: "itar:120.61" }
+  - { from_key: "cfr-22:120.61", to_key: "itar:120.61", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-61", to_key: "itar:120.61", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-62-of-the-itar", to_key: "itar:120.62" }
+  - { from_key: "act:section-120-62-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.62" }
+  - { from_key: "act:22-cfr-120-62", to_key: "itar:120.62" }
+  - { from_key: "cfr-22:120.62", to_key: "itar:120.62", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-62", to_key: "itar:120.62", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-63-of-the-itar", to_key: "itar:120.63" }
+  - { from_key: "act:section-120-63-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.63" }
+  - { from_key: "act:22-cfr-120-63", to_key: "itar:120.63" }
+  - { from_key: "cfr-22:120.63", to_key: "itar:120.63", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-63", to_key: "itar:120.63", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-64-of-the-itar", to_key: "itar:120.64" }
+  - { from_key: "act:section-120-64-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.64" }
+  - { from_key: "act:22-cfr-120-64", to_key: "itar:120.64" }
+  - { from_key: "cfr-22:120.64", to_key: "itar:120.64", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-64", to_key: "itar:120.64", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-65-of-the-itar", to_key: "itar:120.65" }
+  - { from_key: "act:section-120-65-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.65" }
+  - { from_key: "act:22-cfr-120-65", to_key: "itar:120.65" }
+  - { from_key: "cfr-22:120.65", to_key: "itar:120.65", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-65", to_key: "itar:120.65", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-66-of-the-itar", to_key: "itar:120.66" }
+  - { from_key: "act:section-120-66-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.66" }
+  - { from_key: "act:22-cfr-120-66", to_key: "itar:120.66" }
+  - { from_key: "cfr-22:120.66", to_key: "itar:120.66", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-66", to_key: "itar:120.66", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-67-of-the-itar", to_key: "itar:120.67" }
+  - { from_key: "act:section-120-67-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.67" }
+  - { from_key: "act:22-cfr-120-67", to_key: "itar:120.67" }
+  - { from_key: "cfr-22:120.67", to_key: "itar:120.67", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-67", to_key: "itar:120.67", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-68-of-the-itar", to_key: "itar:120.68" }
+  - { from_key: "act:section-120-68-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.68" }
+  - { from_key: "act:22-cfr-120-68", to_key: "itar:120.68" }
+  - { from_key: "cfr-22:120.68", to_key: "itar:120.68", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-68", to_key: "itar:120.68", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-120-69-of-the-itar", to_key: "itar:120.69" }
+  - { from_key: "act:section-120-69-of-the-international-traffic-in-arms-regulations", to_key: "itar:120.69" }
+  - { from_key: "act:22-cfr-120-69", to_key: "itar:120.69" }
+  - { from_key: "cfr-22:120.69", to_key: "itar:120.69", note: "CFR-prefixed form" }
+  - { from_key: "itar:120-69", to_key: "itar:120.69", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-121-of-the-itar", to_key: "itar:121" }
+  - { from_key: "act:section-121-of-the-international-traffic-in-arms-regulations", to_key: "itar:121" }
+  - { from_key: "act:22-cfr-121", to_key: "itar:121" }
+  - { from_key: "cfr-22:121", to_key: "itar:121", note: "CFR-prefixed form" }
+  - { from_key: "act:part-121-of-the-itar", to_key: "itar:121" }
+  - { from_key: "act:section-121-0-of-the-itar", to_key: "itar:121.0" }
+  - { from_key: "act:section-121-0-of-the-international-traffic-in-arms-regulations", to_key: "itar:121.0" }
+  - { from_key: "act:22-cfr-121-0", to_key: "itar:121.0" }
+  - { from_key: "cfr-22:121.0", to_key: "itar:121.0", note: "CFR-prefixed form" }
+  - { from_key: "itar:121-0", to_key: "itar:121.0", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-121-1-of-the-itar", to_key: "itar:121.1" }
+  - { from_key: "act:section-121-1-of-the-international-traffic-in-arms-regulations", to_key: "itar:121.1" }
+  - { from_key: "act:22-cfr-121-1", to_key: "itar:121.1" }
+  - { from_key: "cfr-22:121.1", to_key: "itar:121.1", note: "CFR-prefixed form" }
+  - { from_key: "itar:121-1", to_key: "itar:121.1", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-122-of-the-itar", to_key: "itar:122" }
+  - { from_key: "act:section-122-of-the-international-traffic-in-arms-regulations", to_key: "itar:122" }
+  - { from_key: "act:22-cfr-122", to_key: "itar:122" }
+  - { from_key: "cfr-22:122", to_key: "itar:122", note: "CFR-prefixed form" }
+  - { from_key: "act:part-122-of-the-itar", to_key: "itar:122" }
+  - { from_key: "act:section-122-1-of-the-itar", to_key: "itar:122.1" }
+  - { from_key: "act:section-122-1-of-the-international-traffic-in-arms-regulations", to_key: "itar:122.1" }
+  - { from_key: "act:22-cfr-122-1", to_key: "itar:122.1" }
+  - { from_key: "cfr-22:122.1", to_key: "itar:122.1", note: "CFR-prefixed form" }
+  - { from_key: "itar:122-1", to_key: "itar:122.1", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-122-2-of-the-itar", to_key: "itar:122.2" }
+  - { from_key: "act:section-122-2-of-the-international-traffic-in-arms-regulations", to_key: "itar:122.2" }
+  - { from_key: "act:22-cfr-122-2", to_key: "itar:122.2" }
+  - { from_key: "cfr-22:122.2", to_key: "itar:122.2", note: "CFR-prefixed form" }
+  - { from_key: "itar:122-2", to_key: "itar:122.2", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-122-3-of-the-itar", to_key: "itar:122.3" }
+  - { from_key: "act:section-122-3-of-the-international-traffic-in-arms-regulations", to_key: "itar:122.3" }
+  - { from_key: "act:22-cfr-122-3", to_key: "itar:122.3" }
+  - { from_key: "cfr-22:122.3", to_key: "itar:122.3", note: "CFR-prefixed form" }
+  - { from_key: "itar:122-3", to_key: "itar:122.3", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-122-4-of-the-itar", to_key: "itar:122.4" }
+  - { from_key: "act:section-122-4-of-the-international-traffic-in-arms-regulations", to_key: "itar:122.4" }
+  - { from_key: "act:22-cfr-122-4", to_key: "itar:122.4" }
+  - { from_key: "cfr-22:122.4", to_key: "itar:122.4", note: "CFR-prefixed form" }
+  - { from_key: "itar:122-4", to_key: "itar:122.4", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-122-5-of-the-itar", to_key: "itar:122.5" }
+  - { from_key: "act:section-122-5-of-the-international-traffic-in-arms-regulations", to_key: "itar:122.5" }
+  - { from_key: "act:22-cfr-122-5", to_key: "itar:122.5" }
+  - { from_key: "cfr-22:122.5", to_key: "itar:122.5", note: "CFR-prefixed form" }
+  - { from_key: "itar:122-5", to_key: "itar:122.5", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-of-the-itar", to_key: "itar:123" }
+  - { from_key: "act:section-123-of-the-international-traffic-in-arms-regulations", to_key: "itar:123" }
+  - { from_key: "act:22-cfr-123", to_key: "itar:123" }
+  - { from_key: "cfr-22:123", to_key: "itar:123", note: "CFR-prefixed form" }
+  - { from_key: "act:part-123-of-the-itar", to_key: "itar:123" }
+  - { from_key: "act:section-123-1-of-the-itar", to_key: "itar:123.1" }
+  - { from_key: "act:section-123-1-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.1" }
+  - { from_key: "act:22-cfr-123-1", to_key: "itar:123.1" }
+  - { from_key: "cfr-22:123.1", to_key: "itar:123.1", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-1", to_key: "itar:123.1", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-2-of-the-itar", to_key: "itar:123.2" }
+  - { from_key: "act:section-123-2-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.2" }
+  - { from_key: "act:22-cfr-123-2", to_key: "itar:123.2" }
+  - { from_key: "cfr-22:123.2", to_key: "itar:123.2", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-2", to_key: "itar:123.2", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-3-of-the-itar", to_key: "itar:123.3" }
+  - { from_key: "act:section-123-3-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.3" }
+  - { from_key: "act:22-cfr-123-3", to_key: "itar:123.3" }
+  - { from_key: "cfr-22:123.3", to_key: "itar:123.3", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-3", to_key: "itar:123.3", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-4-of-the-itar", to_key: "itar:123.4" }
+  - { from_key: "act:section-123-4-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.4" }
+  - { from_key: "act:22-cfr-123-4", to_key: "itar:123.4" }
+  - { from_key: "cfr-22:123.4", to_key: "itar:123.4", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-4", to_key: "itar:123.4", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-5-of-the-itar", to_key: "itar:123.5" }
+  - { from_key: "act:section-123-5-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.5" }
+  - { from_key: "act:22-cfr-123-5", to_key: "itar:123.5" }
+  - { from_key: "cfr-22:123.5", to_key: "itar:123.5", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-5", to_key: "itar:123.5", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-6-of-the-itar", to_key: "itar:123.6" }
+  - { from_key: "act:section-123-6-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.6" }
+  - { from_key: "act:22-cfr-123-6", to_key: "itar:123.6" }
+  - { from_key: "cfr-22:123.6", to_key: "itar:123.6", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-6", to_key: "itar:123.6", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-7-of-the-itar", to_key: "itar:123.7" }
+  - { from_key: "act:section-123-7-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.7" }
+  - { from_key: "act:22-cfr-123-7", to_key: "itar:123.7" }
+  - { from_key: "cfr-22:123.7", to_key: "itar:123.7", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-7", to_key: "itar:123.7", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-8-of-the-itar", to_key: "itar:123.8" }
+  - { from_key: "act:section-123-8-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.8" }
+  - { from_key: "act:22-cfr-123-8", to_key: "itar:123.8" }
+  - { from_key: "cfr-22:123.8", to_key: "itar:123.8", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-8", to_key: "itar:123.8", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-9-of-the-itar", to_key: "itar:123.9" }
+  - { from_key: "act:section-123-9-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.9" }
+  - { from_key: "act:22-cfr-123-9", to_key: "itar:123.9" }
+  - { from_key: "cfr-22:123.9", to_key: "itar:123.9", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-9", to_key: "itar:123.9", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-10-of-the-itar", to_key: "itar:123.10" }
+  - { from_key: "act:section-123-10-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.10" }
+  - { from_key: "act:22-cfr-123-10", to_key: "itar:123.10" }
+  - { from_key: "cfr-22:123.10", to_key: "itar:123.10", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-10", to_key: "itar:123.10", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-11-of-the-itar", to_key: "itar:123.11" }
+  - { from_key: "act:section-123-11-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.11" }
+  - { from_key: "act:22-cfr-123-11", to_key: "itar:123.11" }
+  - { from_key: "cfr-22:123.11", to_key: "itar:123.11", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-11", to_key: "itar:123.11", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-12-of-the-itar", to_key: "itar:123.12" }
+  - { from_key: "act:section-123-12-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.12" }
+  - { from_key: "act:22-cfr-123-12", to_key: "itar:123.12" }
+  - { from_key: "cfr-22:123.12", to_key: "itar:123.12", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-12", to_key: "itar:123.12", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-13-of-the-itar", to_key: "itar:123.13" }
+  - { from_key: "act:section-123-13-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.13" }
+  - { from_key: "act:22-cfr-123-13", to_key: "itar:123.13" }
+  - { from_key: "cfr-22:123.13", to_key: "itar:123.13", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-13", to_key: "itar:123.13", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-14-of-the-itar", to_key: "itar:123.14" }
+  - { from_key: "act:section-123-14-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.14" }
+  - { from_key: "act:22-cfr-123-14", to_key: "itar:123.14" }
+  - { from_key: "cfr-22:123.14", to_key: "itar:123.14", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-14", to_key: "itar:123.14", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-15-of-the-itar", to_key: "itar:123.15" }
+  - { from_key: "act:section-123-15-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.15" }
+  - { from_key: "act:22-cfr-123-15", to_key: "itar:123.15" }
+  - { from_key: "cfr-22:123.15", to_key: "itar:123.15", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-15", to_key: "itar:123.15", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-16-of-the-itar", to_key: "itar:123.16" }
+  - { from_key: "act:section-123-16-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.16" }
+  - { from_key: "act:22-cfr-123-16", to_key: "itar:123.16" }
+  - { from_key: "cfr-22:123.16", to_key: "itar:123.16", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-16", to_key: "itar:123.16", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-17-of-the-itar", to_key: "itar:123.17" }
+  - { from_key: "act:section-123-17-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.17" }
+  - { from_key: "act:22-cfr-123-17", to_key: "itar:123.17" }
+  - { from_key: "cfr-22:123.17", to_key: "itar:123.17", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-17", to_key: "itar:123.17", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-19-of-the-itar", to_key: "itar:123.19" }
+  - { from_key: "act:section-123-19-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.19" }
+  - { from_key: "act:22-cfr-123-19", to_key: "itar:123.19" }
+  - { from_key: "cfr-22:123.19", to_key: "itar:123.19", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-19", to_key: "itar:123.19", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-21-of-the-itar", to_key: "itar:123.21" }
+  - { from_key: "act:section-123-21-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.21" }
+  - { from_key: "act:22-cfr-123-21", to_key: "itar:123.21" }
+  - { from_key: "cfr-22:123.21", to_key: "itar:123.21", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-21", to_key: "itar:123.21", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-22-of-the-itar", to_key: "itar:123.22" }
+  - { from_key: "act:section-123-22-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.22" }
+  - { from_key: "act:22-cfr-123-22", to_key: "itar:123.22" }
+  - { from_key: "cfr-22:123.22", to_key: "itar:123.22", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-22", to_key: "itar:123.22", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-23-of-the-itar", to_key: "itar:123.23" }
+  - { from_key: "act:section-123-23-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.23" }
+  - { from_key: "act:22-cfr-123-23", to_key: "itar:123.23" }
+  - { from_key: "cfr-22:123.23", to_key: "itar:123.23", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-23", to_key: "itar:123.23", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-24-of-the-itar", to_key: "itar:123.24" }
+  - { from_key: "act:section-123-24-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.24" }
+  - { from_key: "act:22-cfr-123-24", to_key: "itar:123.24" }
+  - { from_key: "cfr-22:123.24", to_key: "itar:123.24", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-24", to_key: "itar:123.24", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-25-of-the-itar", to_key: "itar:123.25" }
+  - { from_key: "act:section-123-25-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.25" }
+  - { from_key: "act:22-cfr-123-25", to_key: "itar:123.25" }
+  - { from_key: "cfr-22:123.25", to_key: "itar:123.25", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-25", to_key: "itar:123.25", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-27-of-the-itar", to_key: "itar:123.27" }
+  - { from_key: "act:section-123-27-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.27" }
+  - { from_key: "act:22-cfr-123-27", to_key: "itar:123.27" }
+  - { from_key: "cfr-22:123.27", to_key: "itar:123.27", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-27", to_key: "itar:123.27", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-123-28-of-the-itar", to_key: "itar:123.28" }
+  - { from_key: "act:section-123-28-of-the-international-traffic-in-arms-regulations", to_key: "itar:123.28" }
+  - { from_key: "act:22-cfr-123-28", to_key: "itar:123.28" }
+  - { from_key: "cfr-22:123.28", to_key: "itar:123.28", note: "CFR-prefixed form" }
+  - { from_key: "itar:123-28", to_key: "itar:123.28", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-124-of-the-itar", to_key: "itar:124" }
+  - { from_key: "act:section-124-of-the-international-traffic-in-arms-regulations", to_key: "itar:124" }
+  - { from_key: "act:22-cfr-124", to_key: "itar:124" }
+  - { from_key: "cfr-22:124", to_key: "itar:124", note: "CFR-prefixed form" }
+  - { from_key: "act:part-124-of-the-itar", to_key: "itar:124" }
+  - { from_key: "act:section-124-1-of-the-itar", to_key: "itar:124.1" }
+  - { from_key: "act:section-124-1-of-the-international-traffic-in-arms-regulations", to_key: "itar:124.1" }
+  - { from_key: "act:22-cfr-124-1", to_key: "itar:124.1" }
+  - { from_key: "cfr-22:124.1", to_key: "itar:124.1", note: "CFR-prefixed form" }
+  - { from_key: "itar:124-1", to_key: "itar:124.1", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-124-2-of-the-itar", to_key: "itar:124.2" }
+  - { from_key: "act:section-124-2-of-the-international-traffic-in-arms-regulations", to_key: "itar:124.2" }
+  - { from_key: "act:22-cfr-124-2", to_key: "itar:124.2" }
+  - { from_key: "cfr-22:124.2", to_key: "itar:124.2", note: "CFR-prefixed form" }
+  - { from_key: "itar:124-2", to_key: "itar:124.2", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-124-3-of-the-itar", to_key: "itar:124.3" }
+  - { from_key: "act:section-124-3-of-the-international-traffic-in-arms-regulations", to_key: "itar:124.3" }
+  - { from_key: "act:22-cfr-124-3", to_key: "itar:124.3" }
+  - { from_key: "cfr-22:124.3", to_key: "itar:124.3", note: "CFR-prefixed form" }
+  - { from_key: "itar:124-3", to_key: "itar:124.3", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-124-4-of-the-itar", to_key: "itar:124.4" }
+  - { from_key: "act:section-124-4-of-the-international-traffic-in-arms-regulations", to_key: "itar:124.4" }
+  - { from_key: "act:22-cfr-124-4", to_key: "itar:124.4" }
+  - { from_key: "cfr-22:124.4", to_key: "itar:124.4", note: "CFR-prefixed form" }
+  - { from_key: "itar:124-4", to_key: "itar:124.4", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-124-5-of-the-itar", to_key: "itar:124.5" }
+  - { from_key: "act:section-124-5-of-the-international-traffic-in-arms-regulations", to_key: "itar:124.5" }
+  - { from_key: "act:22-cfr-124-5", to_key: "itar:124.5" }
+  - { from_key: "cfr-22:124.5", to_key: "itar:124.5", note: "CFR-prefixed form" }
+  - { from_key: "itar:124-5", to_key: "itar:124.5", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-124-6-of-the-itar", to_key: "itar:124.6" }
+  - { from_key: "act:section-124-6-of-the-international-traffic-in-arms-regulations", to_key: "itar:124.6" }
+  - { from_key: "act:22-cfr-124-6", to_key: "itar:124.6" }
+  - { from_key: "cfr-22:124.6", to_key: "itar:124.6", note: "CFR-prefixed form" }
+  - { from_key: "itar:124-6", to_key: "itar:124.6", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-124-7-of-the-itar", to_key: "itar:124.7" }
+  - { from_key: "act:section-124-7-of-the-international-traffic-in-arms-regulations", to_key: "itar:124.7" }
+  - { from_key: "act:22-cfr-124-7", to_key: "itar:124.7" }
+  - { from_key: "cfr-22:124.7", to_key: "itar:124.7", note: "CFR-prefixed form" }
+  - { from_key: "itar:124-7", to_key: "itar:124.7", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-124-8-of-the-itar", to_key: "itar:124.8" }
+  - { from_key: "act:section-124-8-of-the-international-traffic-in-arms-regulations", to_key: "itar:124.8" }
+  - { from_key: "act:22-cfr-124-8", to_key: "itar:124.8" }
+  - { from_key: "cfr-22:124.8", to_key: "itar:124.8", note: "CFR-prefixed form" }
+  - { from_key: "itar:124-8", to_key: "itar:124.8", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-124-9-of-the-itar", to_key: "itar:124.9" }
+  - { from_key: "act:section-124-9-of-the-international-traffic-in-arms-regulations", to_key: "itar:124.9" }
+  - { from_key: "act:22-cfr-124-9", to_key: "itar:124.9" }
+  - { from_key: "cfr-22:124.9", to_key: "itar:124.9", note: "CFR-prefixed form" }
+  - { from_key: "itar:124-9", to_key: "itar:124.9", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-124-10-of-the-itar", to_key: "itar:124.10" }
+  - { from_key: "act:section-124-10-of-the-international-traffic-in-arms-regulations", to_key: "itar:124.10" }
+  - { from_key: "act:22-cfr-124-10", to_key: "itar:124.10" }
+  - { from_key: "cfr-22:124.10", to_key: "itar:124.10", note: "CFR-prefixed form" }
+  - { from_key: "itar:124-10", to_key: "itar:124.10", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-124-11-of-the-itar", to_key: "itar:124.11" }
+  - { from_key: "act:section-124-11-of-the-international-traffic-in-arms-regulations", to_key: "itar:124.11" }
+  - { from_key: "act:22-cfr-124-11", to_key: "itar:124.11" }
+  - { from_key: "cfr-22:124.11", to_key: "itar:124.11", note: "CFR-prefixed form" }
+  - { from_key: "itar:124-11", to_key: "itar:124.11", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-124-12-of-the-itar", to_key: "itar:124.12" }
+  - { from_key: "act:section-124-12-of-the-international-traffic-in-arms-regulations", to_key: "itar:124.12" }
+  - { from_key: "act:22-cfr-124-12", to_key: "itar:124.12" }
+  - { from_key: "cfr-22:124.12", to_key: "itar:124.12", note: "CFR-prefixed form" }
+  - { from_key: "itar:124-12", to_key: "itar:124.12", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-124-13-of-the-itar", to_key: "itar:124.13" }
+  - { from_key: "act:section-124-13-of-the-international-traffic-in-arms-regulations", to_key: "itar:124.13" }
+  - { from_key: "act:22-cfr-124-13", to_key: "itar:124.13" }
+  - { from_key: "cfr-22:124.13", to_key: "itar:124.13", note: "CFR-prefixed form" }
+  - { from_key: "itar:124-13", to_key: "itar:124.13", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-124-14-of-the-itar", to_key: "itar:124.14" }
+  - { from_key: "act:section-124-14-of-the-international-traffic-in-arms-regulations", to_key: "itar:124.14" }
+  - { from_key: "act:22-cfr-124-14", to_key: "itar:124.14" }
+  - { from_key: "cfr-22:124.14", to_key: "itar:124.14", note: "CFR-prefixed form" }
+  - { from_key: "itar:124-14", to_key: "itar:124.14", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-124-15-of-the-itar", to_key: "itar:124.15" }
+  - { from_key: "act:section-124-15-of-the-international-traffic-in-arms-regulations", to_key: "itar:124.15" }
+  - { from_key: "act:22-cfr-124-15", to_key: "itar:124.15" }
+  - { from_key: "cfr-22:124.15", to_key: "itar:124.15", note: "CFR-prefixed form" }
+  - { from_key: "itar:124-15", to_key: "itar:124.15", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-125-of-the-itar", to_key: "itar:125" }
+  - { from_key: "act:section-125-of-the-international-traffic-in-arms-regulations", to_key: "itar:125" }
+  - { from_key: "act:22-cfr-125", to_key: "itar:125" }
+  - { from_key: "cfr-22:125", to_key: "itar:125", note: "CFR-prefixed form" }
+  - { from_key: "act:part-125-of-the-itar", to_key: "itar:125" }
+  - { from_key: "act:section-125-1-of-the-itar", to_key: "itar:125.1" }
+  - { from_key: "act:section-125-1-of-the-international-traffic-in-arms-regulations", to_key: "itar:125.1" }
+  - { from_key: "act:22-cfr-125-1", to_key: "itar:125.1" }
+  - { from_key: "cfr-22:125.1", to_key: "itar:125.1", note: "CFR-prefixed form" }
+  - { from_key: "itar:125-1", to_key: "itar:125.1", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-125-2-of-the-itar", to_key: "itar:125.2" }
+  - { from_key: "act:section-125-2-of-the-international-traffic-in-arms-regulations", to_key: "itar:125.2" }
+  - { from_key: "act:22-cfr-125-2", to_key: "itar:125.2" }
+  - { from_key: "cfr-22:125.2", to_key: "itar:125.2", note: "CFR-prefixed form" }
+  - { from_key: "itar:125-2", to_key: "itar:125.2", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-125-3-of-the-itar", to_key: "itar:125.3" }
+  - { from_key: "act:section-125-3-of-the-international-traffic-in-arms-regulations", to_key: "itar:125.3" }
+  - { from_key: "act:22-cfr-125-3", to_key: "itar:125.3" }
+  - { from_key: "cfr-22:125.3", to_key: "itar:125.3", note: "CFR-prefixed form" }
+  - { from_key: "itar:125-3", to_key: "itar:125.3", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-125-4-of-the-itar", to_key: "itar:125.4" }
+  - { from_key: "act:section-125-4-of-the-international-traffic-in-arms-regulations", to_key: "itar:125.4" }
+  - { from_key: "act:22-cfr-125-4", to_key: "itar:125.4" }
+  - { from_key: "cfr-22:125.4", to_key: "itar:125.4", note: "CFR-prefixed form" }
+  - { from_key: "itar:125-4", to_key: "itar:125.4", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-125-5-of-the-itar", to_key: "itar:125.5" }
+  - { from_key: "act:section-125-5-of-the-international-traffic-in-arms-regulations", to_key: "itar:125.5" }
+  - { from_key: "act:22-cfr-125-5", to_key: "itar:125.5" }
+  - { from_key: "cfr-22:125.5", to_key: "itar:125.5", note: "CFR-prefixed form" }
+  - { from_key: "itar:125-5", to_key: "itar:125.5", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-125-7-of-the-itar", to_key: "itar:125.7" }
+  - { from_key: "act:section-125-7-of-the-international-traffic-in-arms-regulations", to_key: "itar:125.7" }
+  - { from_key: "act:22-cfr-125-7", to_key: "itar:125.7" }
+  - { from_key: "cfr-22:125.7", to_key: "itar:125.7", note: "CFR-prefixed form" }
+  - { from_key: "itar:125-7", to_key: "itar:125.7", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-125-9-of-the-itar", to_key: "itar:125.9" }
+  - { from_key: "act:section-125-9-of-the-international-traffic-in-arms-regulations", to_key: "itar:125.9" }
+  - { from_key: "act:22-cfr-125-9", to_key: "itar:125.9" }
+  - { from_key: "cfr-22:125.9", to_key: "itar:125.9", note: "CFR-prefixed form" }
+  - { from_key: "itar:125-9", to_key: "itar:125.9", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-126-of-the-itar", to_key: "itar:126" }
+  - { from_key: "act:section-126-of-the-international-traffic-in-arms-regulations", to_key: "itar:126" }
+  - { from_key: "act:22-cfr-126", to_key: "itar:126" }
+  - { from_key: "cfr-22:126", to_key: "itar:126", note: "CFR-prefixed form" }
+  - { from_key: "act:part-126-of-the-itar", to_key: "itar:126" }
+  - { from_key: "act:section-126-1-of-the-itar", to_key: "itar:126.1" }
+  - { from_key: "act:section-126-1-of-the-international-traffic-in-arms-regulations", to_key: "itar:126.1" }
+  - { from_key: "act:22-cfr-126-1", to_key: "itar:126.1" }
+  - { from_key: "cfr-22:126.1", to_key: "itar:126.1", note: "CFR-prefixed form" }
+  - { from_key: "itar:126-1", to_key: "itar:126.1", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-126-2-of-the-itar", to_key: "itar:126.2" }
+  - { from_key: "act:section-126-2-of-the-international-traffic-in-arms-regulations", to_key: "itar:126.2" }
+  - { from_key: "act:22-cfr-126-2", to_key: "itar:126.2" }
+  - { from_key: "cfr-22:126.2", to_key: "itar:126.2", note: "CFR-prefixed form" }
+  - { from_key: "itar:126-2", to_key: "itar:126.2", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-126-3-of-the-itar", to_key: "itar:126.3" }
+  - { from_key: "act:section-126-3-of-the-international-traffic-in-arms-regulations", to_key: "itar:126.3" }
+  - { from_key: "act:22-cfr-126-3", to_key: "itar:126.3" }
+  - { from_key: "cfr-22:126.3", to_key: "itar:126.3", note: "CFR-prefixed form" }
+  - { from_key: "itar:126-3", to_key: "itar:126.3", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-126-4-of-the-itar", to_key: "itar:126.4" }
+  - { from_key: "act:section-126-4-of-the-international-traffic-in-arms-regulations", to_key: "itar:126.4" }
+  - { from_key: "act:22-cfr-126-4", to_key: "itar:126.4" }
+  - { from_key: "cfr-22:126.4", to_key: "itar:126.4", note: "CFR-prefixed form" }
+  - { from_key: "itar:126-4", to_key: "itar:126.4", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-126-5-of-the-itar", to_key: "itar:126.5" }
+  - { from_key: "act:section-126-5-of-the-international-traffic-in-arms-regulations", to_key: "itar:126.5" }
+  - { from_key: "act:22-cfr-126-5", to_key: "itar:126.5" }
+  - { from_key: "cfr-22:126.5", to_key: "itar:126.5", note: "CFR-prefixed form" }
+  - { from_key: "itar:126-5", to_key: "itar:126.5", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-126-6-of-the-itar", to_key: "itar:126.6" }
+  - { from_key: "act:section-126-6-of-the-international-traffic-in-arms-regulations", to_key: "itar:126.6" }
+  - { from_key: "act:22-cfr-126-6", to_key: "itar:126.6" }
+  - { from_key: "cfr-22:126.6", to_key: "itar:126.6", note: "CFR-prefixed form" }
+  - { from_key: "itar:126-6", to_key: "itar:126.6", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-126-7-of-the-itar", to_key: "itar:126.7" }
+  - { from_key: "act:section-126-7-of-the-international-traffic-in-arms-regulations", to_key: "itar:126.7" }
+  - { from_key: "act:22-cfr-126-7", to_key: "itar:126.7" }
+  - { from_key: "cfr-22:126.7", to_key: "itar:126.7", note: "CFR-prefixed form" }
+  - { from_key: "itar:126-7", to_key: "itar:126.7", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-126-9-of-the-itar", to_key: "itar:126.9" }
+  - { from_key: "act:section-126-9-of-the-international-traffic-in-arms-regulations", to_key: "itar:126.9" }
+  - { from_key: "act:22-cfr-126-9", to_key: "itar:126.9" }
+  - { from_key: "cfr-22:126.9", to_key: "itar:126.9", note: "CFR-prefixed form" }
+  - { from_key: "itar:126-9", to_key: "itar:126.9", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-126-13-of-the-itar", to_key: "itar:126.13" }
+  - { from_key: "act:section-126-13-of-the-international-traffic-in-arms-regulations", to_key: "itar:126.13" }
+  - { from_key: "act:22-cfr-126-13", to_key: "itar:126.13" }
+  - { from_key: "cfr-22:126.13", to_key: "itar:126.13", note: "CFR-prefixed form" }
+  - { from_key: "itar:126-13", to_key: "itar:126.13", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-126-14-of-the-itar", to_key: "itar:126.14" }
+  - { from_key: "act:section-126-14-of-the-international-traffic-in-arms-regulations", to_key: "itar:126.14" }
+  - { from_key: "act:22-cfr-126-14", to_key: "itar:126.14" }
+  - { from_key: "cfr-22:126.14", to_key: "itar:126.14", note: "CFR-prefixed form" }
+  - { from_key: "itar:126-14", to_key: "itar:126.14", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-126-15-of-the-itar", to_key: "itar:126.15" }
+  - { from_key: "act:section-126-15-of-the-international-traffic-in-arms-regulations", to_key: "itar:126.15" }
+  - { from_key: "act:22-cfr-126-15", to_key: "itar:126.15" }
+  - { from_key: "cfr-22:126.15", to_key: "itar:126.15", note: "CFR-prefixed form" }
+  - { from_key: "itar:126-15", to_key: "itar:126.15", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-126-16-of-the-itar", to_key: "itar:126.16" }
+  - { from_key: "act:section-126-16-of-the-international-traffic-in-arms-regulations", to_key: "itar:126.16" }
+  - { from_key: "act:22-cfr-126-16", to_key: "itar:126.16" }
+  - { from_key: "cfr-22:126.16", to_key: "itar:126.16", note: "CFR-prefixed form" }
+  - { from_key: "itar:126-16", to_key: "itar:126.16", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-126-17-of-the-itar", to_key: "itar:126.17" }
+  - { from_key: "act:section-126-17-of-the-international-traffic-in-arms-regulations", to_key: "itar:126.17" }
+  - { from_key: "act:22-cfr-126-17", to_key: "itar:126.17" }
+  - { from_key: "cfr-22:126.17", to_key: "itar:126.17", note: "CFR-prefixed form" }
+  - { from_key: "itar:126-17", to_key: "itar:126.17", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-126-18-of-the-itar", to_key: "itar:126.18" }
+  - { from_key: "act:section-126-18-of-the-international-traffic-in-arms-regulations", to_key: "itar:126.18" }
+  - { from_key: "act:22-cfr-126-18", to_key: "itar:126.18" }
+  - { from_key: "cfr-22:126.18", to_key: "itar:126.18", note: "CFR-prefixed form" }
+  - { from_key: "itar:126-18", to_key: "itar:126.18", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-127-of-the-itar", to_key: "itar:127" }
+  - { from_key: "act:section-127-of-the-international-traffic-in-arms-regulations", to_key: "itar:127" }
+  - { from_key: "act:22-cfr-127", to_key: "itar:127" }
+  - { from_key: "cfr-22:127", to_key: "itar:127", note: "CFR-prefixed form" }
+  - { from_key: "act:part-127-of-the-itar", to_key: "itar:127" }
+  - { from_key: "act:section-127-1-of-the-itar", to_key: "itar:127.1" }
+  - { from_key: "act:section-127-1-of-the-international-traffic-in-arms-regulations", to_key: "itar:127.1" }
+  - { from_key: "act:22-cfr-127-1", to_key: "itar:127.1" }
+  - { from_key: "cfr-22:127.1", to_key: "itar:127.1", note: "CFR-prefixed form" }
+  - { from_key: "itar:127-1", to_key: "itar:127.1", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-127-2-of-the-itar", to_key: "itar:127.2" }
+  - { from_key: "act:section-127-2-of-the-international-traffic-in-arms-regulations", to_key: "itar:127.2" }
+  - { from_key: "act:22-cfr-127-2", to_key: "itar:127.2" }
+  - { from_key: "cfr-22:127.2", to_key: "itar:127.2", note: "CFR-prefixed form" }
+  - { from_key: "itar:127-2", to_key: "itar:127.2", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-127-3-of-the-itar", to_key: "itar:127.3" }
+  - { from_key: "act:section-127-3-of-the-international-traffic-in-arms-regulations", to_key: "itar:127.3" }
+  - { from_key: "act:22-cfr-127-3", to_key: "itar:127.3" }
+  - { from_key: "cfr-22:127.3", to_key: "itar:127.3", note: "CFR-prefixed form" }
+  - { from_key: "itar:127-3", to_key: "itar:127.3", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-127-4-of-the-itar", to_key: "itar:127.4" }
+  - { from_key: "act:section-127-4-of-the-international-traffic-in-arms-regulations", to_key: "itar:127.4" }
+  - { from_key: "act:22-cfr-127-4", to_key: "itar:127.4" }
+  - { from_key: "cfr-22:127.4", to_key: "itar:127.4", note: "CFR-prefixed form" }
+  - { from_key: "itar:127-4", to_key: "itar:127.4", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-127-5-of-the-itar", to_key: "itar:127.5" }
+  - { from_key: "act:section-127-5-of-the-international-traffic-in-arms-regulations", to_key: "itar:127.5" }
+  - { from_key: "act:22-cfr-127-5", to_key: "itar:127.5" }
+  - { from_key: "cfr-22:127.5", to_key: "itar:127.5", note: "CFR-prefixed form" }
+  - { from_key: "itar:127-5", to_key: "itar:127.5", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-127-6-of-the-itar", to_key: "itar:127.6" }
+  - { from_key: "act:section-127-6-of-the-international-traffic-in-arms-regulations", to_key: "itar:127.6" }
+  - { from_key: "act:22-cfr-127-6", to_key: "itar:127.6" }
+  - { from_key: "cfr-22:127.6", to_key: "itar:127.6", note: "CFR-prefixed form" }
+  - { from_key: "itar:127-6", to_key: "itar:127.6", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-127-7-of-the-itar", to_key: "itar:127.7" }
+  - { from_key: "act:section-127-7-of-the-international-traffic-in-arms-regulations", to_key: "itar:127.7" }
+  - { from_key: "act:22-cfr-127-7", to_key: "itar:127.7" }
+  - { from_key: "cfr-22:127.7", to_key: "itar:127.7", note: "CFR-prefixed form" }
+  - { from_key: "itar:127-7", to_key: "itar:127.7", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-127-9-of-the-itar", to_key: "itar:127.9" }
+  - { from_key: "act:section-127-9-of-the-international-traffic-in-arms-regulations", to_key: "itar:127.9" }
+  - { from_key: "act:22-cfr-127-9", to_key: "itar:127.9" }
+  - { from_key: "cfr-22:127.9", to_key: "itar:127.9", note: "CFR-prefixed form" }
+  - { from_key: "itar:127-9", to_key: "itar:127.9", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-127-10-of-the-itar", to_key: "itar:127.10" }
+  - { from_key: "act:section-127-10-of-the-international-traffic-in-arms-regulations", to_key: "itar:127.10" }
+  - { from_key: "act:22-cfr-127-10", to_key: "itar:127.10" }
+  - { from_key: "cfr-22:127.10", to_key: "itar:127.10", note: "CFR-prefixed form" }
+  - { from_key: "itar:127-10", to_key: "itar:127.10", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-127-11-of-the-itar", to_key: "itar:127.11" }
+  - { from_key: "act:section-127-11-of-the-international-traffic-in-arms-regulations", to_key: "itar:127.11" }
+  - { from_key: "act:22-cfr-127-11", to_key: "itar:127.11" }
+  - { from_key: "cfr-22:127.11", to_key: "itar:127.11", note: "CFR-prefixed form" }
+  - { from_key: "itar:127-11", to_key: "itar:127.11", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-127-12-of-the-itar", to_key: "itar:127.12" }
+  - { from_key: "act:section-127-12-of-the-international-traffic-in-arms-regulations", to_key: "itar:127.12" }
+  - { from_key: "act:22-cfr-127-12", to_key: "itar:127.12" }
+  - { from_key: "cfr-22:127.12", to_key: "itar:127.12", note: "CFR-prefixed form" }
+  - { from_key: "itar:127-12", to_key: "itar:127.12", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-128-of-the-itar", to_key: "itar:128" }
+  - { from_key: "act:section-128-of-the-international-traffic-in-arms-regulations", to_key: "itar:128" }
+  - { from_key: "act:22-cfr-128", to_key: "itar:128" }
+  - { from_key: "cfr-22:128", to_key: "itar:128", note: "CFR-prefixed form" }
+  - { from_key: "act:part-128-of-the-itar", to_key: "itar:128" }
+  - { from_key: "act:section-128-1-of-the-itar", to_key: "itar:128.1" }
+  - { from_key: "act:section-128-1-of-the-international-traffic-in-arms-regulations", to_key: "itar:128.1" }
+  - { from_key: "act:22-cfr-128-1", to_key: "itar:128.1" }
+  - { from_key: "cfr-22:128.1", to_key: "itar:128.1", note: "CFR-prefixed form" }
+  - { from_key: "itar:128-1", to_key: "itar:128.1", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-128-2-of-the-itar", to_key: "itar:128.2" }
+  - { from_key: "act:section-128-2-of-the-international-traffic-in-arms-regulations", to_key: "itar:128.2" }
+  - { from_key: "act:22-cfr-128-2", to_key: "itar:128.2" }
+  - { from_key: "cfr-22:128.2", to_key: "itar:128.2", note: "CFR-prefixed form" }
+  - { from_key: "itar:128-2", to_key: "itar:128.2", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-128-3-of-the-itar", to_key: "itar:128.3" }
+  - { from_key: "act:section-128-3-of-the-international-traffic-in-arms-regulations", to_key: "itar:128.3" }
+  - { from_key: "act:22-cfr-128-3", to_key: "itar:128.3" }
+  - { from_key: "cfr-22:128.3", to_key: "itar:128.3", note: "CFR-prefixed form" }
+  - { from_key: "itar:128-3", to_key: "itar:128.3", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-128-4-of-the-itar", to_key: "itar:128.4" }
+  - { from_key: "act:section-128-4-of-the-international-traffic-in-arms-regulations", to_key: "itar:128.4" }
+  - { from_key: "act:22-cfr-128-4", to_key: "itar:128.4" }
+  - { from_key: "cfr-22:128.4", to_key: "itar:128.4", note: "CFR-prefixed form" }
+  - { from_key: "itar:128-4", to_key: "itar:128.4", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-128-5-of-the-itar", to_key: "itar:128.5" }
+  - { from_key: "act:section-128-5-of-the-international-traffic-in-arms-regulations", to_key: "itar:128.5" }
+  - { from_key: "act:22-cfr-128-5", to_key: "itar:128.5" }
+  - { from_key: "cfr-22:128.5", to_key: "itar:128.5", note: "CFR-prefixed form" }
+  - { from_key: "itar:128-5", to_key: "itar:128.5", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-128-6-of-the-itar", to_key: "itar:128.6" }
+  - { from_key: "act:section-128-6-of-the-international-traffic-in-arms-regulations", to_key: "itar:128.6" }
+  - { from_key: "act:22-cfr-128-6", to_key: "itar:128.6" }
+  - { from_key: "cfr-22:128.6", to_key: "itar:128.6", note: "CFR-prefixed form" }
+  - { from_key: "itar:128-6", to_key: "itar:128.6", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-128-7-of-the-itar", to_key: "itar:128.7" }
+  - { from_key: "act:section-128-7-of-the-international-traffic-in-arms-regulations", to_key: "itar:128.7" }
+  - { from_key: "act:22-cfr-128-7", to_key: "itar:128.7" }
+  - { from_key: "cfr-22:128.7", to_key: "itar:128.7", note: "CFR-prefixed form" }
+  - { from_key: "itar:128-7", to_key: "itar:128.7", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-128-8-of-the-itar", to_key: "itar:128.8" }
+  - { from_key: "act:section-128-8-of-the-international-traffic-in-arms-regulations", to_key: "itar:128.8" }
+  - { from_key: "act:22-cfr-128-8", to_key: "itar:128.8" }
+  - { from_key: "cfr-22:128.8", to_key: "itar:128.8", note: "CFR-prefixed form" }
+  - { from_key: "itar:128-8", to_key: "itar:128.8", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-128-9-of-the-itar", to_key: "itar:128.9" }
+  - { from_key: "act:section-128-9-of-the-international-traffic-in-arms-regulations", to_key: "itar:128.9" }
+  - { from_key: "act:22-cfr-128-9", to_key: "itar:128.9" }
+  - { from_key: "cfr-22:128.9", to_key: "itar:128.9", note: "CFR-prefixed form" }
+  - { from_key: "itar:128-9", to_key: "itar:128.9", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-128-10-of-the-itar", to_key: "itar:128.10" }
+  - { from_key: "act:section-128-10-of-the-international-traffic-in-arms-regulations", to_key: "itar:128.10" }
+  - { from_key: "act:22-cfr-128-10", to_key: "itar:128.10" }
+  - { from_key: "cfr-22:128.10", to_key: "itar:128.10", note: "CFR-prefixed form" }
+  - { from_key: "itar:128-10", to_key: "itar:128.10", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-128-11-of-the-itar", to_key: "itar:128.11" }
+  - { from_key: "act:section-128-11-of-the-international-traffic-in-arms-regulations", to_key: "itar:128.11" }
+  - { from_key: "act:22-cfr-128-11", to_key: "itar:128.11" }
+  - { from_key: "cfr-22:128.11", to_key: "itar:128.11", note: "CFR-prefixed form" }
+  - { from_key: "itar:128-11", to_key: "itar:128.11", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-128-12-of-the-itar", to_key: "itar:128.12" }
+  - { from_key: "act:section-128-12-of-the-international-traffic-in-arms-regulations", to_key: "itar:128.12" }
+  - { from_key: "act:22-cfr-128-12", to_key: "itar:128.12" }
+  - { from_key: "cfr-22:128.12", to_key: "itar:128.12", note: "CFR-prefixed form" }
+  - { from_key: "itar:128-12", to_key: "itar:128.12", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-128-13-of-the-itar", to_key: "itar:128.13" }
+  - { from_key: "act:section-128-13-of-the-international-traffic-in-arms-regulations", to_key: "itar:128.13" }
+  - { from_key: "act:22-cfr-128-13", to_key: "itar:128.13" }
+  - { from_key: "cfr-22:128.13", to_key: "itar:128.13", note: "CFR-prefixed form" }
+  - { from_key: "itar:128-13", to_key: "itar:128.13", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-128-14-of-the-itar", to_key: "itar:128.14" }
+  - { from_key: "act:section-128-14-of-the-international-traffic-in-arms-regulations", to_key: "itar:128.14" }
+  - { from_key: "act:22-cfr-128-14", to_key: "itar:128.14" }
+  - { from_key: "cfr-22:128.14", to_key: "itar:128.14", note: "CFR-prefixed form" }
+  - { from_key: "itar:128-14", to_key: "itar:128.14", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-128-15-of-the-itar", to_key: "itar:128.15" }
+  - { from_key: "act:section-128-15-of-the-international-traffic-in-arms-regulations", to_key: "itar:128.15" }
+  - { from_key: "act:22-cfr-128-15", to_key: "itar:128.15" }
+  - { from_key: "cfr-22:128.15", to_key: "itar:128.15", note: "CFR-prefixed form" }
+  - { from_key: "itar:128-15", to_key: "itar:128.15", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-128-16-of-the-itar", to_key: "itar:128.16" }
+  - { from_key: "act:section-128-16-of-the-international-traffic-in-arms-regulations", to_key: "itar:128.16" }
+  - { from_key: "act:22-cfr-128-16", to_key: "itar:128.16" }
+  - { from_key: "cfr-22:128.16", to_key: "itar:128.16", note: "CFR-prefixed form" }
+  - { from_key: "itar:128-16", to_key: "itar:128.16", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-128-17-of-the-itar", to_key: "itar:128.17" }
+  - { from_key: "act:section-128-17-of-the-international-traffic-in-arms-regulations", to_key: "itar:128.17" }
+  - { from_key: "act:22-cfr-128-17", to_key: "itar:128.17" }
+  - { from_key: "cfr-22:128.17", to_key: "itar:128.17", note: "CFR-prefixed form" }
+  - { from_key: "itar:128-17", to_key: "itar:128.17", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-129-of-the-itar", to_key: "itar:129" }
+  - { from_key: "act:section-129-of-the-international-traffic-in-arms-regulations", to_key: "itar:129" }
+  - { from_key: "act:22-cfr-129", to_key: "itar:129" }
+  - { from_key: "cfr-22:129", to_key: "itar:129", note: "CFR-prefixed form" }
+  - { from_key: "act:part-129-of-the-itar", to_key: "itar:129" }
+  - { from_key: "act:section-129-1-of-the-itar", to_key: "itar:129.1" }
+  - { from_key: "act:section-129-1-of-the-international-traffic-in-arms-regulations", to_key: "itar:129.1" }
+  - { from_key: "act:22-cfr-129-1", to_key: "itar:129.1" }
+  - { from_key: "cfr-22:129.1", to_key: "itar:129.1", note: "CFR-prefixed form" }
+  - { from_key: "itar:129-1", to_key: "itar:129.1", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-129-2-of-the-itar", to_key: "itar:129.2" }
+  - { from_key: "act:section-129-2-of-the-international-traffic-in-arms-regulations", to_key: "itar:129.2" }
+  - { from_key: "act:22-cfr-129-2", to_key: "itar:129.2" }
+  - { from_key: "cfr-22:129.2", to_key: "itar:129.2", note: "CFR-prefixed form" }
+  - { from_key: "itar:129-2", to_key: "itar:129.2", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-129-3-of-the-itar", to_key: "itar:129.3" }
+  - { from_key: "act:section-129-3-of-the-international-traffic-in-arms-regulations", to_key: "itar:129.3" }
+  - { from_key: "act:22-cfr-129-3", to_key: "itar:129.3" }
+  - { from_key: "cfr-22:129.3", to_key: "itar:129.3", note: "CFR-prefixed form" }
+  - { from_key: "itar:129-3", to_key: "itar:129.3", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-129-4-of-the-itar", to_key: "itar:129.4" }
+  - { from_key: "act:section-129-4-of-the-international-traffic-in-arms-regulations", to_key: "itar:129.4" }
+  - { from_key: "act:22-cfr-129-4", to_key: "itar:129.4" }
+  - { from_key: "cfr-22:129.4", to_key: "itar:129.4", note: "CFR-prefixed form" }
+  - { from_key: "itar:129-4", to_key: "itar:129.4", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-129-5-of-the-itar", to_key: "itar:129.5" }
+  - { from_key: "act:section-129-5-of-the-international-traffic-in-arms-regulations", to_key: "itar:129.5" }
+  - { from_key: "act:22-cfr-129-5", to_key: "itar:129.5" }
+  - { from_key: "cfr-22:129.5", to_key: "itar:129.5", note: "CFR-prefixed form" }
+  - { from_key: "itar:129-5", to_key: "itar:129.5", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-129-6-of-the-itar", to_key: "itar:129.6" }
+  - { from_key: "act:section-129-6-of-the-international-traffic-in-arms-regulations", to_key: "itar:129.6" }
+  - { from_key: "act:22-cfr-129-6", to_key: "itar:129.6" }
+  - { from_key: "cfr-22:129.6", to_key: "itar:129.6", note: "CFR-prefixed form" }
+  - { from_key: "itar:129-6", to_key: "itar:129.6", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-129-7-of-the-itar", to_key: "itar:129.7" }
+  - { from_key: "act:section-129-7-of-the-international-traffic-in-arms-regulations", to_key: "itar:129.7" }
+  - { from_key: "act:22-cfr-129-7", to_key: "itar:129.7" }
+  - { from_key: "cfr-22:129.7", to_key: "itar:129.7", note: "CFR-prefixed form" }
+  - { from_key: "itar:129-7", to_key: "itar:129.7", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-129-8-of-the-itar", to_key: "itar:129.8" }
+  - { from_key: "act:section-129-8-of-the-international-traffic-in-arms-regulations", to_key: "itar:129.8" }
+  - { from_key: "act:22-cfr-129-8", to_key: "itar:129.8" }
+  - { from_key: "cfr-22:129.8", to_key: "itar:129.8", note: "CFR-prefixed form" }
+  - { from_key: "itar:129-8", to_key: "itar:129.8", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-129-9-of-the-itar", to_key: "itar:129.9" }
+  - { from_key: "act:section-129-9-of-the-international-traffic-in-arms-regulations", to_key: "itar:129.9" }
+  - { from_key: "act:22-cfr-129-9", to_key: "itar:129.9" }
+  - { from_key: "cfr-22:129.9", to_key: "itar:129.9", note: "CFR-prefixed form" }
+  - { from_key: "itar:129-9", to_key: "itar:129.9", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-129-10-of-the-itar", to_key: "itar:129.10" }
+  - { from_key: "act:section-129-10-of-the-international-traffic-in-arms-regulations", to_key: "itar:129.10" }
+  - { from_key: "act:22-cfr-129-10", to_key: "itar:129.10" }
+  - { from_key: "cfr-22:129.10", to_key: "itar:129.10", note: "CFR-prefixed form" }
+  - { from_key: "itar:129-10", to_key: "itar:129.10", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-129-11-of-the-itar", to_key: "itar:129.11" }
+  - { from_key: "act:section-129-11-of-the-international-traffic-in-arms-regulations", to_key: "itar:129.11" }
+  - { from_key: "act:22-cfr-129-11", to_key: "itar:129.11" }
+  - { from_key: "cfr-22:129.11", to_key: "itar:129.11", note: "CFR-prefixed form" }
+  - { from_key: "itar:129-11", to_key: "itar:129.11", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-130-of-the-itar", to_key: "itar:130" }
+  - { from_key: "act:section-130-of-the-international-traffic-in-arms-regulations", to_key: "itar:130" }
+  - { from_key: "act:22-cfr-130", to_key: "itar:130" }
+  - { from_key: "cfr-22:130", to_key: "itar:130", note: "CFR-prefixed form" }
+  - { from_key: "act:part-130-of-the-itar", to_key: "itar:130" }
+  - { from_key: "act:section-130-1-of-the-itar", to_key: "itar:130.1" }
+  - { from_key: "act:section-130-1-of-the-international-traffic-in-arms-regulations", to_key: "itar:130.1" }
+  - { from_key: "act:22-cfr-130-1", to_key: "itar:130.1" }
+  - { from_key: "cfr-22:130.1", to_key: "itar:130.1", note: "CFR-prefixed form" }
+  - { from_key: "itar:130-1", to_key: "itar:130.1", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-130-2-of-the-itar", to_key: "itar:130.2" }
+  - { from_key: "act:section-130-2-of-the-international-traffic-in-arms-regulations", to_key: "itar:130.2" }
+  - { from_key: "act:22-cfr-130-2", to_key: "itar:130.2" }
+  - { from_key: "cfr-22:130.2", to_key: "itar:130.2", note: "CFR-prefixed form" }
+  - { from_key: "itar:130-2", to_key: "itar:130.2", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-130-3-of-the-itar", to_key: "itar:130.3" }
+  - { from_key: "act:section-130-3-of-the-international-traffic-in-arms-regulations", to_key: "itar:130.3" }
+  - { from_key: "act:22-cfr-130-3", to_key: "itar:130.3" }
+  - { from_key: "cfr-22:130.3", to_key: "itar:130.3", note: "CFR-prefixed form" }
+  - { from_key: "itar:130-3", to_key: "itar:130.3", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-130-4-of-the-itar", to_key: "itar:130.4" }
+  - { from_key: "act:section-130-4-of-the-international-traffic-in-arms-regulations", to_key: "itar:130.4" }
+  - { from_key: "act:22-cfr-130-4", to_key: "itar:130.4" }
+  - { from_key: "cfr-22:130.4", to_key: "itar:130.4", note: "CFR-prefixed form" }
+  - { from_key: "itar:130-4", to_key: "itar:130.4", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-130-5-of-the-itar", to_key: "itar:130.5" }
+  - { from_key: "act:section-130-5-of-the-international-traffic-in-arms-regulations", to_key: "itar:130.5" }
+  - { from_key: "act:22-cfr-130-5", to_key: "itar:130.5" }
+  - { from_key: "cfr-22:130.5", to_key: "itar:130.5", note: "CFR-prefixed form" }
+  - { from_key: "itar:130-5", to_key: "itar:130.5", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-130-6-of-the-itar", to_key: "itar:130.6" }
+  - { from_key: "act:section-130-6-of-the-international-traffic-in-arms-regulations", to_key: "itar:130.6" }
+  - { from_key: "act:22-cfr-130-6", to_key: "itar:130.6" }
+  - { from_key: "cfr-22:130.6", to_key: "itar:130.6", note: "CFR-prefixed form" }
+  - { from_key: "itar:130-6", to_key: "itar:130.6", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-130-7-of-the-itar", to_key: "itar:130.7" }
+  - { from_key: "act:section-130-7-of-the-international-traffic-in-arms-regulations", to_key: "itar:130.7" }
+  - { from_key: "act:22-cfr-130-7", to_key: "itar:130.7" }
+  - { from_key: "cfr-22:130.7", to_key: "itar:130.7", note: "CFR-prefixed form" }
+  - { from_key: "itar:130-7", to_key: "itar:130.7", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-130-8-of-the-itar", to_key: "itar:130.8" }
+  - { from_key: "act:section-130-8-of-the-international-traffic-in-arms-regulations", to_key: "itar:130.8" }
+  - { from_key: "act:22-cfr-130-8", to_key: "itar:130.8" }
+  - { from_key: "cfr-22:130.8", to_key: "itar:130.8", note: "CFR-prefixed form" }
+  - { from_key: "itar:130-8", to_key: "itar:130.8", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-130-9-of-the-itar", to_key: "itar:130.9" }
+  - { from_key: "act:section-130-9-of-the-international-traffic-in-arms-regulations", to_key: "itar:130.9" }
+  - { from_key: "act:22-cfr-130-9", to_key: "itar:130.9" }
+  - { from_key: "cfr-22:130.9", to_key: "itar:130.9", note: "CFR-prefixed form" }
+  - { from_key: "itar:130-9", to_key: "itar:130.9", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-130-10-of-the-itar", to_key: "itar:130.10" }
+  - { from_key: "act:section-130-10-of-the-international-traffic-in-arms-regulations", to_key: "itar:130.10" }
+  - { from_key: "act:22-cfr-130-10", to_key: "itar:130.10" }
+  - { from_key: "cfr-22:130.10", to_key: "itar:130.10", note: "CFR-prefixed form" }
+  - { from_key: "itar:130-10", to_key: "itar:130.10", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-130-11-of-the-itar", to_key: "itar:130.11" }
+  - { from_key: "act:section-130-11-of-the-international-traffic-in-arms-regulations", to_key: "itar:130.11" }
+  - { from_key: "act:22-cfr-130-11", to_key: "itar:130.11" }
+  - { from_key: "cfr-22:130.11", to_key: "itar:130.11", note: "CFR-prefixed form" }
+  - { from_key: "itar:130-11", to_key: "itar:130.11", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-130-12-of-the-itar", to_key: "itar:130.12" }
+  - { from_key: "act:section-130-12-of-the-international-traffic-in-arms-regulations", to_key: "itar:130.12" }
+  - { from_key: "act:22-cfr-130-12", to_key: "itar:130.12" }
+  - { from_key: "cfr-22:130.12", to_key: "itar:130.12", note: "CFR-prefixed form" }
+  - { from_key: "itar:130-12", to_key: "itar:130.12", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-130-13-of-the-itar", to_key: "itar:130.13" }
+  - { from_key: "act:section-130-13-of-the-international-traffic-in-arms-regulations", to_key: "itar:130.13" }
+  - { from_key: "act:22-cfr-130-13", to_key: "itar:130.13" }
+  - { from_key: "cfr-22:130.13", to_key: "itar:130.13", note: "CFR-prefixed form" }
+  - { from_key: "itar:130-13", to_key: "itar:130.13", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-130-14-of-the-itar", to_key: "itar:130.14" }
+  - { from_key: "act:section-130-14-of-the-international-traffic-in-arms-regulations", to_key: "itar:130.14" }
+  - { from_key: "act:22-cfr-130-14", to_key: "itar:130.14" }
+  - { from_key: "cfr-22:130.14", to_key: "itar:130.14", note: "CFR-prefixed form" }
+  - { from_key: "itar:130-14", to_key: "itar:130.14", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-130-15-of-the-itar", to_key: "itar:130.15" }
+  - { from_key: "act:section-130-15-of-the-international-traffic-in-arms-regulations", to_key: "itar:130.15" }
+  - { from_key: "act:22-cfr-130-15", to_key: "itar:130.15" }
+  - { from_key: "cfr-22:130.15", to_key: "itar:130.15", note: "CFR-prefixed form" }
+  - { from_key: "itar:130-15", to_key: "itar:130.15", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-130-16-of-the-itar", to_key: "itar:130.16" }
+  - { from_key: "act:section-130-16-of-the-international-traffic-in-arms-regulations", to_key: "itar:130.16" }
+  - { from_key: "act:22-cfr-130-16", to_key: "itar:130.16" }
+  - { from_key: "cfr-22:130.16", to_key: "itar:130.16", note: "CFR-prefixed form" }
+  - { from_key: "itar:130-16", to_key: "itar:130.16", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:section-130-17-of-the-itar", to_key: "itar:130.17" }
+  - { from_key: "act:section-130-17-of-the-international-traffic-in-arms-regulations", to_key: "itar:130.17" }
+  - { from_key: "act:22-cfr-130-17", to_key: "itar:130.17" }
+  - { from_key: "cfr-22:130.17", to_key: "itar:130.17", note: "CFR-prefixed form" }
+  - { from_key: "itar:130-17", to_key: "itar:130.17", note: "dashed variant -> dotted canonical" }
+  - { from_key: "act:international-traffic-in-arms-regulations", to_key: "itar:120" }
+
+  # EAR sections and the CCL. ECCN keys are LOWERCASE — the extractor
+  # lowercases, so ccl:3A611 is unreachable from any real citation.
+  - { from_key: "act:15-cfr-734-4", to_key: "ear:734.4" }
+  - { from_key: "act:section-734-4-of-the-ear", to_key: "ear:734.4" }
+  - { from_key: "act:section-734-13-of-the-ear", to_key: "ear:734.13" }
+  - { from_key: "act:section-736-2-of-the-ear", to_key: "ear:736.2" }
+  - { from_key: "act:section-772-1-of-the-ear", to_key: "ear:772.1-specially-designed" }
+  - { from_key: "act:export-administration-regulations", to_key: "ear:730" }
+  - { from_key: "cfr-15:734.4", to_key: "ear:734.4", note: "CFR-prefixed form" }
+  - { from_key: "cfr-15:734.13", to_key: "ear:734.13", note: "CFR-prefixed form" }
+  - { from_key: "cfr-15:736.2", to_key: "ear:736.2", note: "CFR-prefixed form" }
+
+  # R5 — ITAR order of review terminates at a corpus boundary without
+  # this: 22 C.F.R. 120.5 points at the CCL's own order-of-review
+  # supplement, which now exists.
+  - { from_key: "act:supplement-4-to-part-774", to_key: "ccl:supplement-4-part-774" }
+  - { from_key: "ear:supplement-4-part-774", to_key: "ccl:supplement-4-part-774", note: "CCL order of review lives in the ccl corpus" }
+  - { from_key: "act:commerce-control-list", to_key: "ccl:supplement-1-part-774" }
+
+  # ECCN uppercase -> lowercase canonical (the extractor lowercases,
+  # but an equivalence makes the intent explicit and survives a
+  # future extractor that does not).
+  - { from_key: "act:eccn-0a002", to_key: "ccl:0a002" }
+  - { from_key: "act:eccn-0a501", to_key: "ccl:0a501" }
+  - { from_key: "act:eccn-0a502", to_key: "ccl:0a502" }
+  - { from_key: "act:eccn-0a503", to_key: "ccl:0a503" }
+  - { from_key: "act:eccn-0a504", to_key: "ccl:0a504" }
+  - { from_key: "act:eccn-0a505", to_key: "ccl:0a505" }
+  - { from_key: "act:eccn-0a506", to_key: "ccl:0a506" }
+  - { from_key: "act:eccn-0a507", to_key: "ccl:0a507" }
+  - { from_key: "act:eccn-0a508", to_key: "ccl:0a508" }
+  - { from_key: "act:eccn-0a509", to_key: "ccl:0a509" }
+  - { from_key: "act:eccn-0a521", to_key: "ccl:0a521" }
+  - { from_key: "act:eccn-0a602", to_key: "ccl:0a602" }
+  - { from_key: "act:eccn-0a604", to_key: "ccl:0a604" }
+  - { from_key: "act:eccn-0a606", to_key: "ccl:0a606" }
+  - { from_key: "act:eccn-0a614", to_key: "ccl:0a614" }
+  - { from_key: "act:eccn-0a617", to_key: "ccl:0a617" }
+  - { from_key: "act:eccn-0a919", to_key: "ccl:0a919" }
+  - { from_key: "act:eccn-0a977", to_key: "ccl:0a977" }
+  - { from_key: "act:eccn-0a978", to_key: "ccl:0a978" }
+  - { from_key: "act:eccn-0a979", to_key: "ccl:0a979" }
+  - { from_key: "act:eccn-0a980", to_key: "ccl:0a980" }
+  - { from_key: "act:eccn-0a981", to_key: "ccl:0a981" }
+  - { from_key: "act:eccn-0a982", to_key: "ccl:0a982" }
+  - { from_key: "act:eccn-0a983", to_key: "ccl:0a983" }
+  - { from_key: "act:eccn-0a998", to_key: "ccl:0a998" }
+  - { from_key: "act:eccn-0a999", to_key: "ccl:0a999" }
+  - { from_key: "act:eccn-0b501", to_key: "ccl:0b501" }
+  - { from_key: "act:eccn-0b505", to_key: "ccl:0b505" }
+  - { from_key: "act:eccn-0b521", to_key: "ccl:0b521" }
+  - { from_key: "act:eccn-0b602", to_key: "ccl:0b602" }
+  - { from_key: "act:eccn-0b604", to_key: "ccl:0b604" }
+  - { from_key: "act:eccn-0b606", to_key: "ccl:0b606" }
+  - { from_key: "act:eccn-0b614", to_key: "ccl:0b614" }
+  - { from_key: "act:eccn-0b617", to_key: "ccl:0b617" }
+  - { from_key: "act:eccn-0b999", to_key: "ccl:0b999" }
+  - { from_key: "act:eccn-0c521", to_key: "ccl:0c521" }
+  - { from_key: "act:eccn-0c606", to_key: "ccl:0c606" }
+  - { from_key: "act:eccn-0c617", to_key: "ccl:0c617" }
+  - { from_key: "act:eccn-0d001", to_key: "ccl:0d001" }
+  - { from_key: "act:eccn-0d501", to_key: "ccl:0d501" }
+  - { from_key: "act:eccn-0d505", to_key: "ccl:0d505" }
+  - { from_key: "act:eccn-0d521", to_key: "ccl:0d521" }
+  - { from_key: "act:eccn-0d602", to_key: "ccl:0d602" }
+  - { from_key: "act:eccn-0d604", to_key: "ccl:0d604" }
+  - { from_key: "act:eccn-0d606", to_key: "ccl:0d606" }
+  - { from_key: "act:eccn-0d614", to_key: "ccl:0d614" }
+  - { from_key: "act:eccn-0d617", to_key: "ccl:0d617" }
+  - { from_key: "act:eccn-0d977", to_key: "ccl:0d977" }
+  - { from_key: "act:eccn-0d999", to_key: "ccl:0d999" }
+  - { from_key: "act:eccn-0e001", to_key: "ccl:0e001" }
+  - { from_key: "act:eccn-0e501", to_key: "ccl:0e501" }
+  - { from_key: "act:eccn-0e502", to_key: "ccl:0e502" }
+  - { from_key: "act:eccn-0e504", to_key: "ccl:0e504" }
+  - { from_key: "act:eccn-0e505", to_key: "ccl:0e505" }
+  - { from_key: "act:eccn-0e521", to_key: "ccl:0e521" }
+  - { from_key: "act:eccn-0e602", to_key: "ccl:0e602" }
+  - { from_key: "act:eccn-0e604", to_key: "ccl:0e604" }
+  - { from_key: "act:eccn-0e606", to_key: "ccl:0e606" }
+  - { from_key: "act:eccn-0e614", to_key: "ccl:0e614" }
+  - { from_key: "act:eccn-0e617", to_key: "ccl:0e617" }
+  - { from_key: "act:eccn-0e977", to_key: "ccl:0e977" }
+  - { from_key: "act:eccn-0e982", to_key: "ccl:0e982" }
+  - { from_key: "act:eccn-1a001", to_key: "ccl:1a001" }
+  - { from_key: "act:eccn-1a002", to_key: "ccl:1a002" }
+  - { from_key: "act:eccn-1a003", to_key: "ccl:1a003" }
+  - { from_key: "act:eccn-1a004", to_key: "ccl:1a004" }
+  - { from_key: "act:eccn-1a005", to_key: "ccl:1a005" }
+  - { from_key: "act:eccn-1a006", to_key: "ccl:1a006" }
+  - { from_key: "act:eccn-1a007", to_key: "ccl:1a007" }
+  - { from_key: "act:eccn-1a008", to_key: "ccl:1a008" }
+  - { from_key: "act:eccn-1a101", to_key: "ccl:1a101" }
+  - { from_key: "act:eccn-1a102", to_key: "ccl:1a102" }
+  - { from_key: "act:eccn-1a202", to_key: "ccl:1a202" }
+  - { from_key: "act:eccn-1a225", to_key: "ccl:1a225" }
+  - { from_key: "act:eccn-1a226", to_key: "ccl:1a226" }
+  - { from_key: "act:eccn-1a227", to_key: "ccl:1a227" }
+  - { from_key: "act:eccn-1a231", to_key: "ccl:1a231" }
+  - { from_key: "act:eccn-1a290", to_key: "ccl:1a290" }
+  - { from_key: "act:eccn-1a607", to_key: "ccl:1a607" }
+  - { from_key: "act:eccn-1a613", to_key: "ccl:1a613" }
+  - { from_key: "act:eccn-1a984", to_key: "ccl:1a984" }
+  - { from_key: "act:eccn-1a985", to_key: "ccl:1a985" }
+  - { from_key: "act:eccn-1a995", to_key: "ccl:1a995" }
+  - { from_key: "act:eccn-1a999", to_key: "ccl:1a999" }
+  - { from_key: "act:eccn-1b001", to_key: "ccl:1b001" }
+  - { from_key: "act:eccn-1b002", to_key: "ccl:1b002" }
+  - { from_key: "act:eccn-1b003", to_key: "ccl:1b003" }
+  - { from_key: "act:eccn-1b018", to_key: "ccl:1b018" }
+  - { from_key: "act:eccn-1b101", to_key: "ccl:1b101" }
+  - { from_key: "act:eccn-1b102", to_key: "ccl:1b102" }
+  - { from_key: "act:eccn-1b115", to_key: "ccl:1b115" }
+  - { from_key: "act:eccn-1b116", to_key: "ccl:1b116" }
+  - { from_key: "act:eccn-1b117", to_key: "ccl:1b117" }
+  - { from_key: "act:eccn-1b118", to_key: "ccl:1b118" }
+  - { from_key: "act:eccn-1b119", to_key: "ccl:1b119" }
+  - { from_key: "act:eccn-1b201", to_key: "ccl:1b201" }
+  - { from_key: "act:eccn-1b225", to_key: "ccl:1b225" }
+  - { from_key: "act:eccn-1b226", to_key: "ccl:1b226" }
+  - { from_key: "act:eccn-1b228", to_key: "ccl:1b228" }
+  - { from_key: "act:eccn-1b230", to_key: "ccl:1b230" }
+  - { from_key: "act:eccn-1b231", to_key: "ccl:1b231" }
+  - { from_key: "act:eccn-1b232", to_key: "ccl:1b232" }
+  - { from_key: "act:eccn-1b233", to_key: "ccl:1b233" }
+  - { from_key: "act:eccn-1b234", to_key: "ccl:1b234" }
+  - { from_key: "act:eccn-1b607", to_key: "ccl:1b607" }
+  - { from_key: "act:eccn-1b608", to_key: "ccl:1b608" }
+  - { from_key: "act:eccn-1b613", to_key: "ccl:1b613" }
+  - { from_key: "act:eccn-1b999", to_key: "ccl:1b999" }
+  - { from_key: "act:eccn-1c001", to_key: "ccl:1c001" }
+  - { from_key: "act:eccn-1c002", to_key: "ccl:1c002" }
+  - { from_key: "act:eccn-1c003", to_key: "ccl:1c003" }
+  - { from_key: "act:eccn-1c004", to_key: "ccl:1c004" }
+  - { from_key: "act:eccn-1c005", to_key: "ccl:1c005" }
+  - { from_key: "act:eccn-1c006", to_key: "ccl:1c006" }
+  - { from_key: "act:eccn-1c007", to_key: "ccl:1c007" }
+  - { from_key: "act:eccn-1c008", to_key: "ccl:1c008" }
+  - { from_key: "act:eccn-1c009", to_key: "ccl:1c009" }
+  - { from_key: "act:eccn-1c010", to_key: "ccl:1c010" }
+  - { from_key: "act:eccn-1c011", to_key: "ccl:1c011" }
+  - { from_key: "act:eccn-1c018", to_key: "ccl:1c018" }
+  - { from_key: "act:eccn-1c101", to_key: "ccl:1c101" }
+  - { from_key: "act:eccn-1c102", to_key: "ccl:1c102" }
+  - { from_key: "act:eccn-1c107", to_key: "ccl:1c107" }
+  - { from_key: "act:eccn-1c111", to_key: "ccl:1c111" }
+  - { from_key: "act:eccn-1c116", to_key: "ccl:1c116" }
+  - { from_key: "act:eccn-1c117", to_key: "ccl:1c117" }
+  - { from_key: "act:eccn-1c118", to_key: "ccl:1c118" }
+  - { from_key: "act:eccn-1c202", to_key: "ccl:1c202" }
+  - { from_key: "act:eccn-1c210", to_key: "ccl:1c210" }
+  - { from_key: "act:eccn-1c216", to_key: "ccl:1c216" }
+  - { from_key: "act:eccn-1c225", to_key: "ccl:1c225" }
+  - { from_key: "act:eccn-1c226", to_key: "ccl:1c226" }
+  - { from_key: "act:eccn-1c227", to_key: "ccl:1c227" }
+  - { from_key: "act:eccn-1c228", to_key: "ccl:1c228" }
+  - { from_key: "act:eccn-1c229", to_key: "ccl:1c229" }
+  - { from_key: "act:eccn-1c230", to_key: "ccl:1c230" }
+  - { from_key: "act:eccn-1c231", to_key: "ccl:1c231" }
+  - { from_key: "act:eccn-1c232", to_key: "ccl:1c232" }
+  - { from_key: "act:eccn-1c233", to_key: "ccl:1c233" }
+  - { from_key: "act:eccn-1c234", to_key: "ccl:1c234" }
+  - { from_key: "act:eccn-1c235", to_key: "ccl:1c235" }
+  - { from_key: "act:eccn-1c236", to_key: "ccl:1c236" }
+  - { from_key: "act:eccn-1c237", to_key: "ccl:1c237" }
+  - { from_key: "act:eccn-1c239", to_key: "ccl:1c239" }
+  - { from_key: "act:eccn-1c240", to_key: "ccl:1c240" }
+  - { from_key: "act:eccn-1c241", to_key: "ccl:1c241" }
+  - { from_key: "act:eccn-1c298", to_key: "ccl:1c298" }
+  - { from_key: "act:eccn-1c350", to_key: "ccl:1c350" }
+  - { from_key: "act:eccn-1c351", to_key: "ccl:1c351" }
+  - { from_key: "act:eccn-1c353", to_key: "ccl:1c353" }
+  - { from_key: "act:eccn-1c354", to_key: "ccl:1c354" }
+  - { from_key: "act:eccn-1c355", to_key: "ccl:1c355" }
+  - { from_key: "act:eccn-1c395", to_key: "ccl:1c395" }
+  - { from_key: "act:eccn-1c607", to_key: "ccl:1c607" }
+  - { from_key: "act:eccn-1c608", to_key: "ccl:1c608" }
+  - { from_key: "act:eccn-1c980", to_key: "ccl:1c980" }
+  - { from_key: "act:eccn-1c982", to_key: "ccl:1c982" }
+  - { from_key: "act:eccn-1c983", to_key: "ccl:1c983" }
+  - { from_key: "act:eccn-1c984", to_key: "ccl:1c984" }
+  - { from_key: "act:eccn-1c988", to_key: "ccl:1c988" }
+  - { from_key: "act:eccn-1c990", to_key: "ccl:1c990" }
+  - { from_key: "act:eccn-1c991", to_key: "ccl:1c991" }
+  - { from_key: "act:eccn-1c992", to_key: "ccl:1c992" }
+  - { from_key: "act:eccn-1c995", to_key: "ccl:1c995" }
+  - { from_key: "act:eccn-1c996", to_key: "ccl:1c996" }
+  - { from_key: "act:eccn-1c997", to_key: "ccl:1c997" }
+  - { from_key: "act:eccn-1c998", to_key: "ccl:1c998" }
+  - { from_key: "act:eccn-1c999", to_key: "ccl:1c999" }
+  - { from_key: "act:eccn-1d001", to_key: "ccl:1d001" }
+  - { from_key: "act:eccn-1d002", to_key: "ccl:1d002" }
+  - { from_key: "act:eccn-1d003", to_key: "ccl:1d003" }
+  - { from_key: "act:eccn-1d018", to_key: "ccl:1d018" }
+  - { from_key: "act:eccn-1d101", to_key: "ccl:1d101" }
+  - { from_key: "act:eccn-1d103", to_key: "ccl:1d103" }
+  - { from_key: "act:eccn-1d201", to_key: "ccl:1d201" }
+  - { from_key: "act:eccn-1d390", to_key: "ccl:1d390" }
+  - { from_key: "act:eccn-1d607", to_key: "ccl:1d607" }
+  - { from_key: "act:eccn-1d608", to_key: "ccl:1d608" }
+  - { from_key: "act:eccn-1d613", to_key: "ccl:1d613" }
+  - { from_key: "act:eccn-1d993", to_key: "ccl:1d993" }
+  - { from_key: "act:eccn-1d999", to_key: "ccl:1d999" }
+  - { from_key: "act:eccn-1e001", to_key: "ccl:1e001" }
+  - { from_key: "act:eccn-1e002", to_key: "ccl:1e002" }
+  - { from_key: "act:eccn-1e101", to_key: "ccl:1e101" }
+  - { from_key: "act:eccn-1e102", to_key: "ccl:1e102" }
+  - { from_key: "act:eccn-1e103", to_key: "ccl:1e103" }
+  - { from_key: "act:eccn-1e104", to_key: "ccl:1e104" }
+  - { from_key: "act:eccn-1e201", to_key: "ccl:1e201" }
+  - { from_key: "act:eccn-1e202", to_key: "ccl:1e202" }
+  - { from_key: "act:eccn-1e203", to_key: "ccl:1e203" }
+  - { from_key: "act:eccn-1e350", to_key: "ccl:1e350" }
+  - { from_key: "act:eccn-1e351", to_key: "ccl:1e351" }
+  - { from_key: "act:eccn-1e355", to_key: "ccl:1e355" }
+  - { from_key: "act:eccn-1e607", to_key: "ccl:1e607" }
+  - { from_key: "act:eccn-1e608", to_key: "ccl:1e608" }
+  - { from_key: "act:eccn-1e613", to_key: "ccl:1e613" }
+  - { from_key: "act:eccn-1e994", to_key: "ccl:1e994" }
+  - { from_key: "act:eccn-1e998", to_key: "ccl:1e998" }
+  - { from_key: "act:eccn-2a001", to_key: "ccl:2a001" }
+  - { from_key: "act:eccn-2a101", to_key: "ccl:2a101" }
+  - { from_key: "act:eccn-2a225", to_key: "ccl:2a225" }
+  - { from_key: "act:eccn-2a226", to_key: "ccl:2a226" }
+  - { from_key: "act:eccn-2a290", to_key: "ccl:2a290" }
+  - { from_key: "act:eccn-2a291", to_key: "ccl:2a291" }
+  - { from_key: "act:eccn-2a983", to_key: "ccl:2a983" }
+  - { from_key: "act:eccn-2a984", to_key: "ccl:2a984" }
+  - { from_key: "act:eccn-2a991", to_key: "ccl:2a991" }
+  - { from_key: "act:eccn-2a992", to_key: "ccl:2a992" }
+  - { from_key: "act:eccn-2a993", to_key: "ccl:2a993" }
+  - { from_key: "act:eccn-2a994", to_key: "ccl:2a994" }
+  - { from_key: "act:eccn-2a999", to_key: "ccl:2a999" }
+  - { from_key: "act:eccn-2b001", to_key: "ccl:2b001" }
+  - { from_key: "act:eccn-2b002", to_key: "ccl:2b002" }
+  - { from_key: "act:eccn-2b003", to_key: "ccl:2b003" }
+  - { from_key: "act:eccn-2b004", to_key: "ccl:2b004" }
+  - { from_key: "act:eccn-2b005", to_key: "ccl:2b005" }
+  - { from_key: "act:eccn-2b006", to_key: "ccl:2b006" }
+  - { from_key: "act:eccn-2b007", to_key: "ccl:2b007" }
+  - { from_key: "act:eccn-2b008", to_key: "ccl:2b008" }
+  - { from_key: "act:eccn-2b009", to_key: "ccl:2b009" }
+  - { from_key: "act:eccn-2b018", to_key: "ccl:2b018" }
+  - { from_key: "act:eccn-2b104", to_key: "ccl:2b104" }
+  - { from_key: "act:eccn-2b105", to_key: "ccl:2b105" }
+  - { from_key: "act:eccn-2b109", to_key: "ccl:2b109" }
+  - { from_key: "act:eccn-2b116", to_key: "ccl:2b116" }
+  - { from_key: "act:eccn-2b117", to_key: "ccl:2b117" }
+  - { from_key: "act:eccn-2b119", to_key: "ccl:2b119" }
+  - { from_key: "act:eccn-2b120", to_key: "ccl:2b120" }
+  - { from_key: "act:eccn-2b121", to_key: "ccl:2b121" }
+  - { from_key: "act:eccn-2b122", to_key: "ccl:2b122" }
+  - { from_key: "act:eccn-2b201", to_key: "ccl:2b201" }
+  - { from_key: "act:eccn-2b204", to_key: "ccl:2b204" }
+  - { from_key: "act:eccn-2b206", to_key: "ccl:2b206" }
+  - { from_key: "act:eccn-2b207", to_key: "ccl:2b207" }
+  - { from_key: "act:eccn-2b209", to_key: "ccl:2b209" }
+  - { from_key: "act:eccn-2b225", to_key: "ccl:2b225" }
+  - { from_key: "act:eccn-2b226", to_key: "ccl:2b226" }
+  - { from_key: "act:eccn-2b227", to_key: "ccl:2b227" }
+  - { from_key: "act:eccn-2b228", to_key: "ccl:2b228" }
+  - { from_key: "act:eccn-2b229", to_key: "ccl:2b229" }
+  - { from_key: "act:eccn-2b230", to_key: "ccl:2b230" }
+  - { from_key: "act:eccn-2b231", to_key: "ccl:2b231" }
+  - { from_key: "act:eccn-2b232", to_key: "ccl:2b232" }
+  - { from_key: "act:eccn-2b233", to_key: "ccl:2b233" }
+  - { from_key: "act:eccn-2b350", to_key: "ccl:2b350" }
+  - { from_key: "act:eccn-2b351", to_key: "ccl:2b351" }
+  - { from_key: "act:eccn-2b352", to_key: "ccl:2b352" }
+  - { from_key: "act:eccn-2b910", to_key: "ccl:2b910" }
+  - { from_key: "act:eccn-2b991", to_key: "ccl:2b991" }
+  - { from_key: "act:eccn-2b992", to_key: "ccl:2b992" }
+  - { from_key: "act:eccn-2b993", to_key: "ccl:2b993" }
+  - { from_key: "act:eccn-2b996", to_key: "ccl:2b996" }
+  - { from_key: "act:eccn-2b997", to_key: "ccl:2b997" }
+  - { from_key: "act:eccn-2b998", to_key: "ccl:2b998" }
+  - { from_key: "act:eccn-2b999", to_key: "ccl:2b999" }
+  - { from_key: "act:eccn-2d001", to_key: "ccl:2d001" }
+  - { from_key: "act:eccn-2d002", to_key: "ccl:2d002" }
+  - { from_key: "act:eccn-2d003", to_key: "ccl:2d003" }
+  - { from_key: "act:eccn-2d018", to_key: "ccl:2d018" }
+  - { from_key: "act:eccn-2d101", to_key: "ccl:2d101" }
+  - { from_key: "act:eccn-2d201", to_key: "ccl:2d201" }
+  - { from_key: "act:eccn-2d202", to_key: "ccl:2d202" }
+  - { from_key: "act:eccn-2d290", to_key: "ccl:2d290" }
+  - { from_key: "act:eccn-2d351", to_key: "ccl:2d351" }
+  - { from_key: "act:eccn-2d352", to_key: "ccl:2d352" }
+  - { from_key: "act:eccn-2d910", to_key: "ccl:2d910" }
+  - { from_key: "act:eccn-2d983", to_key: "ccl:2d983" }
+  - { from_key: "act:eccn-2d984", to_key: "ccl:2d984" }
+  - { from_key: "act:eccn-2d991", to_key: "ccl:2d991" }
+  - { from_key: "act:eccn-2d992", to_key: "ccl:2d992" }
+  - { from_key: "act:eccn-2d993", to_key: "ccl:2d993" }
+  - { from_key: "act:eccn-2d994", to_key: "ccl:2d994" }
+  - { from_key: "act:eccn-2e001", to_key: "ccl:2e001" }
+  - { from_key: "act:eccn-2e002", to_key: "ccl:2e002" }
+  - { from_key: "act:eccn-2e003", to_key: "ccl:2e003" }
+  - { from_key: "act:eccn-2e018", to_key: "ccl:2e018" }
+  - { from_key: "act:eccn-2e101", to_key: "ccl:2e101" }
+  - { from_key: "act:eccn-2e201", to_key: "ccl:2e201" }
+  - { from_key: "act:eccn-2e290", to_key: "ccl:2e290" }
+  - { from_key: "act:eccn-2e301", to_key: "ccl:2e301" }
+  - { from_key: "act:eccn-2e903", to_key: "ccl:2e903" }
+  - { from_key: "act:eccn-2e910", to_key: "ccl:2e910" }
+  - { from_key: "act:eccn-2e983", to_key: "ccl:2e983" }
+  - { from_key: "act:eccn-2e984", to_key: "ccl:2e984" }
+  - { from_key: "act:eccn-2e991", to_key: "ccl:2e991" }
+  - { from_key: "act:eccn-2e993", to_key: "ccl:2e993" }
+  - { from_key: "act:eccn-2e994", to_key: "ccl:2e994" }
+  - { from_key: "act:eccn-3a001", to_key: "ccl:3a001" }
+  - { from_key: "act:eccn-3a002", to_key: "ccl:3a002" }
+  - { from_key: "act:eccn-3a003", to_key: "ccl:3a003" }
+  - { from_key: "act:eccn-3a069", to_key: "ccl:3a069" }
+  - { from_key: "act:eccn-3a090", to_key: "ccl:3a090" }
+  - { from_key: "act:eccn-3a101", to_key: "ccl:3a101" }
+  - { from_key: "act:eccn-3a201", to_key: "ccl:3a201" }
+  - { from_key: "act:eccn-3a225", to_key: "ccl:3a225" }
+  - { from_key: "act:eccn-3a226", to_key: "ccl:3a226" }
+  - { from_key: "act:eccn-3a227", to_key: "ccl:3a227" }
+  - { from_key: "act:eccn-3a228", to_key: "ccl:3a228" }
+  - { from_key: "act:eccn-3a229", to_key: "ccl:3a229" }
+  - { from_key: "act:eccn-3a230", to_key: "ccl:3a230" }
+  - { from_key: "act:eccn-3a231", to_key: "ccl:3a231" }
+  - { from_key: "act:eccn-3a232", to_key: "ccl:3a232" }
+  - { from_key: "act:eccn-3a233", to_key: "ccl:3a233" }
+  - { from_key: "act:eccn-3a234", to_key: "ccl:3a234" }
+  - { from_key: "act:eccn-3a611", to_key: "ccl:3a611" }
+  - { from_key: "act:eccn-3a901", to_key: "ccl:3a901" }
+  - { from_key: "act:eccn-3a904", to_key: "ccl:3a904" }
+  - { from_key: "act:eccn-3a980", to_key: "ccl:3a980" }
+  - { from_key: "act:eccn-3a981", to_key: "ccl:3a981" }
+  - { from_key: "act:eccn-3a991", to_key: "ccl:3a991" }
+  - { from_key: "act:eccn-3a992", to_key: "ccl:3a992" }
+  - { from_key: "act:eccn-3a999", to_key: "ccl:3a999" }
+  - { from_key: "act:eccn-3b001", to_key: "ccl:3b001" }
+  - { from_key: "act:eccn-3b002", to_key: "ccl:3b002" }
+  - { from_key: "act:eccn-3b611", to_key: "ccl:3b611" }
+  - { from_key: "act:eccn-3b903", to_key: "ccl:3b903" }
+  - { from_key: "act:eccn-3b904", to_key: "ccl:3b904" }
+  - { from_key: "act:eccn-3b991", to_key: "ccl:3b991" }
+  - { from_key: "act:eccn-3b992", to_key: "ccl:3b992" }
+  - { from_key: "act:eccn-3b993", to_key: "ccl:3b993" }
+  - { from_key: "act:eccn-3b994", to_key: "ccl:3b994" }
+  - { from_key: "act:eccn-3c001", to_key: "ccl:3c001" }
+  - { from_key: "act:eccn-3c002", to_key: "ccl:3c002" }
+  - { from_key: "act:eccn-3c003", to_key: "ccl:3c003" }
+  - { from_key: "act:eccn-3c004", to_key: "ccl:3c004" }
+  - { from_key: "act:eccn-3c005", to_key: "ccl:3c005" }
+  - { from_key: "act:eccn-3c006", to_key: "ccl:3c006" }
+  - { from_key: "act:eccn-3c907", to_key: "ccl:3c907" }
+  - { from_key: "act:eccn-3c908", to_key: "ccl:3c908" }
+  - { from_key: "act:eccn-3c909", to_key: "ccl:3c909" }
+  - { from_key: "act:eccn-3c992", to_key: "ccl:3c992" }
+  - { from_key: "act:eccn-3d001", to_key: "ccl:3d001" }
+  - { from_key: "act:eccn-3d002", to_key: "ccl:3d002" }
+  - { from_key: "act:eccn-3d003", to_key: "ccl:3d003" }
+  - { from_key: "act:eccn-3d004", to_key: "ccl:3d004" }
+  - { from_key: "act:eccn-3d005", to_key: "ccl:3d005" }
+  - { from_key: "act:eccn-3d006", to_key: "ccl:3d006" }
+  - { from_key: "act:eccn-3d101", to_key: "ccl:3d101" }
+  - { from_key: "act:eccn-3d201", to_key: "ccl:3d201" }
+  - { from_key: "act:eccn-3d202", to_key: "ccl:3d202" }
+  - { from_key: "act:eccn-3d611", to_key: "ccl:3d611" }
+  - { from_key: "act:eccn-3d901", to_key: "ccl:3d901" }
+  - { from_key: "act:eccn-3d907", to_key: "ccl:3d907" }
+  - { from_key: "act:eccn-3d980", to_key: "ccl:3d980" }
+  - { from_key: "act:eccn-3d991", to_key: "ccl:3d991" }
+  - { from_key: "act:eccn-3d992", to_key: "ccl:3d992" }
+  - { from_key: "act:eccn-3d993", to_key: "ccl:3d993" }
+  - { from_key: "act:eccn-3d994", to_key: "ccl:3d994" }
+  - { from_key: "act:eccn-3e001", to_key: "ccl:3e001" }
+  - { from_key: "act:eccn-3e002", to_key: "ccl:3e002" }
+  - { from_key: "act:eccn-3e003", to_key: "ccl:3e003" }
+  - { from_key: "act:eccn-3e004", to_key: "ccl:3e004" }
+  - { from_key: "act:eccn-3e069", to_key: "ccl:3e069" }
+  - { from_key: "act:eccn-3e101", to_key: "ccl:3e101" }
+  - { from_key: "act:eccn-3e102", to_key: "ccl:3e102" }
+  - { from_key: "act:eccn-3e201", to_key: "ccl:3e201" }
+  - { from_key: "act:eccn-3e202", to_key: "ccl:3e202" }
+  - { from_key: "act:eccn-3e611", to_key: "ccl:3e611" }
+  - { from_key: "act:eccn-3e901", to_key: "ccl:3e901" }
+  - { from_key: "act:eccn-3e905", to_key: "ccl:3e905" }
+  - { from_key: "act:eccn-3e980", to_key: "ccl:3e980" }
+  - { from_key: "act:eccn-3e991", to_key: "ccl:3e991" }
+  - { from_key: "act:eccn-3e992", to_key: "ccl:3e992" }
+  - { from_key: "act:eccn-3e993", to_key: "ccl:3e993" }
+  - { from_key: "act:eccn-3e994", to_key: "ccl:3e994" }
+  - { from_key: "act:eccn-4a001", to_key: "ccl:4a001" }
+  - { from_key: "act:eccn-4a003", to_key: "ccl:4a003" }
+  - { from_key: "act:eccn-4a004", to_key: "ccl:4a004" }
+  - { from_key: "act:eccn-4a005", to_key: "ccl:4a005" }
+  - { from_key: "act:eccn-4a090", to_key: "ccl:4a090" }
+  - { from_key: "act:eccn-4a101", to_key: "ccl:4a101" }
+  - { from_key: "act:eccn-4a102", to_key: "ccl:4a102" }
+  - { from_key: "act:eccn-4a611", to_key: "ccl:4a611" }
+  - { from_key: "act:eccn-4a906", to_key: "ccl:4a906" }
+  - { from_key: "act:eccn-4a980", to_key: "ccl:4a980" }
+  - { from_key: "act:eccn-4a994", to_key: "ccl:4a994" }
+  - { from_key: "act:eccn-4d001", to_key: "ccl:4d001" }
+  - { from_key: "act:eccn-4d004", to_key: "ccl:4d004" }
+  - { from_key: "act:eccn-4d090", to_key: "ccl:4d090" }
+  - { from_key: "act:eccn-4d906", to_key: "ccl:4d906" }
+  - { from_key: "act:eccn-4d980", to_key: "ccl:4d980" }
+  - { from_key: "act:eccn-4d993", to_key: "ccl:4d993" }
+  - { from_key: "act:eccn-4d994", to_key: "ccl:4d994" }
+  - { from_key: "act:eccn-4e001", to_key: "ccl:4e001" }
+  - { from_key: "act:eccn-4e091", to_key: "ccl:4e091" }
+  - { from_key: "act:eccn-4e906", to_key: "ccl:4e906" }
+  - { from_key: "act:eccn-4e980", to_key: "ccl:4e980" }
+  - { from_key: "act:eccn-4e992", to_key: "ccl:4e992" }
+  - { from_key: "act:eccn-4e993", to_key: "ccl:4e993" }
+  - { from_key: "act:eccn-5a001", to_key: "ccl:5a001" }
+  - { from_key: "act:eccn-5a101", to_key: "ccl:5a101" }
+  - { from_key: "act:eccn-5a611", to_key: "ccl:5a611" }
+  - { from_key: "act:eccn-5a980", to_key: "ccl:5a980" }
+  - { from_key: "act:eccn-5a991", to_key: "ccl:5a991" }
+  - { from_key: "act:eccn-5b001", to_key: "ccl:5b001" }
+  - { from_key: "act:eccn-5b991", to_key: "ccl:5b991" }
+  - { from_key: "act:eccn-5c991", to_key: "ccl:5c991" }
+  - { from_key: "act:eccn-5d001", to_key: "ccl:5d001" }
+  - { from_key: "act:eccn-5d101", to_key: "ccl:5d101" }
+  - { from_key: "act:eccn-5d980", to_key: "ccl:5d980" }
+  - { from_key: "act:eccn-5d991", to_key: "ccl:5d991" }
+  - { from_key: "act:eccn-5e001", to_key: "ccl:5e001" }
+  - { from_key: "act:eccn-5e101", to_key: "ccl:5e101" }
+  - { from_key: "act:eccn-5e980", to_key: "ccl:5e980" }
+  - { from_key: "act:eccn-5e991", to_key: "ccl:5e991" }
+  - { from_key: "act:eccn-5a002", to_key: "ccl:5a002" }
+  - { from_key: "act:eccn-5a992", to_key: "ccl:5a992" }
+  - { from_key: "act:eccn-5a003", to_key: "ccl:5a003" }
+  - { from_key: "act:eccn-5a004", to_key: "ccl:5a004" }
+  - { from_key: "act:eccn-5b002", to_key: "ccl:5b002" }
+  - { from_key: "act:eccn-5d002", to_key: "ccl:5d002" }
+  - { from_key: "act:eccn-5d992", to_key: "ccl:5d992" }
+  - { from_key: "act:eccn-5e002", to_key: "ccl:5e002" }
+  - { from_key: "act:eccn-5e992", to_key: "ccl:5e992" }
+  - { from_key: "act:eccn-6a001", to_key: "ccl:6a001" }
+  - { from_key: "act:eccn-6a002", to_key: "ccl:6a002" }
+  - { from_key: "act:eccn-6a003", to_key: "ccl:6a003" }
+  - { from_key: "act:eccn-6a004", to_key: "ccl:6a004" }
+  - { from_key: "act:eccn-6a005", to_key: "ccl:6a005" }
+  - { from_key: "act:eccn-6a006", to_key: "ccl:6a006" }
+  - { from_key: "act:eccn-6a007", to_key: "ccl:6a007" }
+  - { from_key: "act:eccn-6a008", to_key: "ccl:6a008" }
+  - { from_key: "act:eccn-6a102", to_key: "ccl:6a102" }
+  - { from_key: "act:eccn-6a103", to_key: "ccl:6a103" }
+  - { from_key: "act:eccn-6a107", to_key: "ccl:6a107" }
+  - { from_key: "act:eccn-6a108", to_key: "ccl:6a108" }
+  - { from_key: "act:eccn-6a202", to_key: "ccl:6a202" }
+  - { from_key: "act:eccn-6a203", to_key: "ccl:6a203" }
+  - { from_key: "act:eccn-6a205", to_key: "ccl:6a205" }
+  - { from_key: "act:eccn-6a225", to_key: "ccl:6a225" }
+  - { from_key: "act:eccn-6a226", to_key: "ccl:6a226" }
+  - { from_key: "act:eccn-6a293", to_key: "ccl:6a293" }
+  - { from_key: "act:eccn-6a611", to_key: "ccl:6a611" }
+  - { from_key: "act:eccn-6a991", to_key: "ccl:6a991" }
+  - { from_key: "act:eccn-6a992", to_key: "ccl:6a992" }
+  - { from_key: "act:eccn-6a993", to_key: "ccl:6a993" }
+  - { from_key: "act:eccn-6a994", to_key: "ccl:6a994" }
+  - { from_key: "act:eccn-6a995", to_key: "ccl:6a995" }
+  - { from_key: "act:eccn-6a996", to_key: "ccl:6a996" }
+  - { from_key: "act:eccn-6a997", to_key: "ccl:6a997" }
+  - { from_key: "act:eccn-6a998", to_key: "ccl:6a998" }
+  - { from_key: "act:eccn-6a999", to_key: "ccl:6a999" }
+  - { from_key: "act:eccn-6b002", to_key: "ccl:6b002" }
+  - { from_key: "act:eccn-6b004", to_key: "ccl:6b004" }
+  - { from_key: "act:eccn-6b007", to_key: "ccl:6b007" }
+  - { from_key: "act:eccn-6b008", to_key: "ccl:6b008" }
+  - { from_key: "act:eccn-6b108", to_key: "ccl:6b108" }
+  - { from_key: "act:eccn-6b619", to_key: "ccl:6b619" }
+  - { from_key: "act:eccn-6b995", to_key: "ccl:6b995" }
+  - { from_key: "act:eccn-6c002", to_key: "ccl:6c002" }
+  - { from_key: "act:eccn-6c004", to_key: "ccl:6c004" }
+  - { from_key: "act:eccn-6c005", to_key: "ccl:6c005" }
+  - { from_key: "act:eccn-6c992", to_key: "ccl:6c992" }
+  - { from_key: "act:eccn-6c994", to_key: "ccl:6c994" }
+  - { from_key: "act:eccn-6d001", to_key: "ccl:6d001" }
+  - { from_key: "act:eccn-6d002", to_key: "ccl:6d002" }
+  - { from_key: "act:eccn-6d003", to_key: "ccl:6d003" }
+  - { from_key: "act:eccn-6d102", to_key: "ccl:6d102" }
+  - { from_key: "act:eccn-6d103", to_key: "ccl:6d103" }
+  - { from_key: "act:eccn-6d201", to_key: "ccl:6d201" }
+  - { from_key: "act:eccn-6d619", to_key: "ccl:6d619" }
+  - { from_key: "act:eccn-6d991", to_key: "ccl:6d991" }
+  - { from_key: "act:eccn-6d992", to_key: "ccl:6d992" }
+  - { from_key: "act:eccn-6d993", to_key: "ccl:6d993" }
+  - { from_key: "act:eccn-6e001", to_key: "ccl:6e001" }
+  - { from_key: "act:eccn-6e002", to_key: "ccl:6e002" }
+  - { from_key: "act:eccn-6e003", to_key: "ccl:6e003" }
+  - { from_key: "act:eccn-6e101", to_key: "ccl:6e101" }
+  - { from_key: "act:eccn-6e201", to_key: "ccl:6e201" }
+  - { from_key: "act:eccn-6e202", to_key: "ccl:6e202" }
+  - { from_key: "act:eccn-6e619", to_key: "ccl:6e619" }
+  - { from_key: "act:eccn-6e991", to_key: "ccl:6e991" }
+  - { from_key: "act:eccn-6e992", to_key: "ccl:6e992" }
+  - { from_key: "act:eccn-6e993", to_key: "ccl:6e993" }
+  - { from_key: "act:eccn-7a001", to_key: "ccl:7a001" }
+  - { from_key: "act:eccn-7a002", to_key: "ccl:7a002" }
+  - { from_key: "act:eccn-7a003", to_key: "ccl:7a003" }
+  - { from_key: "act:eccn-7a004", to_key: "ccl:7a004" }
+  - { from_key: "act:eccn-7a005", to_key: "ccl:7a005" }
+  - { from_key: "act:eccn-7a006", to_key: "ccl:7a006" }
+  - { from_key: "act:eccn-7a008", to_key: "ccl:7a008" }
+  - { from_key: "act:eccn-7a101", to_key: "ccl:7a101" }
+  - { from_key: "act:eccn-7a102", to_key: "ccl:7a102" }
+  - { from_key: "act:eccn-7a103", to_key: "ccl:7a103" }
+  - { from_key: "act:eccn-7a104", to_key: "ccl:7a104" }
+  - { from_key: "act:eccn-7a105", to_key: "ccl:7a105" }
+  - { from_key: "act:eccn-7a106", to_key: "ccl:7a106" }
+  - { from_key: "act:eccn-7a107", to_key: "ccl:7a107" }
+  - { from_key: "act:eccn-7a115", to_key: "ccl:7a115" }
+  - { from_key: "act:eccn-7a116", to_key: "ccl:7a116" }
+  - { from_key: "act:eccn-7a117", to_key: "ccl:7a117" }
+  - { from_key: "act:eccn-7a611", to_key: "ccl:7a611" }
+  - { from_key: "act:eccn-7a994", to_key: "ccl:7a994" }
+  - { from_key: "act:eccn-7b001", to_key: "ccl:7b001" }
+  - { from_key: "act:eccn-7b002", to_key: "ccl:7b002" }
+  - { from_key: "act:eccn-7b003", to_key: "ccl:7b003" }
+  - { from_key: "act:eccn-7b101", to_key: "ccl:7b101" }
+  - { from_key: "act:eccn-7b102", to_key: "ccl:7b102" }
+  - { from_key: "act:eccn-7b103", to_key: "ccl:7b103" }
+  - { from_key: "act:eccn-7b611", to_key: "ccl:7b611" }
+  - { from_key: "act:eccn-7b994", to_key: "ccl:7b994" }
+  - { from_key: "act:eccn-7d001", to_key: "ccl:7d001" }
+  - { from_key: "act:eccn-7d002", to_key: "ccl:7d002" }
+  - { from_key: "act:eccn-7d003", to_key: "ccl:7d003" }
+  - { from_key: "act:eccn-7d004", to_key: "ccl:7d004" }
+  - { from_key: "act:eccn-7d005", to_key: "ccl:7d005" }
+  - { from_key: "act:eccn-7d101", to_key: "ccl:7d101" }
+  - { from_key: "act:eccn-7d102", to_key: "ccl:7d102" }
+  - { from_key: "act:eccn-7d103", to_key: "ccl:7d103" }
+  - { from_key: "act:eccn-7d611", to_key: "ccl:7d611" }
+  - { from_key: "act:eccn-7d994", to_key: "ccl:7d994" }
+  - { from_key: "act:eccn-7e001", to_key: "ccl:7e001" }
+  - { from_key: "act:eccn-7e002", to_key: "ccl:7e002" }
+  - { from_key: "act:eccn-7e003", to_key: "ccl:7e003" }
+  - { from_key: "act:eccn-7e004", to_key: "ccl:7e004" }
+  - { from_key: "act:eccn-7e101", to_key: "ccl:7e101" }
+  - { from_key: "act:eccn-7e102", to_key: "ccl:7e102" }
+  - { from_key: "act:eccn-7e104", to_key: "ccl:7e104" }
+  - { from_key: "act:eccn-7e611", to_key: "ccl:7e611" }
+  - { from_key: "act:eccn-7e994", to_key: "ccl:7e994" }
+  - { from_key: "act:eccn-8a001", to_key: "ccl:8a001" }
+  - { from_key: "act:eccn-8a002", to_key: "ccl:8a002" }
+  - { from_key: "act:eccn-8a018", to_key: "ccl:8a018" }
+  - { from_key: "act:eccn-8a609", to_key: "ccl:8a609" }
+  - { from_key: "act:eccn-8a620", to_key: "ccl:8a620" }
+  - { from_key: "act:eccn-8a992", to_key: "ccl:8a992" }
+  - { from_key: "act:eccn-8b001", to_key: "ccl:8b001" }
+  - { from_key: "act:eccn-8b609", to_key: "ccl:8b609" }
+  - { from_key: "act:eccn-8b620", to_key: "ccl:8b620" }
+  - { from_key: "act:eccn-8c001", to_key: "ccl:8c001" }
+  - { from_key: "act:eccn-8c609", to_key: "ccl:8c609" }
+  - { from_key: "act:eccn-8d001", to_key: "ccl:8d001" }
+  - { from_key: "act:eccn-8d002", to_key: "ccl:8d002" }
+  - { from_key: "act:eccn-8d609", to_key: "ccl:8d609" }
+  - { from_key: "act:eccn-8d620", to_key: "ccl:8d620" }
+  - { from_key: "act:eccn-8d992", to_key: "ccl:8d992" }
+  - { from_key: "act:eccn-8d999", to_key: "ccl:8d999" }
+  - { from_key: "act:eccn-8e001", to_key: "ccl:8e001" }
+  - { from_key: "act:eccn-8e002", to_key: "ccl:8e002" }
+  - { from_key: "act:eccn-8e609", to_key: "ccl:8e609" }
+  - { from_key: "act:eccn-8e620", to_key: "ccl:8e620" }
+  - { from_key: "act:eccn-8e992", to_key: "ccl:8e992" }
+  - { from_key: "act:eccn-9a001", to_key: "ccl:9a001" }
+  - { from_key: "act:eccn-9a002", to_key: "ccl:9a002" }
+  - { from_key: "act:eccn-9a003", to_key: "ccl:9a003" }
+  - { from_key: "act:eccn-9a004", to_key: "ccl:9a004" }
+  - { from_key: "act:eccn-9a005", to_key: "ccl:9a005" }
+  - { from_key: "act:eccn-9a006", to_key: "ccl:9a006" }
+  - { from_key: "act:eccn-9a007", to_key: "ccl:9a007" }
+  - { from_key: "act:eccn-9a008", to_key: "ccl:9a008" }
+  - { from_key: "act:eccn-9a009", to_key: "ccl:9a009" }
+  - { from_key: "act:eccn-9a010", to_key: "ccl:9a010" }
+  - { from_key: "act:eccn-9a011", to_key: "ccl:9a011" }
+  - { from_key: "act:eccn-9a012", to_key: "ccl:9a012" }
+  - { from_key: "act:eccn-9a018", to_key: "ccl:9a018" }
+  - { from_key: "act:eccn-9a101", to_key: "ccl:9a101" }
+  - { from_key: "act:eccn-9a102", to_key: "ccl:9a102" }
+  - { from_key: "act:eccn-9a103", to_key: "ccl:9a103" }
+  - { from_key: "act:eccn-9a104", to_key: "ccl:9a104" }
+  - { from_key: "act:eccn-9a105", to_key: "ccl:9a105" }
+  - { from_key: "act:eccn-9a106", to_key: "ccl:9a106" }
+  - { from_key: "act:eccn-9a107", to_key: "ccl:9a107" }
+  - { from_key: "act:eccn-9a108", to_key: "ccl:9a108" }
+  - { from_key: "act:eccn-9a109", to_key: "ccl:9a109" }
+  - { from_key: "act:eccn-9a110", to_key: "ccl:9a110" }
+  - { from_key: "act:eccn-9a111", to_key: "ccl:9a111" }
+  - { from_key: "act:eccn-9a115", to_key: "ccl:9a115" }
+  - { from_key: "act:eccn-9a116", to_key: "ccl:9a116" }
+  - { from_key: "act:eccn-9a117", to_key: "ccl:9a117" }
+  - { from_key: "act:eccn-9a118", to_key: "ccl:9a118" }
+  - { from_key: "act:eccn-9a119", to_key: "ccl:9a119" }
+  - { from_key: "act:eccn-9a120", to_key: "ccl:9a120" }
+  - { from_key: "act:eccn-9a515", to_key: "ccl:9a515" }
+  - { from_key: "act:eccn-9a604", to_key: "ccl:9a604" }
+  - { from_key: "act:eccn-9a610", to_key: "ccl:9a610" }
+  - { from_key: "act:eccn-9a619", to_key: "ccl:9a619" }
+  - { from_key: "act:eccn-9a620", to_key: "ccl:9a620" }
+  - { from_key: "act:eccn-9a980", to_key: "ccl:9a980" }
+  - { from_key: "act:eccn-9a990", to_key: "ccl:9a990" }
+  - { from_key: "act:eccn-9a991", to_key: "ccl:9a991" }
+  - { from_key: "act:eccn-9a992", to_key: "ccl:9a992" }
+  - { from_key: "act:eccn-9b001", to_key: "ccl:9b001" }
+  - { from_key: "act:eccn-9b002", to_key: "ccl:9b002" }
+  - { from_key: "act:eccn-9b003", to_key: "ccl:9b003" }
+  - { from_key: "act:eccn-9b004", to_key: "ccl:9b004" }
+  - { from_key: "act:eccn-9b005", to_key: "ccl:9b005" }
+  - { from_key: "act:eccn-9b006", to_key: "ccl:9b006" }
+  - { from_key: "act:eccn-9b007", to_key: "ccl:9b007" }
+  - { from_key: "act:eccn-9b008", to_key: "ccl:9b008" }
+  - { from_key: "act:eccn-9b009", to_key: "ccl:9b009" }
+  - { from_key: "act:eccn-9b010", to_key: "ccl:9b010" }
+  - { from_key: "act:eccn-9b104", to_key: "ccl:9b104" }
+  - { from_key: "act:eccn-9b105", to_key: "ccl:9b105" }
+  - { from_key: "act:eccn-9b106", to_key: "ccl:9b106" }
+  - { from_key: "act:eccn-9b115", to_key: "ccl:9b115" }
+  - { from_key: "act:eccn-9b116", to_key: "ccl:9b116" }
+  - { from_key: "act:eccn-9b117", to_key: "ccl:9b117" }
+  - { from_key: "act:eccn-9b515", to_key: "ccl:9b515" }
+  - { from_key: "act:eccn-9b604", to_key: "ccl:9b604" }
+  - { from_key: "act:eccn-9b610", to_key: "ccl:9b610" }
+  - { from_key: "act:eccn-9b619", to_key: "ccl:9b619" }
+  - { from_key: "act:eccn-9b620", to_key: "ccl:9b620" }
+  - { from_key: "act:eccn-9b990", to_key: "ccl:9b990" }
+  - { from_key: "act:eccn-9b991", to_key: "ccl:9b991" }
+  - { from_key: "act:eccn-9c110", to_key: "ccl:9c110" }
+  - { from_key: "act:eccn-9c610", to_key: "ccl:9c610" }
+  - { from_key: "act:eccn-9c619", to_key: "ccl:9c619" }
+  - { from_key: "act:eccn-9d001", to_key: "ccl:9d001" }
+  - { from_key: "act:eccn-9d002", to_key: "ccl:9d002" }
+  - { from_key: "act:eccn-9d003", to_key: "ccl:9d003" }
+  - { from_key: "act:eccn-9d004", to_key: "ccl:9d004" }
+  - { from_key: "act:eccn-9d005", to_key: "ccl:9d005" }
+  - { from_key: "act:eccn-9d018", to_key: "ccl:9d018" }
+  - { from_key: "act:eccn-9d101", to_key: "ccl:9d101" }
+  - { from_key: "act:eccn-9d103", to_key: "ccl:9d103" }
+  - { from_key: "act:eccn-9d104", to_key: "ccl:9d104" }
+  - { from_key: "act:eccn-9d105", to_key: "ccl:9d105" }
+  - { from_key: "act:eccn-9d515", to_key: "ccl:9d515" }
+  - { from_key: "act:eccn-9d604", to_key: "ccl:9d604" }
+  - { from_key: "act:eccn-9d610", to_key: "ccl:9d610" }
+  - { from_key: "act:eccn-9d619", to_key: "ccl:9d619" }
+  - { from_key: "act:eccn-9d620", to_key: "ccl:9d620" }
+  - { from_key: "act:eccn-9d990", to_key: "ccl:9d990" }
+  - { from_key: "act:eccn-9d991", to_key: "ccl:9d991" }
+  - { from_key: "act:eccn-9e001", to_key: "ccl:9e001" }
+  - { from_key: "act:eccn-9e002", to_key: "ccl:9e002" }
+  - { from_key: "act:eccn-9e003", to_key: "ccl:9e003" }
+  - { from_key: "act:eccn-9e018", to_key: "ccl:9e018" }
+  - { from_key: "act:eccn-9e101", to_key: "ccl:9e101" }
+  - { from_key: "act:eccn-9e102", to_key: "ccl:9e102" }
+  - { from_key: "act:eccn-9e515", to_key: "ccl:9e515" }
+  - { from_key: "act:eccn-9e604", to_key: "ccl:9e604" }
+  - { from_key: "act:eccn-9e610", to_key: "ccl:9e610" }
+  - { from_key: "act:eccn-9e619", to_key: "ccl:9e619" }
+  - { from_key: "act:eccn-9e620", to_key: "ccl:9e620" }
+  - { from_key: "act:eccn-9e990", to_key: "ccl:9e990" }
+  - { from_key: "act:eccn-9e991", to_key: "ccl:9e991" }
+  - { from_key: "act:eccn-9e993", to_key: "ccl:9e993" }
+
+  # DDTC guidance. The CJ topic is the one people name directly; the rest
+  # are reached by retrieval rather than by citation.
+  - { from_key: "ddtc:cj", to_key: "ddtc:commodity-jurisdiction" }
+  - { from_key: "act:commodity-jurisdiction", to_key: "ddtc:commodity-jurisdiction" }
+  - { from_key: "ddtc:faq", to_key: "ddtc:faq-index" }
+
+  # Title 31 is shared: OFAC programmes + CFIUS Parts 800/802. The
+  # '31 c.f.r.' alias routes the whole title to `ofac`, so every CFIUS
+  # citation needs folding onto the corpus that actually holds it.
+  - { from_key: "ofac:800", to_key: "cfius:800" }
+  - { from_key: "ofac:800.101", to_key: "cfius:800.101" }
+  - { from_key: "ofac:800.102", to_key: "cfius:800.102" }
+  - { from_key: "ofac:800.103", to_key: "cfius:800.103" }
+  - { from_key: "ofac:800.104", to_key: "cfius:800.104" }
+  - { from_key: "ofac:800.105", to_key: "cfius:800.105" }
+  - { from_key: "ofac:800.201", to_key: "cfius:800.201" }
+  - { from_key: "ofac:800.202", to_key: "cfius:800.202" }
+  - { from_key: "ofac:800.203", to_key: "cfius:800.203" }
+  - { from_key: "ofac:800.204", to_key: "cfius:800.204" }
+  - { from_key: "ofac:800.205", to_key: "cfius:800.205" }
+  - { from_key: "ofac:800.206", to_key: "cfius:800.206" }
+  - { from_key: "ofac:800.207", to_key: "cfius:800.207" }
+  - { from_key: "ofac:800.208", to_key: "cfius:800.208" }
+  - { from_key: "ofac:800.209", to_key: "cfius:800.209" }
+  - { from_key: "ofac:800.210", to_key: "cfius:800.210" }
+  - { from_key: "ofac:800.211", to_key: "cfius:800.211" }
+  - { from_key: "ofac:800.212", to_key: "cfius:800.212" }
+  - { from_key: "ofac:800.213", to_key: "cfius:800.213" }
+  - { from_key: "ofac:800.214", to_key: "cfius:800.214" }
+  - { from_key: "ofac:800.215", to_key: "cfius:800.215" }
+  - { from_key: "ofac:800.216", to_key: "cfius:800.216" }
+  - { from_key: "ofac:800.217", to_key: "cfius:800.217" }
+  - { from_key: "ofac:800.218", to_key: "cfius:800.218" }
+  - { from_key: "ofac:800.219", to_key: "cfius:800.219" }
+  - { from_key: "ofac:800.220", to_key: "cfius:800.220" }
+  - { from_key: "ofac:800.221", to_key: "cfius:800.221" }
+  - { from_key: "ofac:800.222", to_key: "cfius:800.222" }
+  - { from_key: "ofac:800.223", to_key: "cfius:800.223" }
+  - { from_key: "ofac:800.224", to_key: "cfius:800.224" }
+  - { from_key: "ofac:800.225", to_key: "cfius:800.225" }
+  - { from_key: "ofac:800.226", to_key: "cfius:800.226" }
+  - { from_key: "ofac:800.227", to_key: "cfius:800.227" }
+  - { from_key: "ofac:800.228", to_key: "cfius:800.228" }
+  - { from_key: "ofac:800.229", to_key: "cfius:800.229" }
+  - { from_key: "ofac:800.230", to_key: "cfius:800.230" }
+  - { from_key: "ofac:800.231", to_key: "cfius:800.231" }
+  - { from_key: "ofac:800.232", to_key: "cfius:800.232" }
+  - { from_key: "ofac:800.233", to_key: "cfius:800.233" }
+  - { from_key: "ofac:800.234", to_key: "cfius:800.234" }
+  - { from_key: "ofac:800.235", to_key: "cfius:800.235" }
+  - { from_key: "ofac:800.236", to_key: "cfius:800.236" }
+  - { from_key: "ofac:800.237", to_key: "cfius:800.237" }
+  - { from_key: "ofac:800.238", to_key: "cfius:800.238" }
+  - { from_key: "ofac:800.239", to_key: "cfius:800.239" }
+  - { from_key: "ofac:800.240", to_key: "cfius:800.240" }
+  - { from_key: "ofac:800.241", to_key: "cfius:800.241" }
+  - { from_key: "ofac:800.242", to_key: "cfius:800.242" }
+  - { from_key: "ofac:800.243", to_key: "cfius:800.243" }
+  - { from_key: "ofac:800.244", to_key: "cfius:800.244" }
+  - { from_key: "ofac:800.245", to_key: "cfius:800.245" }
+  - { from_key: "ofac:800.246", to_key: "cfius:800.246" }
+  - { from_key: "ofac:800.247", to_key: "cfius:800.247" }
+  - { from_key: "ofac:800.248", to_key: "cfius:800.248" }
+  - { from_key: "ofac:800.249", to_key: "cfius:800.249" }
+  - { from_key: "ofac:800.250", to_key: "cfius:800.250" }
+  - { from_key: "ofac:800.251", to_key: "cfius:800.251" }
+  - { from_key: "ofac:800.252", to_key: "cfius:800.252" }
+  - { from_key: "ofac:800.253", to_key: "cfius:800.253" }
+  - { from_key: "ofac:800.254", to_key: "cfius:800.254" }
+  - { from_key: "ofac:800.255", to_key: "cfius:800.255" }
+  - { from_key: "ofac:800.256", to_key: "cfius:800.256" }
+  - { from_key: "ofac:800.301", to_key: "cfius:800.301" }
+  - { from_key: "ofac:800.302", to_key: "cfius:800.302" }
+  - { from_key: "ofac:800.303", to_key: "cfius:800.303" }
+  - { from_key: "ofac:800.304", to_key: "cfius:800.304" }
+  - { from_key: "ofac:800.305", to_key: "cfius:800.305" }
+  - { from_key: "ofac:800.306", to_key: "cfius:800.306" }
+  - { from_key: "ofac:800.307", to_key: "cfius:800.307" }
+  - { from_key: "ofac:800.308", to_key: "cfius:800.308" }
+  - { from_key: "ofac:800.401", to_key: "cfius:800.401" }
+  - { from_key: "ofac:800.402", to_key: "cfius:800.402" }
+  - { from_key: "ofac:800.403", to_key: "cfius:800.403" }
+  - { from_key: "ofac:800.404", to_key: "cfius:800.404" }
+  - { from_key: "ofac:800.405", to_key: "cfius:800.405" }
+  - { from_key: "ofac:800.406", to_key: "cfius:800.406" }
+  - { from_key: "ofac:800.407", to_key: "cfius:800.407" }
+  - { from_key: "ofac:800.501", to_key: "cfius:800.501" }
+  - { from_key: "ofac:800.502", to_key: "cfius:800.502" }
+  - { from_key: "ofac:800.503", to_key: "cfius:800.503" }
+  - { from_key: "ofac:800.504", to_key: "cfius:800.504" }
+  - { from_key: "ofac:800.505", to_key: "cfius:800.505" }
+  - { from_key: "ofac:800.506", to_key: "cfius:800.506" }
+  - { from_key: "ofac:800.507", to_key: "cfius:800.507" }
+  - { from_key: "ofac:800.508", to_key: "cfius:800.508" }
+  - { from_key: "ofac:800.509", to_key: "cfius:800.509" }
+  - { from_key: "ofac:800.601", to_key: "cfius:800.601" }
+  - { from_key: "ofac:800.602", to_key: "cfius:800.602" }
+  - { from_key: "ofac:800.603", to_key: "cfius:800.603" }
+  - { from_key: "ofac:800.604", to_key: "cfius:800.604" }
+  - { from_key: "ofac:800.701", to_key: "cfius:800.701" }
+  - { from_key: "ofac:800.801", to_key: "cfius:800.801" }
+  - { from_key: "ofac:800.802", to_key: "cfius:800.802" }
+  - { from_key: "ofac:800.901", to_key: "cfius:800.901" }
+  - { from_key: "ofac:800.902", to_key: "cfius:800.902" }
+  - { from_key: "ofac:800.1001", to_key: "cfius:800.1001" }
+  - { from_key: "ofac:800.1002", to_key: "cfius:800.1002" }
+  - { from_key: "ofac:800.1101", to_key: "cfius:800.1101" }
+  - { from_key: "ofac:800.1102", to_key: "cfius:800.1102" }
+  - { from_key: "ofac:800.1103", to_key: "cfius:800.1103" }
+  - { from_key: "ofac:800.1104", to_key: "cfius:800.1104" }
+  - { from_key: "ofac:800.1105", to_key: "cfius:800.1105" }
+  - { from_key: "ofac:800.1106", to_key: "cfius:800.1106" }
+  - { from_key: "ofac:800.1107", to_key: "cfius:800.1107" }
+  - { from_key: "ofac:800.1108", to_key: "cfius:800.1108" }
+  - { from_key: "ofac:802", to_key: "cfius:802" }
+  - { from_key: "ofac:802.101", to_key: "cfius:802.101" }
+  - { from_key: "ofac:802.102", to_key: "cfius:802.102" }
+  - { from_key: "ofac:802.103", to_key: "cfius:802.103" }
+  - { from_key: "ofac:802.104", to_key: "cfius:802.104" }
+  - { from_key: "ofac:802.105", to_key: "cfius:802.105" }
+  - { from_key: "ofac:802.201", to_key: "cfius:802.201" }
+  - { from_key: "ofac:802.202", to_key: "cfius:802.202" }
+  - { from_key: "ofac:802.203", to_key: "cfius:802.203" }
+  - { from_key: "ofac:802.204", to_key: "cfius:802.204" }
+  - { from_key: "ofac:802.205", to_key: "cfius:802.205" }
+  - { from_key: "ofac:802.206", to_key: "cfius:802.206" }
+  - { from_key: "ofac:802.207", to_key: "cfius:802.207" }
+  - { from_key: "ofac:802.208", to_key: "cfius:802.208" }
+  - { from_key: "ofac:802.209", to_key: "cfius:802.209" }
+  - { from_key: "ofac:802.210", to_key: "cfius:802.210" }
+  - { from_key: "ofac:802.211", to_key: "cfius:802.211" }
+  - { from_key: "ofac:802.212", to_key: "cfius:802.212" }
+  - { from_key: "ofac:802.213", to_key: "cfius:802.213" }
+  - { from_key: "ofac:802.214", to_key: "cfius:802.214" }
+  - { from_key: "ofac:802.215", to_key: "cfius:802.215" }
+  - { from_key: "ofac:802.216", to_key: "cfius:802.216" }
+  - { from_key: "ofac:802.217", to_key: "cfius:802.217" }
+  - { from_key: "ofac:802.218", to_key: "cfius:802.218" }
+  - { from_key: "ofac:802.219", to_key: "cfius:802.219" }
+  - { from_key: "ofac:802.220", to_key: "cfius:802.220" }
+  - { from_key: "ofac:802.221", to_key: "cfius:802.221" }
+  - { from_key: "ofac:802.222", to_key: "cfius:802.222" }
+  - { from_key: "ofac:802.223", to_key: "cfius:802.223" }
+  - { from_key: "ofac:802.224", to_key: "cfius:802.224" }
+  - { from_key: "ofac:802.225", to_key: "cfius:802.225" }
+  - { from_key: "ofac:802.226", to_key: "cfius:802.226" }
+  - { from_key: "ofac:802.227", to_key: "cfius:802.227" }
+  - { from_key: "ofac:802.228", to_key: "cfius:802.228" }
+  - { from_key: "ofac:802.229", to_key: "cfius:802.229" }
+  - { from_key: "ofac:802.230", to_key: "cfius:802.230" }
+  - { from_key: "ofac:802.231", to_key: "cfius:802.231" }
+  - { from_key: "ofac:802.232", to_key: "cfius:802.232" }
+  - { from_key: "ofac:802.233", to_key: "cfius:802.233" }
+  - { from_key: "ofac:802.234", to_key: "cfius:802.234" }
+  - { from_key: "ofac:802.235", to_key: "cfius:802.235" }
+  - { from_key: "ofac:802.236", to_key: "cfius:802.236" }
+  - { from_key: "ofac:802.237", to_key: "cfius:802.237" }
+  - { from_key: "ofac:802.238", to_key: "cfius:802.238" }
+  - { from_key: "ofac:802.239", to_key: "cfius:802.239" }
+  - { from_key: "ofac:802.240", to_key: "cfius:802.240" }
+  - { from_key: "ofac:802.241", to_key: "cfius:802.241" }
+  - { from_key: "ofac:802.242", to_key: "cfius:802.242" }
+  - { from_key: "ofac:802.243", to_key: "cfius:802.243" }
+  - { from_key: "ofac:802.244", to_key: "cfius:802.244" }
+  - { from_key: "ofac:802.301", to_key: "cfius:802.301" }
+  - { from_key: "ofac:802.302", to_key: "cfius:802.302" }
+  - { from_key: "ofac:802.303", to_key: "cfius:802.303" }
+  - { from_key: "ofac:802.304", to_key: "cfius:802.304" }
+  - { from_key: "ofac:802.401", to_key: "cfius:802.401" }
+  - { from_key: "ofac:802.402", to_key: "cfius:802.402" }
+  - { from_key: "ofac:802.403", to_key: "cfius:802.403" }
+  - { from_key: "ofac:802.404", to_key: "cfius:802.404" }
+  - { from_key: "ofac:802.405", to_key: "cfius:802.405" }
+  - { from_key: "ofac:802.501", to_key: "cfius:802.501" }
+  - { from_key: "ofac:802.502", to_key: "cfius:802.502" }
+  - { from_key: "ofac:802.503", to_key: "cfius:802.503" }
+  - { from_key: "ofac:802.504", to_key: "cfius:802.504" }
+  - { from_key: "ofac:802.505", to_key: "cfius:802.505" }
+  - { from_key: "ofac:802.506", to_key: "cfius:802.506" }
+  - { from_key: "ofac:802.507", to_key: "cfius:802.507" }
+  - { from_key: "ofac:802.508", to_key: "cfius:802.508" }
+  - { from_key: "ofac:802.509", to_key: "cfius:802.509" }
+  - { from_key: "ofac:802.601", to_key: "cfius:802.601" }
+  - { from_key: "ofac:802.602", to_key: "cfius:802.602" }
+  - { from_key: "ofac:802.603", to_key: "cfius:802.603" }
+  - { from_key: "ofac:802.604", to_key: "cfius:802.604" }
+  - { from_key: "ofac:802.701", to_key: "cfius:802.701" }
+  - { from_key: "ofac:802.801", to_key: "cfius:802.801" }
+  - { from_key: "ofac:802.802", to_key: "cfius:802.802" }
+  - { from_key: "ofac:802.901", to_key: "cfius:802.901" }
+  - { from_key: "ofac:802.902", to_key: "cfius:802.902" }
+  - { from_key: "ofac:802.1001", to_key: "cfius:802.1001" }
+  - { from_key: "ofac:802.1002", to_key: "cfius:802.1002" }
+  - { from_key: "ofac:802.1101", to_key: "cfius:802.1101" }
+  - { from_key: "ofac:802.1102", to_key: "cfius:802.1102" }
+  - { from_key: "ofac:802.1103", to_key: "cfius:802.1103" }
+  - { from_key: "ofac:802.1104", to_key: "cfius:802.1104" }
+  - { from_key: "ofac:802.1105", to_key: "cfius:802.1105" }
+  - { from_key: "ofac:802.1106", to_key: "cfius:802.1106" }
+  - { from_key: "ofac:802.1107", to_key: "cfius:802.1107" }
+  - { from_key: "ofac:802.1108", to_key: "cfius:802.1108" }
+
+  # --- END GENERATED ---
+
+# ---------------------------------------------------------------------------
+# rewrite_rules: DELIBERATELY EMPTY, and must stay that way.
+#
+# A pack's rewrite rules are NOT loaded -- authority_mapping_loader reads a
+# pack's `equivalences` only; rewrite rules remain a core-shipped mechanism.
+# A regex rule placed here is inert. This was established the hard way on the
+# fort_worth pack: an elegant `irc:` -> local-code rule did nothing and had to
+# be replaced with explicit equivalence rows.
+# ---------------------------------------------------------------------------
+rewrite_rules: []
+
+# shape_rules classify a numbered prefix family for the open-vocabulary tier.
+shape_rules:
+  - pattern: '^usml$'
+    jurisdiction: "us"
+    authority_type: "regulation"
+  - pattern: '^ddtc$'
+    jurisdiction: "us"
+    authority_type: "guidance"
+
+# ---------------------------------------------------------------------------
+# abbreviations: DELIBERATELY OMITTED, and it is not an oversight.
+#
+# The pack-declarable abbreviations extension supports only TWO tables --
+# `state` and `municipal`. authority_pack_config.py hard-codes
+# {"state": {}, "municipal": {}} and iterates just those groups, so there is no
+# `federal` table a pack can contribute to. Declaring one fails validation;
+# smuggling federal abbreviations in under `state` would pollute the state
+# table for every other pack on the install.
+#
+# Consequence for a FEDERAL pack: your surface strings must live in the
+# namespace `aliases` above, which do drive Tier-1 extraction. That covers
+# "ITAR § 120.10" and "Section 120.10 of the ITAR". What it does not give you
+# is the abbreviation grammar's extra spelling tolerance -- so lean harder on
+# `equivalences` for observed real-world variants, and harvest those variants
+# from a real corpus rather than guessing them.
+#
+# If federal abbreviation support is wanted, it is a core change to
+# authority_pack_config.py, not something a pack can work around.
+# ---------------------------------------------------------------------------
