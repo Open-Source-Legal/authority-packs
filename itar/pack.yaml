@@ -1,0 +1,317 @@
+# ITAR authority pack — schema v2 manifest.
+#
+# Consumed by `manage.py load_authority_pack --path <dir>` and by
+# `manage.py install_authority_pack itar`.
+#
+# HARVESTED, NOT LEGALLY REVIEWED. Every section body is verbatim text pulled
+# from the official sources below by the scripts in ../../harvest/ — no stubs
+# and no paraphrase — but no attorney has reviewed the result, which is what
+# `approval_status: harvested_unreviewed` in each charter records.
+#
+# Provenance of this build:
+#   22 C.F.R. 120-130 + USML   eCFR versioner API, version date 2026-08-10
+#   22 U.S.C. ch. 39 (AECA)    OLRC USLM XML, release point 119/102
+#   DDTC guidance              DDTC public portal, retrieved 2026-08-13
+#
+# Rebuild with:  harvest/ecfr.py && harvest/uscode.py && harvest/ddtc.py
+#                build/build_specs.py && build/gen_equivalences.py --write
+# Check currency with: harvest/fedreg_watch.py --fail-on-stale
+schema_version: 2
+name: "itar"
+display_name: "ITAR — Arms Export Control Act & International Traffic in Arms Regulations"
+description: >
+  The military half of the US export-control system: the Arms Export Control
+  Act (22 U.S.C. §§ 2751 et seq.), the International Traffic in Arms
+  Regulations promulgated under it (22 C.F.R. Parts 120-130), the United States
+  Munitions List (Categories I-XXI), and the DDTC guidance layer that functions
+  as working law without being binding.
+
+  Deliberately scoped to ITAR alone. The dual-use EAR (Commerce/BIS) and
+  sanctions (Treasury/OFAC) are separate regimes with separate lists and
+  separate jurisdictional tests; conflating them is the most common and most
+  consequential error in this field. Prefixes for those regimes are reserved in
+  the mappings file so they can be added additively later.
+jurisdiction: "us"
+
+mappings: "authority_mappings.itar.yaml"
+
+# Unioned into the SSRF allowlist at runtime. All four publish structured
+# APIs -- prefer them over scraping.
+source_hosts:
+  - "www.ecfr.gov"              # 22 CFR 120-130, versioner API + XML
+  - "uscode.house.gov"          # AECA as USLM XML, by dated release point
+  - "www.govinfo.gov"           # USC annual editions -- fallback/cross-check only
+  - "www.federalregister.gov"   # rule changes -- the operative source
+  - "www.pmddtc.state.gov"      # DDTC guidance, CJ determinations
+
+corpora:
+  - slug: "aeca"
+    title: "Arms Export Control Act (22 U.S.C. §§ 2751 et seq.)"
+    authority_prefixes:
+      - "aeca"
+    description: >
+      The statute authorising control of defense articles and defense services,
+      including § 38 (22 U.S.C. § 2778, control of arms exports and imports),
+      § 39 (§ 2779), and § 40 (§ 2780, transactions with countries supporting
+      terrorism). Note the dual numbering: practitioners cite both the Act's own
+      section numbers and the codified U.S.C. sections, often interchangeably.
+    charter: "charters/aeca.yaml"
+    spec: "specs/aeca.json"
+    persona: "personas/aeca.txt"
+    default_authority_weight: "CONTROLLING"
+
+  - slug: "itar-regulations"
+    title: "International Traffic in Arms Regulations (22 C.F.R. Parts 120-130)"
+    authority_prefixes:
+      - "itar"
+    description: >
+      The regulations implementing the AECA: definitions and policy (Part 120),
+      the USML itself (Part 121), registration (122), licensing of defense
+      articles (123), agreements and defense services (124), technical data
+      (125), general policies and country policy (126), violations and penalties
+      (127), administrative procedures (128), brokering (129), and political
+      contributions/fees (130).
+    charter: "charters/itar-regulations.yaml"
+    spec: "specs/itar-regulations.json"
+    persona: "personas/itar-regulations.txt"
+    default_authority_weight: "IMPLEMENTING"
+
+  - slug: "usml"
+    title: "United States Munitions List (22 C.F.R. § 121.1, Categories I-XXI)"
+    authority_prefixes:
+      - "usml"
+    description: >
+      The 21 USML categories that define what is a defense article. Keyed by
+      lowercase Roman numeral (usml:viii, usml:xi) because authority-key
+      matching is case-sensitive on the section part and the citation extractor
+      lowercases what it finds.
+    charter: "charters/usml.yaml"
+    spec: "specs/usml.json"
+    persona: "personas/usml.txt"
+    default_authority_weight: "IMPLEMENTING"
+
+  # --- EAR (added 2026-08-13; see decision D7-REVISED in docs/03) -----------
+  # The ITAR-only scope was deliberate and is now overturned by evidence: a
+  # retrieval-on vs retrieval-off measurement showed both of the document
+  # corpus's planted traps — the de minimis ask and the deemed-export
+  # most-recent-country error — scoring identically with the corpus switched
+  # off, because answering either REQUIRES the EAR text they contrast against
+  # and the pack did not carry it.
+  - slug: "ear-regulations"
+    title: "Export Administration Regulations — scope, prohibitions, definitions (15 C.F.R.)"
+    authority_prefixes:
+      - "ear"
+    description: >
+      The dual-use half of the system, scoped to what an ITAR question actually
+      collides with: scope and the ITAR carve-out (Part 734), the de minimis
+      rules and their calculation (§ 734.4 and Supplement No. 2), deemed exports
+      including the most-recent-country rule at § 734.13(b), the ten General
+      Prohibitions (Part 736), the Country Chart (Part 738), and Part 772
+      definitions carried one document per defined term.
+    charter: "charters/ear-regulations.yaml"
+    spec: "specs/ear-regulations.json"
+    persona: "personas/ear-regulations.txt"
+    default_authority_weight: "IMPLEMENTING"
+
+  - slug: "ccl"
+    title: "Commerce Control List (15 C.F.R. Part 774, Supplement No. 1)"
+    authority_prefixes:
+      - "ccl"
+    description: >
+      Every ECCN as its own addressable document, keyed LOWERCASE (ccl:3a611)
+      because authority-key matching is case-sensitive on the section part and
+      the extractor lowercases — an ECCN keyed the conventional uppercase way is
+      unreachable from every real citation. Split out from `ear` for the same
+      reason the USML is split out from `itar`: practitioners cite the ECCN, not
+      "Supplement No. 1 to Part 774", and collapsing 638 entries into one
+      document makes the thing people cite unaddressable.
+    charter: "charters/ccl.yaml"
+    spec: "specs/ccl.json"
+    persona: "personas/ccl.txt"
+    default_authority_weight: "IMPLEMENTING"
+
+  - slug: "ddtc-guidance"
+    title: "DDTC Guidance, FAQs and Commodity Jurisdiction Practice"
+    authority_prefixes:
+      - "ddtc"
+    description: >
+      The interpretive layer that functions as working law without being
+      binding: DDTC FAQs, advisory opinions, guidelines, and the commodity
+      jurisdiction process. Carried at INTERPRETIVE weight deliberately -- after
+      Loper Bright the legal status of agency guidance is more contestable, and
+      the distinction should be structural rather than a caveat the model has to
+      remember.
+    charter: "charters/ddtc-guidance.yaml"
+    spec: "specs/ddtc-guidance.json"
+    persona: "personas/ddtc-guidance.txt"
+    default_authority_weight: "INTERPRETIVE"
+
+  # --- BEGIN GENERATED CORPORA (build/wire_expansion_corpora.py) ---
+  - slug: "ofac"
+    title: "OFAC Sanctions Regulations (31 C.F.R. Chapter V)"
+    authority_prefixes:
+      - "ofac"
+    description: >
+      Carry the sanctions layer, because an ITAR licence does not clear a blocked party and § 126.1 is not coextensive with the SDN List.
+    charter: "charters/ofac.yaml"
+    spec: "specs/ofac.json"
+    persona: "personas/ofac.txt"
+    default_authority_weight: "IMPLEMENTING"
+
+  - slug: "cfius"
+    title: "CFIUS / FIRRMA (31 C.F.R. Parts 800, 802)"
+    authority_prefixes:
+      - "cfius"
+    description: >
+      Carry the inbound-investment consequence of an export classification: a mandatory declaration can turn on whether an item is critical technology.
+    charter: "charters/cfius.yaml"
+    spec: "specs/cfius.json"
+    persona: "personas/cfius.txt"
+    default_authority_weight: "IMPLEMENTING"
+
+  - slug: "dsp"
+    title: "DOJ Data Security Program (28 C.F.R. Part 202)"
+    authority_prefixes:
+      - "dsp"
+    description: >
+      Carry the bulk-sensitive-data regime, which overlaps ITAR technical-data reasoning for foreign-person access without being the same test.
+    charter: "charters/dsp.yaml"
+    spec: "specs/data-security.json"
+    persona: "personas/dsp.txt"
+    default_authority_weight: "IMPLEMENTING"
+
+  - slug: "nuke"
+    title: "Nuclear export controls (10 C.F.R. Parts 110 and 810)"
+    authority_prefixes:
+      - "nuke"
+    description: >
+      Let the agent recognise when a question has left ITAR/EAR entirely for NRC or DOE authority.
+    charter: "charters/nuke.yaml"
+    spec: "specs/nuclear.json"
+    persona: "personas/nuke.txt"
+    default_authority_weight: "IMPLEMENTING"
+
+  - slug: "nispom"
+    title: "NISPOM — National Industrial Security Program (32 C.F.R. Part 117)"
+    authority_prefixes:
+      - "nispom"
+    description: >
+      Carry the classified-information side that USML Category XVII and classified technical data run into.
+    charter: "charters/nispom.yaml"
+    spec: "specs/nispom.json"
+    persona: "personas/nispom.txt"
+    default_authority_weight: "IMPLEMENTING"
+
+  - slug: "dfars"
+    title: "Contractual flowdown — DFARS and FAR export-control clauses (48 C.F.R.)"
+    authority_prefixes:
+      - "dfars"
+    description: >
+      Carry the contract clauses that impose export-control obligations by agreement, which is how most suppliers actually encounter them.
+    charter: "charters/dfars.yaml"
+    spec: "specs/contractual.json"
+    persona: "personas/dfars.txt"
+    default_authority_weight: "IMPLEMENTING"
+
+  - slug: "ecra"
+    title: "ECRA, IEEPA and the National Emergencies Act (50 U.S.C.)"
+    authority_prefixes:
+      - "ecra"
+    description: >
+      Provide the statutory authority for the EAR, and the emergency-powers chain the pre-2018 EAR rested on.
+    charter: "charters/ecra.yaml"
+    spec: "specs/ecra.json"
+    persona: "personas/ecra.txt"
+    default_authority_weight: "CONTROLLING"
+
+  - slug: "fr"
+    title: "Federal Register rulemaking docket (State, BIS, OFAC), 2013-present"
+    authority_prefixes:
+      - "fr"
+    description: >
+      Carry rule PREAMBLES — where the agency answers comments and says what a term means — which is the best interpretive source in this field and exists nowhere in the codified text.
+    charter: "charters/fr.yaml"
+    spec: "specs/fedreg-rulemaking.json"
+    persona: "personas/fr.txt"
+    default_authority_weight: "INTERPRETIVE"
+
+  - slug: "eo"
+    title: "Executive orders and presidential directives on export control"
+    authority_prefixes:
+      - "eo"
+    description: >
+      Carry the delegation chain from statute to agency, which is otherwise invisible: the ITAR exists because an EO delegated AECA authority.
+    charter: "charters/eo.yaml"
+    spec: "specs/executive-orders.json"
+    persona: "personas/eo.txt"
+    default_authority_weight: "CONTROLLING"
+
+  - slug: "ddtc-enf"
+    title: "DDTC compliance actions, consent agreements and debarment"
+    authority_prefixes:
+      - "ddtc-enf"
+    description: >
+      Carry what the agency actually does when there is a violation, which regulatory text cannot tell you.
+    charter: "charters/ddtc-enf.yaml"
+    spec: "specs/ddtc-enforcement.json"
+    persona: "personas/ddtc-enf.txt"
+    default_authority_weight: "EVIDENTIARY"
+
+  - slug: "cj"
+    title: "DDTC commodity jurisdiction determinations and process"
+    authority_prefixes:
+      - "cj"
+    description: >
+      Carry how CJ actually works and what determinations have said, since the corpus centrepiece is a CJ memo.
+    charter: "charters/cj.yaml"
+    spec: "specs/commodity-jurisdiction.json"
+    persona: "personas/cj.txt"
+    default_authority_weight: "INTERPRETIVE"
+
+  - slug: "ao"
+    title: "DDTC advisory opinions"
+    authority_prefixes:
+      - "ao"
+    description: >
+      Carry the advisory-opinion layer, applicant-specific and non-binding by its own terms.
+    charter: "charters/ao.yaml"
+    spec: "specs/advisory-opinions.json"
+    persona: "personas/ao.txt"
+    default_authority_weight: "INTERPRETIVE"
+
+  - slug: "redline"
+    title: "DDTC ITAR guidance, exemptions and the reorganisation redline"
+    authority_prefixes:
+      - "redline"
+    description: >
+      Carry DDTC's own explanations of the ITAR — registration, licensing, exemptions, the AUKUS and Canadian exemptions — which practitioners use as working law.
+    charter: "charters/redline.yaml"
+    spec: "specs/ddtc-itar-guidance.json"
+    persona: "personas/redline.txt"
+    default_authority_weight: "INTERPRETIVE"
+
+  - slug: "multilateral"
+    title: "Multilateral regime lists — Wassenaar, MTCR, NSG, Australia Group"
+    authority_prefixes:
+      - "wa"
+      - "mtcr"
+      - "nsg"
+      - "ag"
+    description: >
+      Carry the lists the USML and the CCL implement. A '600 series' ECCN exists because Wassenaar agreed a control; MTCR Item 1 is why a 300 km / 500 kg UAV is treated as it is. Without these the pack can say what the US controls and never why — and cannot answer whether a control is multilateral or US-unique, which is the question that decides how an allied transfer is argued.
+    charter: "charters/multilateral.yaml"
+    spec: "specs/multilateral.json"
+    persona: "personas/multilateral.txt"
+    default_authority_weight: "INTERPRETIVE"
+
+  - slug: "caselaw"
+    title: "Federal court decisions construing the AECA, the ITAR and the EAR"
+    authority_prefixes:
+      - "case"
+    description: >
+      Carry the judicial gloss. The seed document advises on penalty exposure, and exposure turns on the willfulness standard — which is a holding, not a regulation. Advising on it without the cases is a substantive defect.
+    charter: "charters/caselaw.yaml"
+    spec: "specs/caselaw.json"
+    persona: "personas/caselaw.txt"
+    default_authority_weight: "INTERPRETIVE"
+  # --- END GENERATED CORPORA ---

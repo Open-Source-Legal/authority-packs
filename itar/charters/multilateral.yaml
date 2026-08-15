@@ -1,0 +1,22 @@
+title: "Multilateral regime lists — Wassenaar, MTCR, NSG, Australia Group"
+slug: "multilateral"
+purpose: >
+  Carry the lists the USML and the CCL implement. A '600 series' ECCN exists because Wassenaar agreed a control; MTCR Item 1 is why a 300 km / 500 kg UAV is treated as it is. Without these the pack can say what the US controls and never why — and cannot answer whether a control is multilateral or US-unique, which is the question that decides how an allied transfer is argued.
+include:
+  - "59 sections, verbatim, harvested from the official source"
+exclude:
+  - "anything outside the parts named in the title"
+authority_tiers:
+  default: "INTERPRETIVE"
+notes: >
+  Added under the authority-layer expansion manifest, 2026-08-13.
+  Every section carries the manifest's schema fields: authority_tier,
+  regime, effective_date, status, binding, superseded_by and
+  fr_citation. `binding` is FALSE for every guidance, preamble,
+  enforcement and advisory corpus — those are evidence of what the
+  agency does or thinks, never the rule itself.
+update_expectation: "continuous"
+current_as_of: "2026-08-13 (see the section metadata for the per-source capture date)"
+approval_status: "harvested_unreviewed"
+legal_owner: null
+technical_owner: null

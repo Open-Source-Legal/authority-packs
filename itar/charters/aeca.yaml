@@ -1,0 +1,45 @@
+title: "Arms Export Control Act (22 U.S.C. §§ 2751 et seq.)"
+slug: "aeca"
+purpose: >
+  Provide the statute that authorises control of defense articles and defense
+  services, so that ITAR provisions resolve to the authority they implement and
+  so statutory limits (including the judicial-review bar) are citable.
+include:
+  - "all 55 live sections of 22 U.S.C. ch. 39 (Arms Export Control), verbatim"
+  - "22 U.S.C. § 2778 — AECA § 38, control of arms exports and imports"
+  - "22 U.S.C. § 2779 — AECA § 39, fees of military sales agents"
+  - "22 U.S.C. § 2780 — AECA § 40, countries supporting terrorism"
+  - "22 U.S.C. § 2794 — AECA § 47, definitions"
+  - "each section's enacting source credit, as published"
+exclude:
+  - "Foreign Assistance Act provisions not bearing on export control"
+  - "the EAR/ECRA and IEEPA/OFAC regimes — separate packs by design"
+authority_tiers:
+  default: "CONTROLLING"
+notes: >
+  DUAL NUMBERING. The Act's own section numbers and the codified U.S.C. numbers
+  are used interchangeably in practice — § 38 is 22 U.S.C. § 2778 — and even
+  careful secondary sources mix them ("AECA § 2778(c)"). Canonical keys here are
+  U.S.C. numbers; Act-section forms fold on via equivalences. All 54 pairings
+  were READ FROM THE STATUTE rather than from a mapping table: harvest/uscode.py
+  parses the enacting "(Pub. L. 90-629, ch. N, § M, ...)" clause out of each
+  section's USLM sourceCredit. Sections that some other public law added to the
+  chapter deliberately get no Act-section row.
+
+  Repealed, omitted and transferred sections (2767a, 2768, 2772, 2776a, 2795b)
+  are excluded: they carry no text, and an empty document at CONTROLLING weight
+  is worse than a citation that fails to resolve.
+
+  § 2778(h) bars judicial review of USML designations "made in regulations."
+  Courts have split on whether case-specific commodity-jurisdiction
+  determinations fall inside that bar (contrast Pulungan with Karn) — the
+  persona must not state this as settled.
+update_expectation: "legislative_session"
+# OLRC release point, i.e. the U.S. Code as amended through Pub. L. 119-102.
+# Sourced from uscode.house.gov rather than govinfo because govinfo's newest
+# USCODE title-22 package is the 2024 annual edition — up to eighteen months
+# stale, which for a compliance pack is the worse failure.
+current_as_of: "2026-07-23 (OLRC release point 119/102)"
+approval_status: "harvested_unreviewed"
+legal_owner: null
+technical_owner: null

@@ -44,6 +44,7 @@ python manage.py load_authority_pack --path /srv/authority-packs/fort_worth --cr
 | Pack | Jurisdiction | Corpora | Sections |
 |---|---|---|---|
 | [`fort_worth`](fort_worth/) | City of Fort Worth, Texas (us-tx-fort-worth) | City Code procurement **and construction** provisions · City Charter (selected chapters) · Texas procurement & contract-verification statutes · Building Administrative Code · local amendments to the 2021 IRC · Zoning Ordinance (residential) · Texas residential trade licensing & restrictive covenants | 881 |
+| [`itar`](itar/) | United States, federal (us) | Arms Export Control Act · ITAR (22 C.F.R. 120-130) · U.S. Munitions List (Categories I-XXI) · DDTC guidance, enforcement, commodity-jurisdiction and advisory-opinion record · Export Administration Regulations **and** the Commerce Control List · OFAC sanctions · ECRA/IEEPA · CFIUS · DOJ Data Security Program · nuclear export controls · NISPOM · DFARS/FAR flowdown · executive orders · Federal Register rulemaking preambles · federal case law · Wassenaar, MTCR, NSG and Australia Group control lists | 4,679 |
 
 Each pack's `README.md` documents its contents, provenance, and design notes.
 

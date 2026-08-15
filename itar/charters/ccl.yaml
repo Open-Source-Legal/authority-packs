@@ -1,0 +1,46 @@
+title: "Commerce Control List (15 C.F.R. Part 774, Supplement No. 1)"
+slug: "ccl"
+purpose: >
+  Make every ECCN individually addressable, so that an order-of-review walk that
+  leaves the USML has somewhere to land, and so "it is 3A611" resolves to the
+  entry rather than to a 1.4 MB supplement.
+include:
+  - "all 638 ECCN entries, verbatim, with their License Requirements / License Exceptions / List of Items Controlled structure"
+  - "Supplement No. 2 (General Technology and Software Notes)"
+  - "Supplement No. 4 (CCL Order of Review) — the landing point for ITAR § 120.5"
+  - "Supplements No. 3, 5, 6 and 7 (Statements of Understanding, 0Y521 series, Sensitive and Very Sensitive Lists)"
+exclude:
+  - "Part 774's two ordinary sections (§ 774.1, § 774.2) — carried in `ear`"
+authority_tiers:
+  default: "IMPLEMENTING"
+notes: >
+  KEYS ARE LOWERCASE (`ccl:3a611`, never `ccl:3A611`). ECCNs are conventionally
+  written uppercase, which makes the wrong choice the natural one: authority-key
+  matching is case-sensitive on the section part and the citation extractor
+  lowercases what it finds, so an uppercase key is unreachable from every real
+  citation. This is the USML Roman-numeral trap in a new costume, and it
+  previously made 53 of 53 sections unreachable on a shipped pack.
+
+  SPLIT OUT OF `ear` FOR THE SAME REASON `usml` IS SPLIT OUT OF `itar`.
+  Practitioners cite the ECCN, not "Supplement No. 1 to Part 774". Left inside
+  the EAR corpus, all 638 entries collapse to one key and the thing people
+  actually cite becomes unaddressable.
+
+  DUPLICATE ENTRIES ARE MERGED, NOT EMITTED TWICE. The 0Y521 series and 7A003
+  each open a second paragraph under the same ECCN. Two live documents sharing a
+  canonical key is precisely the condition that made 21 USML categories resolve
+  to superseded stub text on an earlier install of this pack — the resolver
+  takes the lowest id and the other half becomes unreachable.
+
+  EACH ENTRY CARRIES `related_usml_category`, extracted from its Related
+  Controls text. That is the ITAR↔EAR bridge: 3A611 points at USML Categories
+  IV, VII, VIII and XI; 6A003 at Category XII.
+
+  CURRENCY: the eCFR flags an amendment to Supplement No. 1 published at
+  91 FR 46261 (23 July 2026) as not yet incorporated. Every entry carries that
+  notice in metadata.
+update_expectation: "continuous"
+current_as_of: "2026-08-11 (eCFR versioner API, 15 C.F.R. Part 774)"
+approval_status: "harvested_unreviewed"
+legal_owner: null
+technical_owner: null

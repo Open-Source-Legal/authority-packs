@@ -1,0 +1,118 @@
+{
+  "sections": [
+    {
+      "key": "cj:kb0011306",
+      "heading": "Commodity Jurisdictions (CJs) — DDTC KB0011306",
+      "text": "The purpose of a commodity jurisdiction (CJ) request is to determine whether a commodity or service is covered by the U.S. Munitions List (USML) and therefore subject to export controls administered by the U.S. Department of State pursuant to the Arms Export Control Act and the International Traffic in Arms Regulations (ITAR). If after reviewing the USML and other relevant parts of the ITAR, in particular ITAR §120.3, §120.4, and §120.11, you are unsure of the export jurisdiction of a commodity or service, you should request a CJ determination.\nImportant Notes:\nApplicants\nApplicants are not required to be registered with DDTC to submit a CJ request.\nCJ Requests Are Submitted Electronically\nAll CJ requests must be submitted via DECCS. Applicants submit CJ requests through an online application using form DS-4076 (to which other documents may be attached). Access the DECCS CJ application. All other submissions will be Returned Without Action.\nReturned Without Action (RWA) CJ Requests\nIn the event you have submitted a CJ request and have received a notice from DDTC indicating it has been RWA’D, we ask that any resubmission include the additional information requested in the RWA notice. We recommend that you include the DDTC RWA letter as an attachment to your new CJ submission. Your resubmission will be processed as a new CJ request and should be submitted accordingly as a new DS-4076.\nCJ Case Number\nAfter successful submission of the DS-4076 CJ package through DECCS the applicant receives a CJ case number immediately. If the applicant does not receive a CJ case number, the submission has failed and the applicant must resubmit. Within 48 business hours applicants will be able to track their CJ case in DECCS.\nCJ Guidelines and Instructions\nPDF\nDS-4076 Instructions\nPDF\nCJ Application Tips and FAQs\nPDF\nCJ Industry User Guide\nExample Form\nDS-4076 Commodity Jurisdiction (CJ) Request Form: The DS-4076 form available below is a fully expanded version of the form to display all possible questions that may be asked of applicants. Please note, when ﬁlling out your submission in DECCS, only those questions relevant to your particular situation will appear.\nFor informational purposes only. View the entire DS-4076 data collection (PDF).\nSupporting Document Example\nDS-4076 Authorization Letter Example Attachment (PDF). Letter authorizing a person to ﬁle the DS-4076 on behalf of the manufacturer.\nCJ Submission\nAfter reading the CJ submission guidelines and amassing relevant information on the commodity or service for which you are seeking a CJ determination, you are ready to submit. To create and submit a DS-4076, go to the DECCS CJ application.\nCheck CJ Status\nApplicants will be able to track their CJ case in DECCS, searching by case number. If you are unable to check the status of your CJ on DECCS, you may contact the Response Team (Contact Us).",
+      "source_url": "https://www.pmddtc.state.gov/ddtc_public/ddtc_public?id=ddtc_kb_article_page&sys_id=KB0011306",
+      "metadata": {
+        "authority_tier": "agency_guidance",
+        "regime": "ITAR",
+        "effective_date": "2026-08-13",
+        "superseded_by": null,
+        "status": "current",
+        "fr_citation": null,
+        "binding": false,
+        "kb_number": "KB0011306",
+        "retrieved_at": "2026-08-13",
+        "updated": null,
+        "publisher": "U.S. Department of State, DDTC"
+      }
+    },
+    {
+      "key": "cj:kb0011305",
+      "heading": "Defense Export Control and Compliance System (DECCS) — DDTC KB0011305",
+      "text": "As part of DDTC’s IT Modernization effort, the Defense Export Control and Compliance System (DECCS) will become the central online platform for conducting business with DDTC.\nDECCS Industry Portal\nDDTC manages several systems to support its core business functions. Read below for more information about each system and the function(s) it supports.\nDECCS Applications:\nApplication\nDescription\nStatus\nMaterials & Guidance\nCommodity Jurisdictions (CJ)\nThe Commodity Jurisdiction (CJ) application was the first application released in DECCS. The CJ application allows industry users to electronically complete, sign and submit a CJ request to determine whether an item or service is covered by the U.S. Munitions List (USML) and therefore subject to export controls administered by the Department of State pursuant to the Arms Export Control Act and the ITAR. Upon successful submission, users will immediately receive their CJ case number for status tracking.\nLive\nPlease review the following to assist with a successful CJ submission:\nCommodity Jurisdictions (CJs) information\nAccess the CJ application here.\nOpinions (AO)\nThe Advisory Opinions (AO) application allows industry users to electronically submit inquiries related to ITAR sections 120.22(a), 120.22(c), and 129.9. Use of the application is highly encouraged as a significantly faster alternative to mail-in correspondence, which requires manual data entry and can delay response times.\nLive\nPlease review the following resources related to AOs:\nAdvisory Opinions (AO) information\nAccess the DECCS Industry Service Portal here to access the Advisory Opinions application.\nRegistration\nDDTC maintains a pool of approximately 14,000 registered entities, managing renewals, fees, and account data. DDTC replaced its legacy Electronic Form Submission (EFS) tool with the new Registration application. The new application allows industry users to complete the end-to-end registration and renewal processes online, including paying DDTC registration fees using pay.gov.\nLive\nThe following resources provide more information on the upcoming Registration application:\nRecording of DDTC CIO Karen Wrege’s Webinar, including a demo of the new enrollment process (January 14, 2020)\nLicensing\nDDTC analyzes and processes approximately 38,000 defense export license applications from industry each year, with input from key interagency partners. DDTC released a new Licensing application to replace its legacy licensing submission system, DTrade. The new application provides the same functionality as DTrade with added data security and convenience.\nLive\nCheck out our DECCS FAQs\nGeneral Guidance for Accessing DECCS Applications:\nRecommended screen resolution is 1366x768 or 1920x1080 pixels\nLatest versions of Chrome, Edge, Safari, Firefox, and Internet Explorer are supported\nSupporting documentation size is limited to 50MB per attachment\nDECCS User Guides and videos:\nRegistration\nLicensing\nUser Management/Login/Enrollment",
+      "source_url": "https://www.pmddtc.state.gov/ddtc_public/ddtc_public?id=ddtc_kb_article_page&sys_id=3d57400edbecb7007ede365e7c9619ba",
+      "metadata": {
+        "authority_tier": "agency_guidance",
+        "regime": "ITAR",
+        "effective_date": "2026-08-13",
+        "superseded_by": null,
+        "status": "current",
+        "fr_citation": null,
+        "binding": false,
+        "kb_number": "KB0011305",
+        "retrieved_at": "2026-08-13",
+        "updated": null,
+        "publisher": "U.S. Department of State, DDTC"
+      }
+    },
+    {
+      "key": "cj:kb0011199",
+      "heading": "Advisory Opinions (AOs) & Other Correspondence — DDTC KB0011199",
+      "text": "Advisory Opinions\nSUBMIT YOUR ADVISORY OPINIONS REQUEST IN DECCS\nIn order to submit your Advisory Opinions request, click here to access the Advisory Opinions application in DECCS.\nDDTC highly encourages submission of Advisory Opinions via DECCS, as this results in the fastest, most direct case processing. Hard copy submission by other means significantly slows down the case processing timeline. If the request cannot be submitted using DECCS, please use the Advisory Opinions form below to ensure all pertinent information is included in the submission.\nAdvisory Opinions Instructions & Form\nAdditional Submission Guidance for ITAR Section 120.22(a) Requests\nWhen the request is whether DDTC would be likely to grant a license or other approval for the export of a particular defense article or defense service to a particular country section 120.22(a), DDTC strongly encourages applicants to submit a technical data DSP-5 license application for the marketing of a defense article in lieu of an Advisory Opinions request. Unlike an Advisory Opinion, an approved DSP-5 includes the authorization to export the technical data. The technical data DSP-5 application for the marketing of a defense article must outline in detail the equipment, its proposed usage, the security classification (if any) of the articles or related technical data, and the country or countries involved. Applicants may also include prior related advisory opinions as supporting materials for the application.\nAbout Advisory Opinions\nDDTC responds to inquiries on the following topics in the form of Advisory Opinions. Any individual or entity can submit an inquiry. Registration with DDTC is not required to submit an Advisory Opinion.\nPreliminary Authorization Determinations\nAs set forth in ITAR section 120.22(a), a person may request information from the Directorate of Defense Trade Controls as to whether it would likely grant a license or other approval for a particular defense article or defense service to a particular country. Responses are issued on a case-by-case basis and apply only to the particular matters presented, are not binding on the Department of State and may not be used in future matters before the Department. These requests must be made in writing and must outline in detail the equipment, its usage, the security classification (if any) of the articles or related technical data, and the country or countries involved.\nInterpretations of the ITAR\nAs set forth in ITAR section 120.22(c), any person may request an interpretation of the requirements set forth in ITAR. A request for an advisory opinion must be made in writing. Any response to an advisory opinion shall not be an authorization to export and shall not bind the Department to grant or deny any such authorization.\nGuidance on Brokering Activities\nAs set forth in ITAR section 129.9, any person may request in writing guidance as to whether a specific activity constitutes a brokering activity within the scope of part 129. Detailed information regarding the proposed activity must be included in the submission as outlined in section 129.9.\nGuidance on Brokering\nAs set forth in ITAR section 129.9(c), any person desiring guidance on aspects of part 129 other than whether an activity is a brokering activity as described in section 129.9(b) may do so by submitting a description of the relevant facts or copies of relevant documentation.\nInquiries regarding the following topics, and any other topics, will continue to be submitted and responded by mail:\nRetransfer/reexport/change in end-use requests (ITAR § 123.9(c))\nRelated licensing authorizations (ITAR § 120.22(b))\nMerger/acquisition notices (ITAR § 122.4)\nDual national/third country national vetting (ITAR § 126.18(a))\nExemption approval requests (ITAR §125.4(b)(11))\nSUBMIT OTHER FORMAL INQUIRIES AND CORRESPONDENCE VIA MAIL\nTo send correspondence to DDTC, please mail in your correspondence to:\nU.S. Department of State\nDirectorate of Defense Trade Controls\nCompliance & Registration Division\n2401 E Street NW, SA-1 Room H1200\nWashington, DC 20037\nNote: Please refer to the ITAR sections referenced above for details on the information that should be included in your correspondence.",
+      "source_url": "https://www.pmddtc.state.gov/ddtc_public/ddtc_public?id=ddtc_kb_article_page&sys_id=de6b7afbdbbe630044f9ff621f9619d0",
+      "metadata": {
+        "authority_tier": "agency_guidance",
+        "regime": "ITAR",
+        "effective_date": "2026-08-13",
+        "superseded_by": null,
+        "status": "current",
+        "fr_citation": null,
+        "binding": false,
+        "kb_number": "KB0011199",
+        "retrieved_at": "2026-08-13",
+        "updated": null,
+        "publisher": "U.S. Department of State, DDTC"
+      }
+    },
+    {
+      "key": "cj:kb0011437",
+      "heading": "Registration User Guides — DDTC KB0011437",
+      "text": "Check the user guides below for detailed instructions regarding the creation, renewal, payment, and amendment of Directorate of Defense Trade Control (DDTC) registrations within DECCS Registration. For additional inquiries, please contact the DDTC Response Team at ddtccustomerservice@state.gov.\nRegistration (General)\nDS-2032 Statement of Registration Instructions (PDF)\nDECCS Registration User Roles (PDF)\nCreate a New Registration\nNew Registration User Guide (PDF)\nRegistration Renewal\nRegistration Renewal User Guide (PDF)\nRegistration Amendment\nMaterial Change User Guide (PDF)\nMaterial Change - Available Fields (PDF)\nMAD Change User Guide (PDF)\nMAD Change - Available Fields (PDF)\nAdministrative Change User Guide (PDF)",
+      "source_url": "https://www.pmddtc.state.gov/ddtc_public/ddtc_public?id=ddtc_kb_article_page&sys_id=27bcd259db874c10d0a370131f9619f8",
+      "metadata": {
+        "authority_tier": "agency_guidance",
+        "regime": "ITAR",
+        "effective_date": "2026-08-13",
+        "superseded_by": null,
+        "status": "current",
+        "fr_citation": null,
+        "binding": false,
+        "kb_number": "KB0011437",
+        "retrieved_at": "2026-08-13",
+        "updated": null,
+        "publisher": "U.S. Department of State, DDTC"
+      }
+    },
+    {
+      "key": "cj:kb0011438",
+      "heading": "Licensing: Application User Guides — DDTC KB0011438",
+      "text": "Welcome to the DECCS Licensing Learning Tools page. Here users can access the Consolidated Licensing User Guide, which includes Licensing Roles documentation and detailed information on the ‘Track Status’ functionality within the application.\nFor more information on the DECCS Licensing application, click on the document link below:\nConsolidated Licensing Guide",
+      "source_url": "https://www.pmddtc.state.gov/ddtc_public/ddtc_public?id=ddtc_kb_article_page&sys_id=ddae5ed9db874c10d0a370131f961913",
+      "metadata": {
+        "authority_tier": "agency_guidance",
+        "regime": "ITAR",
+        "effective_date": "2026-08-13",
+        "superseded_by": null,
+        "status": "current",
+        "fr_citation": null,
+        "binding": false,
+        "kb_number": "KB0011438",
+        "retrieved_at": "2026-08-13",
+        "updated": null,
+        "publisher": "U.S. Department of State, DDTC"
+      }
+    },
+    {
+      "key": "cj:kb0011296",
+      "heading": "User Management: User Guide — DDTC KB0011296",
+      "text": "Welcome to the DECCS User Management Learning Tools page. Here users can access a User Management Application Guide for more information on the types of user permissions available in DECCS, as well as the process for requesting and granting system access on behalf of a registered DECCS entity.\nFor more information on DECCS User Management, click on the document links below:\nUser Management Application User Guide\nDECCS Enrollment Guide\nDECCS MFA and Logging In",
+      "source_url": "https://www.pmddtc.state.gov/ddtc_public/ddtc_public?id=ddtc_kb_article_page&sys_id=5305a7addb983b007ede365e7c9619da",
+      "metadata": {
+        "authority_tier": "agency_guidance",
+        "regime": "ITAR",
+        "effective_date": "2026-08-13",
+        "superseded_by": null,
+        "status": "current",
+        "fr_citation": null,
+        "binding": false,
+        "kb_number": "KB0011296",
+        "retrieved_at": "2026-08-13",
+        "updated": null,
+        "publisher": "U.S. Department of State, DDTC"
+      }
+    }
+  ]
+}

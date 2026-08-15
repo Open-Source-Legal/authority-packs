@@ -1,0 +1,39 @@
+title: "United States Munitions List (22 C.F.R. § 121.1)"
+slug: "usml"
+purpose: >
+  Make the 21 USML categories individually addressable, so that "is this a
+  defense article?" resolves to the category text rather than to recollection.
+include:
+  - "Categories I through XXI, verbatim, with subparagraph enumeration"
+exclude:
+  - "the Commerce Control List 600-series — EAR, a separate regime"
+authority_tiers:
+  default: "IMPLEMENTING"
+notes: >
+  KEYS ARE LOWERCASE ROMAN NUMERALS (usml:viii, not usml:VIII). Authority-key
+  matching is case-sensitive on the section part and the citation extractor
+  lowercases what it finds; an uppercase key is unreachable from any real
+  citation. This is not stylistic — it silently broke 53 sections of the
+  fort_worth pack until they were re-keyed.
+
+  Subparagraph enumeration matters: practitioners cite "Category VIII(a)(1)",
+  not "Category VIII". This corpus keys at CATEGORY level and relies on the
+  resolver's subsection-to-section fallback, which was verified against a live
+  install: find_authority_target("usml:viii(a)") resolves to usml:viii, because
+  candidate_keys() strips trailing parenthetical groups. The full subparagraph
+  enumeration is inside each category's text, so the pinpoint is retrievable
+  even though it is not separately keyed.
+
+  CURRENCY IS NOT UNIFORM ACROSS CATEGORIES. The eCFR is a compilation and lags
+  the Federal Register, which is operative on publication. Every category
+  carries the capture date and any pending-amendment notice in `metadata`; where
+  a published-but-not-yet-compiled amendment affects a specific category, that
+  category — and only that one — also carries a delimited currency note in its
+  body. At this capture that is Category I (91 FR 46281, firearm suppressors).
+  harvest/fedreg_watch.py is what detects this; run it before relying on the
+  pack.
+update_expectation: "continuous"
+current_as_of: "2026-08-10 (eCFR versioner API, 22 C.F.R. § 121.1)"
+approval_status: "harvested_unreviewed"
+legal_owner: null
+technical_owner: null

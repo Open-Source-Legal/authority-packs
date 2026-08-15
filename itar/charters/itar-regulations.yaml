@@ -1,0 +1,45 @@
+title: "International Traffic in Arms Regulations (22 C.F.R. Parts 120-130)"
+slug: "itar-regulations"
+purpose: >
+  Provide the operative regulatory text a compliance question actually turns on:
+  what is a defense article or defense service, who must register, what needs a
+  licence or an agreement, how technical data is treated, and what the penalties
+  are.
+include:
+  - "all 178 live sections of Parts 120-130, verbatim, at pinpoint section level"
+  - "11 part-level overview documents, so part-form citations resolve"
+  - "regulatory notes and examples — in the ITAR these carry operative content"
+exclude:
+  - "the USML itself — carried in the `usml` corpus so categories are addressable"
+  - "DDTC guidance — carried at INTERPRETIVE weight in `ddtc-guidance`"
+  - "reserved section ranges (e.g. §§ 120.8-120.9), which have no text"
+authority_tiers:
+  default: "IMPLEMENTING"
+notes: >
+  Part 120 was substantially reorganised in the 2022 ITAR consolidation
+  rulemaking; definitions moved. Do NOT carry pre-2022 section numbers forward
+  without checking the current eCFR.
+
+  WHAT SILENCE MEANS HERE: this corpus carries every live section of Parts
+  120-130 in full, so an absent section is a signal the provision does not
+  exist under that number — not that it was omitted for space. The persona
+  says so, because a user cannot otherwise tell the two apart.
+
+  Part-level documents are indexes, not law: each carries the part's verbatim
+  heading, authority note, source credit and list of section headings. They
+  exist because in the shipped fort_worth pack, part/chapter-level citations
+  failed to resolve purely because no part-level document existed.
+
+  § 121.1 IS AN INDEX HERE, ON PURPOSE. Its actual body is the entire Munitions
+  List, which this pack carries as 21 addressable `usml:*` documents at the same
+  weight. Duplicating ~200 KB into `itar:121.1` would let retrieval surface one
+  undifferentiated blob instead of the precise category — exactly the
+  addressability that splitting `usml` out was meant to buy. It therefore holds
+  the verbatim heading, the verbatim "(a)-(b) [Reserved]" lead-in, and the
+  verbatim list of the 21 category headings, with INCORPORATES relationships to
+  the real category documents.
+update_expectation: "continuous"
+current_as_of: "2026-08-10 (eCFR versioner API, title 22)"
+approval_status: "harvested_unreviewed"
+legal_owner: null
+technical_owner: null

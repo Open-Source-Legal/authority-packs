@@ -1,0 +1,47 @@
+title: "Export Administration Regulations — scope, prohibitions, definitions"
+slug: "ear-regulations"
+purpose: >
+  Carry the EAR text an ITAR question actually collides with, so that "not ITAR"
+  can be completed rather than merely asserted, and so the boundary between the
+  two regimes is quotable instead of remembered.
+include:
+  - "Part 730 (general information) and Part 732 (steps for using the EAR)"
+  - "Part 734 — scope, including § 734.3(b)(1)'s carve-out for items exclusively controlled by another agency"
+  - "§ 734.4 and Supplement No. 2 to Part 734 — de minimis rules and the calculation methodology"
+  - "§§ 734.13-734.20 — export, reexport, transfer, release, including § 734.13(b)"
+  - "Part 736 — General Prohibitions One through Ten"
+  - "Part 738 and Supplement No. 1 — the Commerce Country Chart"
+  - "Part 772 — definitions, carried ONE DOCUMENT PER DEFINED TERM (324 of them)"
+exclude:
+  - "the CCL itself — carried in the `ccl` corpus so each ECCN is addressable"
+  - "licensing, country policy and end-use controls (Parts 740-758) — not yet carried"
+  - "antiboycott and enforcement (Parts 760-768) — not yet carried"
+authority_tiers:
+  default: "IMPLEMENTING"
+notes: >
+  WHY THIS CORPUS EXISTS AT ALL. The pack was deliberately ITAR-only (decision
+  D7). That was overturned by measurement, not by preference: with the corpus
+  switched off, the document corpus's two planted traps — a 10% de minimis
+  request and a deemed-export screening procedure that imported the EAR's
+  most-recent-country rule — scored exactly the same as with it on. Both are
+  questions about the ITAR/EAR boundary, and neither can be answered from ITAR
+  text alone. See decision D7-REVISED in docs/03.
+
+  § 772.1 IS CHUNKED PER DEFINED TERM. It is one section holding 324 terms; as a
+  single document the definition you need is always in the wrong half of the
+  retrieval window. Keys are `ear:772.1-<slugified-term>`.
+
+  THE TWO "SPECIALLY DESIGNED" TREES ARE NOT THE SAME TEST. ITAR § 120.41 and
+  EAR § 772.1 share a name and a catch-and-release shape and reach different
+  answers. Both must be runnable independently; an equivalence row deliberately
+  does NOT fold one onto the other, because that would make them
+  interchangeable, which is the error the pairing exists to prevent.
+
+  NOT CARRIED: Parts 740-768. A question about license exceptions, the Entity
+  List, or antiboycott will find nothing here, and the persona says so rather
+  than letting silence read as "no requirement".
+update_expectation: "continuous"
+current_as_of: "2026-08-11 (eCFR versioner API, title 15)"
+approval_status: "harvested_unreviewed"
+legal_owner: null
+technical_owner: null
