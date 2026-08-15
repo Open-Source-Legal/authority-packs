@@ -48,6 +48,19 @@ python manage.py load_authority_pack --path /srv/authority-packs/fort_worth --cr
 
 Each pack's `README.md` documents its contents, provenance, and design notes.
 
+## Domains
+
+A **domain pack** composes atomic base packs and supplies the wiring that
+belongs to none of them — the corpus group, the orchestrator persona describing
+how those bodies of law interact, and cross-pack equivalences. It carries little
+or no text of its own.
+
+| Domain | Composes | Purpose |
+|---|---|---|
+| [`us-export-control`](domains/us-export-control/) | `itar` | Which regime governs a transfer, and what else must clear before it proceeds |
+
+See [DOMAIN_PACKS.md](DOMAIN_PACKS.md) for the shape and the install contract.
+
 ## Licensing
 
 Pack content in this repository is licensed under
