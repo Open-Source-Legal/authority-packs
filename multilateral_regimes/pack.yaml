@@ -1,0 +1,50 @@
+# Multilateral regime lists — Wassenaar, MTCR, NSG, Australia Group — schema v2 manifest.
+#
+# An ATOMIC base pack: one publisher, one update cadence, one provenance story,
+# one approval status. Composed into a working assembly by a domain pack, which
+# supplies the corpus group, the orchestrator and the cross-pack equivalences —
+# none of which belong to any single body of law.
+#
+# HARVESTED, NOT LEGALLY REVIEWED. Every section body is verbatim text from the
+# official source — no stubs, no paraphrase — but no attorney has reviewed it,
+# which is what `approval_status: harvested_unreviewed` in each charter records.
+#
+# `source_hosts` is unioned into the SSRF allowlist at runtime, so it lists the
+# hosts THIS pack's content was harvested from and no others.
+schema_version: 2
+name: multilateral_regimes
+display_name: Multilateral regime lists — Wassenaar, MTCR, NSG, Australia Group
+description: 'The lists the USML and the CCL implement. A ''600 series'' ECCN exists because Wassenaar
+  agreed a control; MTCR Item 1 is why a 300 km / 500 kg UAV is treated as it is. Without these a pack
+  can say what the US controls and never why — and cannot answer whether a control is multilateral or
+  US-unique, which is the question that decides how an allied transfer is argued.
+
+
+  Four prefixes on ONE corpus, so `wa:ml1` and `mtcr:item-1` stay addressable as themselves without four
+  corpora against the platform''s group cap. Nothing here is binding law; every section says so.'
+jurisdiction: us
+mappings: authority_mappings.multilateral_regimes.yaml
+source_hosts:
+- www.wassenaar.org
+- www.mtcr.info
+- www.iaea.org
+- www.australiagroup.net
+- web.archive.org
+corpora:
+- slug: multilateral
+  title: Multilateral regime lists — Wassenaar, MTCR, NSG, Australia Group
+  authority_prefixes:
+  - wa
+  - mtcr
+  - nsg
+  - ag
+  description: 'Carry the lists the USML and the CCL implement. A ''600 series'' ECCN exists because Wassenaar
+    agreed a control; MTCR Item 1 is why a 300 km / 500 kg UAV is treated as it is. Without these the
+    pack can say what the US controls and never why — and cannot answer whether a control is multilateral
+    or US-unique, which is the question that decides how an allied transfer is argued.
+
+    '
+  charter: charters/multilateral.yaml
+  spec: specs/multilateral.json
+  persona: personas/multilateral.txt
+  default_authority_weight: INTERPRETIVE

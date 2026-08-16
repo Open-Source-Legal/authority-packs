@@ -1,0 +1,37 @@
+# CFIUS / FIRRMA (31 C.F.R. Parts 800, 802) — schema v2 manifest.
+#
+# An ATOMIC base pack: one publisher, one update cadence, one provenance story,
+# one approval status. Composed into a working assembly by a domain pack, which
+# supplies the corpus group, the orchestrator and the cross-pack equivalences —
+# none of which belong to any single body of law.
+#
+# HARVESTED, NOT LEGALLY REVIEWED. Every section body is verbatim text from the
+# official source — no stubs, no paraphrase — but no attorney has reviewed it,
+# which is what `approval_status: harvested_unreviewed` in each charter records.
+#
+# `source_hosts` is unioned into the SSRF allowlist at runtime, so it lists the
+# hosts THIS pack's content was harvested from and no others.
+schema_version: 2
+name: cfius
+display_name: CFIUS / FIRRMA (31 C.F.R. Parts 800, 802)
+description: 'Inbound investment review. Shares CFR title 31 with OFAC, which is a trap rather than a
+  convenience: a namespace alias maps a whole title to one prefix, so `31 C.F.R. § 800.215` extracts as
+  `ofac:800.215` and resolves to nothing. The folding rows that fix it span two packs and therefore live
+  in the domain layer, not here.'
+jurisdiction: us
+mappings: authority_mappings.cfius.yaml
+source_hosts:
+- www.ecfr.gov
+corpora:
+- slug: cfius
+  title: CFIUS / FIRRMA (31 C.F.R. Parts 800, 802)
+  authority_prefixes:
+  - cfius
+  description: 'Carry the inbound-investment consequence of an export classification: a mandatory declaration
+    can turn on whether an item is critical technology.
+
+    '
+  charter: charters/cfius.yaml
+  spec: specs/cfius.json
+  persona: personas/cfius.txt
+  default_authority_weight: IMPLEMENTING

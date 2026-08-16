@@ -1,0 +1,703 @@
+# Arms Export Control Act (22 U.S.C. §§ 2751 et seq.)
+#
+# Namespace registry + citation taxonomy for the `aeca` base pack.
+# Split out of the monolithic `itar` pack; prefixes and rows are unchanged.
+#
+# Aliases are LOWERCASED surface strings and drive Tier-1 extraction
+# ("Section N of the <alias>" / "<alias> Section N"). Citation SHAPES are not
+# declarable here — they are compiled into the extractor — so a row whose
+# `from_key` uses a shape prefix (`act:`, `cfr-22:`) is the taxonomy catching
+# what the shape grammar emitted and folding it onto a real key.
+#
+# `rewrite_rules` is deliberately empty and stays that way: a pack's rewrite
+# rules are never loaded, only its equivalences are, so every mapping has to be
+# an explicit {from_key, to_key} row.
+
+prefixes:
+  aeca:
+    display_name: Arms Export Control Act
+    jurisdiction: us
+    authority_type: statute
+    aliases:
+    - arms export control act
+    - aeca
+    - 22 u.s.c.
+    - 22 usc
+    - title 22 of the united states code
+
+equivalences:
+- from_key: act:section-2778-h-of-the-arms-export-control-act
+  to_key: aeca:2778
+- from_key: aeca:1
+  to_key: aeca:2751
+  note: AECA § 1 = 22 U.S.C. § 2751
+- from_key: act:section-1-of-the-arms-export-control-act
+  to_key: aeca:2751
+- from_key: aeca:2
+  to_key: aeca:2752
+  note: AECA § 2 = 22 U.S.C. § 2752
+- from_key: act:section-2-of-the-arms-export-control-act
+  to_key: aeca:2752
+- from_key: aeca:3
+  to_key: aeca:2753
+  note: AECA § 3 = 22 U.S.C. § 2753
+- from_key: act:section-3-of-the-arms-export-control-act
+  to_key: aeca:2753
+- from_key: aeca:4
+  to_key: aeca:2754
+  note: AECA § 4 = 22 U.S.C. § 2754
+- from_key: act:section-4-of-the-arms-export-control-act
+  to_key: aeca:2754
+- from_key: aeca:5
+  to_key: aeca:2755
+  note: AECA § 5 = 22 U.S.C. § 2755
+- from_key: act:section-5-of-the-arms-export-control-act
+  to_key: aeca:2755
+- from_key: aeca:6
+  to_key: aeca:2756
+  note: AECA § 6 = 22 U.S.C. § 2756
+- from_key: act:section-6-of-the-arms-export-control-act
+  to_key: aeca:2756
+- from_key: aeca:21
+  to_key: aeca:2761
+  note: AECA § 21 = 22 U.S.C. § 2761
+- from_key: act:section-21-of-the-arms-export-control-act
+  to_key: aeca:2761
+- from_key: aeca:22
+  to_key: aeca:2762
+  note: AECA § 22 = 22 U.S.C. § 2762
+- from_key: act:section-22-of-the-arms-export-control-act
+  to_key: aeca:2762
+- from_key: aeca:23
+  to_key: aeca:2763
+  note: AECA § 23 = 22 U.S.C. § 2763
+- from_key: act:section-23-of-the-arms-export-control-act
+  to_key: aeca:2763
+- from_key: aeca:24
+  to_key: aeca:2764
+  note: AECA § 24 = 22 U.S.C. § 2764
+- from_key: act:section-24-of-the-arms-export-control-act
+  to_key: aeca:2764
+- from_key: aeca:25
+  to_key: aeca:2765
+  note: AECA § 25 = 22 U.S.C. § 2765
+- from_key: act:section-25-of-the-arms-export-control-act
+  to_key: aeca:2765
+- from_key: aeca:26
+  to_key: aeca:2766
+  note: AECA § 26 = 22 U.S.C. § 2766
+- from_key: act:section-26-of-the-arms-export-control-act
+  to_key: aeca:2766
+- from_key: aeca:27
+  to_key: aeca:2767
+  note: AECA § 27 = 22 U.S.C. § 2767
+- from_key: act:section-27-of-the-arms-export-control-act
+  to_key: aeca:2767
+- from_key: aeca:29
+  to_key: aeca:2769
+  note: AECA § 29 = 22 U.S.C. § 2769
+- from_key: act:section-29-of-the-arms-export-control-act
+  to_key: aeca:2769
+- from_key: aeca:30
+  to_key: aeca:2770
+  note: AECA § 30 = 22 U.S.C. § 2770
+- from_key: act:section-30-of-the-arms-export-control-act
+  to_key: aeca:2770
+- from_key: aeca:31
+  to_key: aeca:2771
+  note: AECA § 31 = 22 U.S.C. § 2771
+- from_key: act:section-31-of-the-arms-export-control-act
+  to_key: aeca:2771
+- from_key: aeca:33
+  to_key: aeca:2773
+  note: AECA § 33 = 22 U.S.C. § 2773
+- from_key: act:section-33-of-the-arms-export-control-act
+  to_key: aeca:2773
+- from_key: aeca:34
+  to_key: aeca:2774
+  note: AECA § 34 = 22 U.S.C. § 2774
+- from_key: act:section-34-of-the-arms-export-control-act
+  to_key: aeca:2774
+- from_key: aeca:35
+  to_key: aeca:2775
+  note: AECA § 35 = 22 U.S.C. § 2775
+- from_key: act:section-35-of-the-arms-export-control-act
+  to_key: aeca:2775
+- from_key: aeca:36
+  to_key: aeca:2776
+  note: AECA § 36 = 22 U.S.C. § 2776
+- from_key: act:section-36-of-the-arms-export-control-act
+  to_key: aeca:2776
+- from_key: aeca:37
+  to_key: aeca:2777
+  note: AECA § 37 = 22 U.S.C. § 2777
+- from_key: act:section-37-of-the-arms-export-control-act
+  to_key: aeca:2777
+- from_key: aeca:38
+  to_key: aeca:2778
+  note: AECA § 38 = 22 U.S.C. § 2778
+- from_key: act:section-38-of-the-arms-export-control-act
+  to_key: aeca:2778
+- from_key: aeca:39
+  to_key: aeca:2779
+  note: AECA § 39 = 22 U.S.C. § 2779
+- from_key: act:section-39-of-the-arms-export-control-act
+  to_key: aeca:2779
+- from_key: aeca:40
+  to_key: aeca:2780
+  note: AECA § 40 = 22 U.S.C. § 2780
+- from_key: act:section-40-of-the-arms-export-control-act
+  to_key: aeca:2780
+- from_key: aeca:42
+  to_key: aeca:2791
+  note: AECA § 42 = 22 U.S.C. § 2791
+- from_key: act:section-42-of-the-arms-export-control-act
+  to_key: aeca:2791
+- from_key: aeca:43
+  to_key: aeca:2792
+  note: AECA § 43 = 22 U.S.C. § 2792
+- from_key: act:section-43-of-the-arms-export-control-act
+  to_key: aeca:2792
+- from_key: aeca:44
+  to_key: aeca:2793
+  note: AECA § 44 = 22 U.S.C. § 2793
+- from_key: act:section-44-of-the-arms-export-control-act
+  to_key: aeca:2793
+- from_key: aeca:47
+  to_key: aeca:2794
+  note: AECA § 47 = 22 U.S.C. § 2794
+- from_key: act:section-47-of-the-arms-export-control-act
+  to_key: aeca:2794
+- from_key: aeca:51
+  to_key: aeca:2795
+  note: AECA § 51 = 22 U.S.C. § 2795
+- from_key: act:section-51-of-the-arms-export-control-act
+  to_key: aeca:2795
+- from_key: aeca:52
+  to_key: aeca:2795a
+  note: AECA § 52 = 22 U.S.C. § 2795a
+- from_key: act:section-52-of-the-arms-export-control-act
+  to_key: aeca:2795a
+- from_key: aeca:61
+  to_key: aeca:2796
+  note: AECA § 61 = 22 U.S.C. § 2796
+- from_key: act:section-61-of-the-arms-export-control-act
+  to_key: aeca:2796
+- from_key: aeca:62
+  to_key: aeca:2796a
+  note: AECA § 62 = 22 U.S.C. § 2796a
+- from_key: act:section-62-of-the-arms-export-control-act
+  to_key: aeca:2796a
+- from_key: aeca:63
+  to_key: aeca:2796b
+  note: AECA § 63 = 22 U.S.C. § 2796b
+- from_key: act:section-63-of-the-arms-export-control-act
+  to_key: aeca:2796b
+- from_key: aeca:64
+  to_key: aeca:2796c
+  note: AECA § 64 = 22 U.S.C. § 2796c
+- from_key: act:section-64-of-the-arms-export-control-act
+  to_key: aeca:2796c
+- from_key: aeca:65
+  to_key: aeca:2796d
+  note: AECA § 65 = 22 U.S.C. § 2796d
+- from_key: act:section-65-of-the-arms-export-control-act
+  to_key: aeca:2796d
+- from_key: aeca:71
+  to_key: aeca:2797
+  note: AECA § 71 = 22 U.S.C. § 2797
+- from_key: act:section-71-of-the-arms-export-control-act
+  to_key: aeca:2797
+- from_key: aeca:72
+  to_key: aeca:2797a
+  note: AECA § 72 = 22 U.S.C. § 2797a
+- from_key: act:section-72-of-the-arms-export-control-act
+  to_key: aeca:2797a
+- from_key: aeca:73
+  to_key: aeca:2797b
+  note: AECA § 73 = 22 U.S.C. § 2797b
+- from_key: act:section-73-of-the-arms-export-control-act
+  to_key: aeca:2797b
+- from_key: aeca:74
+  to_key: aeca:2797c
+  note: AECA § 74 = 22 U.S.C. § 2797c
+- from_key: act:section-74-of-the-arms-export-control-act
+  to_key: aeca:2797c
+- from_key: aeca:81
+  to_key: aeca:2798
+  note: AECA § 81 = 22 U.S.C. § 2798
+- from_key: act:section-81-of-the-arms-export-control-act
+  to_key: aeca:2798
+- from_key: aeca:91
+  to_key: aeca:2799
+  note: AECA § 91 = 22 U.S.C. § 2799
+- from_key: act:section-91-of-the-arms-export-control-act
+  to_key: aeca:2799
+- from_key: aeca:92
+  to_key: aeca:2799a
+  note: AECA § 92 = 22 U.S.C. § 2799a
+- from_key: act:section-92-of-the-arms-export-control-act
+  to_key: aeca:2799a
+- from_key: aeca:93
+  to_key: aeca:2799b
+  note: AECA § 93 = 22 U.S.C. § 2799b
+- from_key: act:section-93-of-the-arms-export-control-act
+  to_key: aeca:2799b
+- from_key: aeca:94
+  to_key: aeca:2799c
+  note: AECA § 94 = 22 U.S.C. § 2799c
+- from_key: act:section-94-of-the-arms-export-control-act
+  to_key: aeca:2799c
+- from_key: aeca:95
+  to_key: aeca:2799d
+  note: AECA § 95 = 22 U.S.C. § 2799d
+- from_key: act:section-95-of-the-arms-export-control-act
+  to_key: aeca:2799d
+- from_key: aeca:101
+  to_key: aeca:2799aa
+  note: AECA § 101 = 22 U.S.C. § 2799aa
+- from_key: act:section-101-of-the-arms-export-control-act
+  to_key: aeca:2799aa
+- from_key: aeca:102
+  to_key: aeca:2799aa-1
+  note: AECA § 102 = 22 U.S.C. § 2799aa–1
+- from_key: act:section-102-of-the-arms-export-control-act
+  to_key: aeca:2799aa-1
+- from_key: aeca:103
+  to_key: aeca:2799aa-2
+  note: AECA § 103 = 22 U.S.C. § 2799aa–2
+- from_key: act:section-103-of-the-arms-export-control-act
+  to_key: aeca:2799aa-2
+- from_key: aeca:30a
+  to_key: aeca:2770a
+  note: AECA § 30A = 22 U.S.C. § 2770a
+- from_key: act:section-30a-of-the-arms-export-control-act
+  to_key: aeca:2770a
+- from_key: aeca:39a
+  to_key: aeca:2779a
+  note: AECA § 39A = 22 U.S.C. § 2779a
+- from_key: act:section-39a-of-the-arms-export-control-act
+  to_key: aeca:2779a
+- from_key: aeca:40a
+  to_key: aeca:2785
+  note: AECA § 40A = 22 U.S.C. § 2785
+- from_key: act:section-40a-of-the-arms-export-control-act
+  to_key: aeca:2785
+- from_key: aeca:73a
+  to_key: aeca:2797b-1
+  note: AECA § 73A = 22 U.S.C. § 2797b–1
+- from_key: act:section-73a-of-the-arms-export-control-act
+  to_key: aeca:2797b-1
+- from_key: aeca:73b
+  to_key: aeca:2797b-2
+  note: AECA § 73B = 22 U.S.C. § 2797b–2
+- from_key: act:section-73b-of-the-arms-export-control-act
+  to_key: aeca:2797b-2
+- from_key: aeca:2797b–1
+  to_key: aeca:2797b-1
+  note: en dash -> hyphen
+- from_key: aeca:2797b–2
+  to_key: aeca:2797b-2
+  note: en dash -> hyphen
+- from_key: aeca:2799aa–1
+  to_key: aeca:2799aa-1
+  note: en dash -> hyphen
+- from_key: aeca:2799aa–2
+  to_key: aeca:2799aa-2
+  note: en dash -> hyphen
+- from_key: act:arms-export-control-act
+  to_key: aeca:2751
+- from_key: act:section-2751-of-title-22
+  to_key: aeca:2751
+- from_key: act:22-usc-2751
+  to_key: aeca:2751
+- from_key: usc-22:2751
+  to_key: aeca:2751
+  note: USC-prefixed form
+- from_key: act:section-2752-of-title-22
+  to_key: aeca:2752
+- from_key: act:22-usc-2752
+  to_key: aeca:2752
+- from_key: usc-22:2752
+  to_key: aeca:2752
+  note: USC-prefixed form
+- from_key: act:section-2753-of-title-22
+  to_key: aeca:2753
+- from_key: act:22-usc-2753
+  to_key: aeca:2753
+- from_key: usc-22:2753
+  to_key: aeca:2753
+  note: USC-prefixed form
+- from_key: act:section-2754-of-title-22
+  to_key: aeca:2754
+- from_key: act:22-usc-2754
+  to_key: aeca:2754
+- from_key: usc-22:2754
+  to_key: aeca:2754
+  note: USC-prefixed form
+- from_key: act:section-2755-of-title-22
+  to_key: aeca:2755
+- from_key: act:22-usc-2755
+  to_key: aeca:2755
+- from_key: usc-22:2755
+  to_key: aeca:2755
+  note: USC-prefixed form
+- from_key: act:section-2756-of-title-22
+  to_key: aeca:2756
+- from_key: act:22-usc-2756
+  to_key: aeca:2756
+- from_key: usc-22:2756
+  to_key: aeca:2756
+  note: USC-prefixed form
+- from_key: act:section-2761-of-title-22
+  to_key: aeca:2761
+- from_key: act:22-usc-2761
+  to_key: aeca:2761
+- from_key: usc-22:2761
+  to_key: aeca:2761
+  note: USC-prefixed form
+- from_key: act:section-2762-of-title-22
+  to_key: aeca:2762
+- from_key: act:22-usc-2762
+  to_key: aeca:2762
+- from_key: usc-22:2762
+  to_key: aeca:2762
+  note: USC-prefixed form
+- from_key: act:section-2763-of-title-22
+  to_key: aeca:2763
+- from_key: act:22-usc-2763
+  to_key: aeca:2763
+- from_key: usc-22:2763
+  to_key: aeca:2763
+  note: USC-prefixed form
+- from_key: act:section-2764-of-title-22
+  to_key: aeca:2764
+- from_key: act:22-usc-2764
+  to_key: aeca:2764
+- from_key: usc-22:2764
+  to_key: aeca:2764
+  note: USC-prefixed form
+- from_key: act:section-2765-of-title-22
+  to_key: aeca:2765
+- from_key: act:22-usc-2765
+  to_key: aeca:2765
+- from_key: usc-22:2765
+  to_key: aeca:2765
+  note: USC-prefixed form
+- from_key: act:section-2766-of-title-22
+  to_key: aeca:2766
+- from_key: act:22-usc-2766
+  to_key: aeca:2766
+- from_key: usc-22:2766
+  to_key: aeca:2766
+  note: USC-prefixed form
+- from_key: act:section-2767-of-title-22
+  to_key: aeca:2767
+- from_key: act:22-usc-2767
+  to_key: aeca:2767
+- from_key: usc-22:2767
+  to_key: aeca:2767
+  note: USC-prefixed form
+- from_key: act:section-2769-of-title-22
+  to_key: aeca:2769
+- from_key: act:22-usc-2769
+  to_key: aeca:2769
+- from_key: usc-22:2769
+  to_key: aeca:2769
+  note: USC-prefixed form
+- from_key: act:section-2770-of-title-22
+  to_key: aeca:2770
+- from_key: act:22-usc-2770
+  to_key: aeca:2770
+- from_key: usc-22:2770
+  to_key: aeca:2770
+  note: USC-prefixed form
+- from_key: act:section-2770a-of-title-22
+  to_key: aeca:2770a
+- from_key: act:22-usc-2770a
+  to_key: aeca:2770a
+- from_key: usc-22:2770a
+  to_key: aeca:2770a
+  note: USC-prefixed form
+- from_key: act:section-2771-of-title-22
+  to_key: aeca:2771
+- from_key: act:22-usc-2771
+  to_key: aeca:2771
+- from_key: usc-22:2771
+  to_key: aeca:2771
+  note: USC-prefixed form
+- from_key: act:section-2773-of-title-22
+  to_key: aeca:2773
+- from_key: act:22-usc-2773
+  to_key: aeca:2773
+- from_key: usc-22:2773
+  to_key: aeca:2773
+  note: USC-prefixed form
+- from_key: act:section-2774-of-title-22
+  to_key: aeca:2774
+- from_key: act:22-usc-2774
+  to_key: aeca:2774
+- from_key: usc-22:2774
+  to_key: aeca:2774
+  note: USC-prefixed form
+- from_key: act:section-2775-of-title-22
+  to_key: aeca:2775
+- from_key: act:22-usc-2775
+  to_key: aeca:2775
+- from_key: usc-22:2775
+  to_key: aeca:2775
+  note: USC-prefixed form
+- from_key: act:section-2776-of-title-22
+  to_key: aeca:2776
+- from_key: act:22-usc-2776
+  to_key: aeca:2776
+- from_key: usc-22:2776
+  to_key: aeca:2776
+  note: USC-prefixed form
+- from_key: act:section-2777-of-title-22
+  to_key: aeca:2777
+- from_key: act:22-usc-2777
+  to_key: aeca:2777
+- from_key: usc-22:2777
+  to_key: aeca:2777
+  note: USC-prefixed form
+- from_key: act:section-2778-of-title-22
+  to_key: aeca:2778
+- from_key: act:22-usc-2778
+  to_key: aeca:2778
+- from_key: usc-22:2778
+  to_key: aeca:2778
+  note: USC-prefixed form
+- from_key: act:section-2778a-of-title-22
+  to_key: aeca:2778a
+- from_key: act:22-usc-2778a
+  to_key: aeca:2778a
+- from_key: usc-22:2778a
+  to_key: aeca:2778a
+  note: USC-prefixed form
+- from_key: act:section-2779-of-title-22
+  to_key: aeca:2779
+- from_key: act:22-usc-2779
+  to_key: aeca:2779
+- from_key: usc-22:2779
+  to_key: aeca:2779
+  note: USC-prefixed form
+- from_key: act:section-2779a-of-title-22
+  to_key: aeca:2779a
+- from_key: act:22-usc-2779a
+  to_key: aeca:2779a
+- from_key: usc-22:2779a
+  to_key: aeca:2779a
+  note: USC-prefixed form
+- from_key: act:section-2780-of-title-22
+  to_key: aeca:2780
+- from_key: act:22-usc-2780
+  to_key: aeca:2780
+- from_key: usc-22:2780
+  to_key: aeca:2780
+  note: USC-prefixed form
+- from_key: act:section-2781-of-title-22
+  to_key: aeca:2781
+- from_key: act:22-usc-2781
+  to_key: aeca:2781
+- from_key: usc-22:2781
+  to_key: aeca:2781
+  note: USC-prefixed form
+- from_key: act:section-2785-of-title-22
+  to_key: aeca:2785
+- from_key: act:22-usc-2785
+  to_key: aeca:2785
+- from_key: usc-22:2785
+  to_key: aeca:2785
+  note: USC-prefixed form
+- from_key: act:section-2791-of-title-22
+  to_key: aeca:2791
+- from_key: act:22-usc-2791
+  to_key: aeca:2791
+- from_key: usc-22:2791
+  to_key: aeca:2791
+  note: USC-prefixed form
+- from_key: act:section-2792-of-title-22
+  to_key: aeca:2792
+- from_key: act:22-usc-2792
+  to_key: aeca:2792
+- from_key: usc-22:2792
+  to_key: aeca:2792
+  note: USC-prefixed form
+- from_key: act:section-2793-of-title-22
+  to_key: aeca:2793
+- from_key: act:22-usc-2793
+  to_key: aeca:2793
+- from_key: usc-22:2793
+  to_key: aeca:2793
+  note: USC-prefixed form
+- from_key: act:section-2794-of-title-22
+  to_key: aeca:2794
+- from_key: act:22-usc-2794
+  to_key: aeca:2794
+- from_key: usc-22:2794
+  to_key: aeca:2794
+  note: USC-prefixed form
+- from_key: act:section-2795-of-title-22
+  to_key: aeca:2795
+- from_key: act:22-usc-2795
+  to_key: aeca:2795
+- from_key: usc-22:2795
+  to_key: aeca:2795
+  note: USC-prefixed form
+- from_key: act:section-2795a-of-title-22
+  to_key: aeca:2795a
+- from_key: act:22-usc-2795a
+  to_key: aeca:2795a
+- from_key: usc-22:2795a
+  to_key: aeca:2795a
+  note: USC-prefixed form
+- from_key: act:section-2796-of-title-22
+  to_key: aeca:2796
+- from_key: act:22-usc-2796
+  to_key: aeca:2796
+- from_key: usc-22:2796
+  to_key: aeca:2796
+  note: USC-prefixed form
+- from_key: act:section-2796a-of-title-22
+  to_key: aeca:2796a
+- from_key: act:22-usc-2796a
+  to_key: aeca:2796a
+- from_key: usc-22:2796a
+  to_key: aeca:2796a
+  note: USC-prefixed form
+- from_key: act:section-2796b-of-title-22
+  to_key: aeca:2796b
+- from_key: act:22-usc-2796b
+  to_key: aeca:2796b
+- from_key: usc-22:2796b
+  to_key: aeca:2796b
+  note: USC-prefixed form
+- from_key: act:section-2796c-of-title-22
+  to_key: aeca:2796c
+- from_key: act:22-usc-2796c
+  to_key: aeca:2796c
+- from_key: usc-22:2796c
+  to_key: aeca:2796c
+  note: USC-prefixed form
+- from_key: act:section-2796d-of-title-22
+  to_key: aeca:2796d
+- from_key: act:22-usc-2796d
+  to_key: aeca:2796d
+- from_key: usc-22:2796d
+  to_key: aeca:2796d
+  note: USC-prefixed form
+- from_key: act:section-2797-of-title-22
+  to_key: aeca:2797
+- from_key: act:22-usc-2797
+  to_key: aeca:2797
+- from_key: usc-22:2797
+  to_key: aeca:2797
+  note: USC-prefixed form
+- from_key: act:section-2797a-of-title-22
+  to_key: aeca:2797a
+- from_key: act:22-usc-2797a
+  to_key: aeca:2797a
+- from_key: usc-22:2797a
+  to_key: aeca:2797a
+  note: USC-prefixed form
+- from_key: act:section-2797b-of-title-22
+  to_key: aeca:2797b
+- from_key: act:22-usc-2797b
+  to_key: aeca:2797b
+- from_key: usc-22:2797b
+  to_key: aeca:2797b
+  note: USC-prefixed form
+- from_key: act:section-2797b-1-of-title-22
+  to_key: aeca:2797b-1
+- from_key: act:22-usc-2797b-1
+  to_key: aeca:2797b-1
+- from_key: usc-22:2797b-1
+  to_key: aeca:2797b-1
+  note: USC-prefixed form
+- from_key: act:section-2797b-2-of-title-22
+  to_key: aeca:2797b-2
+- from_key: act:22-usc-2797b-2
+  to_key: aeca:2797b-2
+- from_key: usc-22:2797b-2
+  to_key: aeca:2797b-2
+  note: USC-prefixed form
+- from_key: act:section-2797c-of-title-22
+  to_key: aeca:2797c
+- from_key: act:22-usc-2797c
+  to_key: aeca:2797c
+- from_key: usc-22:2797c
+  to_key: aeca:2797c
+  note: USC-prefixed form
+- from_key: act:section-2798-of-title-22
+  to_key: aeca:2798
+- from_key: act:22-usc-2798
+  to_key: aeca:2798
+- from_key: usc-22:2798
+  to_key: aeca:2798
+  note: USC-prefixed form
+- from_key: act:section-2799-of-title-22
+  to_key: aeca:2799
+- from_key: act:22-usc-2799
+  to_key: aeca:2799
+- from_key: usc-22:2799
+  to_key: aeca:2799
+  note: USC-prefixed form
+- from_key: act:section-2799a-of-title-22
+  to_key: aeca:2799a
+- from_key: act:22-usc-2799a
+  to_key: aeca:2799a
+- from_key: usc-22:2799a
+  to_key: aeca:2799a
+  note: USC-prefixed form
+- from_key: act:section-2799b-of-title-22
+  to_key: aeca:2799b
+- from_key: act:22-usc-2799b
+  to_key: aeca:2799b
+- from_key: usc-22:2799b
+  to_key: aeca:2799b
+  note: USC-prefixed form
+- from_key: act:section-2799c-of-title-22
+  to_key: aeca:2799c
+- from_key: act:22-usc-2799c
+  to_key: aeca:2799c
+- from_key: usc-22:2799c
+  to_key: aeca:2799c
+  note: USC-prefixed form
+- from_key: act:section-2799d-of-title-22
+  to_key: aeca:2799d
+- from_key: act:22-usc-2799d
+  to_key: aeca:2799d
+- from_key: usc-22:2799d
+  to_key: aeca:2799d
+  note: USC-prefixed form
+- from_key: act:section-2799aa-of-title-22
+  to_key: aeca:2799aa
+- from_key: act:22-usc-2799aa
+  to_key: aeca:2799aa
+- from_key: usc-22:2799aa
+  to_key: aeca:2799aa
+  note: USC-prefixed form
+- from_key: act:section-2799aa-1-of-title-22
+  to_key: aeca:2799aa-1
+- from_key: act:22-usc-2799aa-1
+  to_key: aeca:2799aa-1
+- from_key: usc-22:2799aa-1
+  to_key: aeca:2799aa-1
+  note: USC-prefixed form
+- from_key: act:section-2799aa-2-of-title-22
+  to_key: aeca:2799aa-2
+- from_key: act:22-usc-2799aa-2
+  to_key: aeca:2799aa-2
+- from_key: usc-22:2799aa-2
+  to_key: aeca:2799aa-2
+  note: USC-prefixed form
+
+rewrite_rules: []
+shape_rules:
+- pattern: ^usml$
+  jurisdiction: us
+  authority_type: regulation
+- pattern: ^ddtc$
+  jurisdiction: us
+  authority_type: guidance

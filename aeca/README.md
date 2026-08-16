@@ -1,21 +1,20 @@
-# `itar` — ITAR and the United States Munitions List (22 C.F.R. 120-130)
+# `aeca` — Arms Export Control Act (22 U.S.C. §§ 2751 et seq.)
 
-The regulations implementing the AECA, and the USML they turn on. The USML is a separate CORPUS so that `usml:viii` is addressable as itself, but it is not a separate PACK: 22 C.F.R. § 121.1 comes from the same eCFR harvest on the same version date as the rest of Parts 120-130.
+The statute authorising control of defense articles and defense services, including § 38 (22 U.S.C. § 2778), § 39 (§ 2779) and § 40 (§ 2780). Separate from the ITAR pack because a statute and the regulations under it are different publishers on different cadences: the AECA changes by act of Congress, the ITAR by rule.
 
 ## Corpora
 
 | Corpus | Prefixes | Weight | Sections |
 |---|---|---|---|
-| `itar-regulations` | `itar` | `IMPLEMENTING` | 189 |
-| `usml` | `usml` | `IMPLEMENTING` | 21 |
+| `aeca` | `aeca` | `CONTROLLING` | 55 |
 
-210 sections, every one verbatim harvested text.
+55 sections, every one verbatim harvested text.
 
 ## Provenance
 
 | | |
 |---|---|
-| Sources | `www.ecfr.gov` |
+| Sources | `uscode.house.gov` · `xml.house.gov` |
 | Approval status | `harvested_unreviewed` — no attorney review |
 
 ## Composition

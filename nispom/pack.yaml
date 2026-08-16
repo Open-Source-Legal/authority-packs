@@ -1,0 +1,36 @@
+# NISPOM — National Industrial Security Program (32 C.F.R. Part 117) — schema v2 manifest.
+#
+# An ATOMIC base pack: one publisher, one update cadence, one provenance story,
+# one approval status. Composed into a working assembly by a domain pack, which
+# supplies the corpus group, the orchestrator and the cross-pack equivalences —
+# none of which belong to any single body of law.
+#
+# HARVESTED, NOT LEGALLY REVIEWED. Every section body is verbatim text from the
+# official source — no stubs, no paraphrase — but no attorney has reviewed it,
+# which is what `approval_status: harvested_unreviewed` in each charter records.
+#
+# `source_hosts` is unioned into the SSRF allowlist at runtime, so it lists the
+# hosts THIS pack's content was harvested from and no others.
+schema_version: 2
+name: nispom
+display_name: NISPOM — National Industrial Security Program (32 C.F.R. Part 117)
+description: Safeguarding classified information under a contract, including foreign ownership, control
+  or influence and foreign-national visits. A facility clearance is not an export authorisation, and clearing
+  one regime does not clear the other.
+jurisdiction: us
+mappings: authority_mappings.nispom.yaml
+source_hosts:
+- www.ecfr.gov
+corpora:
+- slug: nispom
+  title: NISPOM — National Industrial Security Program (32 C.F.R. Part 117)
+  authority_prefixes:
+  - nispom
+  description: 'Carry the classified-information side that USML Category XVII and classified technical
+    data run into.
+
+    '
+  charter: charters/nispom.yaml
+  spec: specs/nispom.json
+  persona: personas/nispom.txt
+  default_authority_weight: IMPLEMENTING

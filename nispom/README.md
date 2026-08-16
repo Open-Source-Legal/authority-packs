@@ -1,15 +1,14 @@
-# `itar` — ITAR and the United States Munitions List (22 C.F.R. 120-130)
+# `nispom` — NISPOM — National Industrial Security Program (32 C.F.R. Part 117)
 
-The regulations implementing the AECA, and the USML they turn on. The USML is a separate CORPUS so that `usml:viii` is addressable as itself, but it is not a separate PACK: 22 C.F.R. § 121.1 comes from the same eCFR harvest on the same version date as the rest of Parts 120-130.
+Safeguarding classified information under a contract, including foreign ownership, control or influence and foreign-national visits. A facility clearance is not an export authorisation, and clearing one regime does not clear the other.
 
 ## Corpora
 
 | Corpus | Prefixes | Weight | Sections |
 |---|---|---|---|
-| `itar-regulations` | `itar` | `IMPLEMENTING` | 189 |
-| `usml` | `usml` | `IMPLEMENTING` | 21 |
+| `nispom` | `nispom` | `IMPLEMENTING` | 25 |
 
-210 sections, every one verbatim harvested text.
+25 sections, every one verbatim harvested text.
 
 ## Provenance
 

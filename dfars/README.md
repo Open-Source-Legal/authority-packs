@@ -1,15 +1,14 @@
-# `itar` — ITAR and the United States Munitions List (22 C.F.R. 120-130)
+# `dfars` — DFARS and FAR export-control clauses (48 C.F.R.)
 
-The regulations implementing the AECA, and the USML they turn on. The USML is a separate CORPUS so that `usml:viii` is addressable as itself, but it is not a separate PACK: 22 C.F.R. § 121.1 comes from the same eCFR harvest on the same version date as the rest of Parts 120-130.
+The contract clauses that impose export-control obligations by agreement, which is how most suppliers actually encounter them. DFARS 252.225-7048 flows down to subcontractors at every tier; a supplier questionnaire is usually that clause in disguise.
 
 ## Corpora
 
 | Corpus | Prefixes | Weight | Sections |
 |---|---|---|---|
-| `itar-regulations` | `itar` | `IMPLEMENTING` | 189 |
-| `usml` | `usml` | `IMPLEMENTING` | 21 |
+| `dfars` | `dfars` | `IMPLEMENTING` | 641 |
 
-210 sections, every one verbatim harvested text.
+641 sections, every one verbatim harvested text.
 
 ## Provenance
 

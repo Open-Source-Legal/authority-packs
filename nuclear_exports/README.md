@@ -1,15 +1,14 @@
-# `itar` — ITAR and the United States Munitions List (22 C.F.R. 120-130)
+# `nuclear_exports` — Nuclear export controls (10 C.F.R. Parts 110 and 810)
 
-The regulations implementing the AECA, and the USML they turn on. The USML is a separate CORPUS so that `usml:viii` is addressable as itself, but it is not a separate PACK: 22 C.F.R. § 121.1 comes from the same eCFR harvest on the same version date as the rest of Parts 120-130.
+NRC export and import licensing at Part 110, and DOE authorisation of assistance to foreign atomic energy activities at Part 810. Mostly a routing fact: Part 810 covers ASSISTANCE — unclassified nuclear technology and services — which is easy to mistake for an ITAR defense service.
 
 ## Corpora
 
 | Corpus | Prefixes | Weight | Sections |
 |---|---|---|---|
-| `itar-regulations` | `itar` | `IMPLEMENTING` | 189 |
-| `usml` | `usml` | `IMPLEMENTING` | 21 |
+| `nuke` | `nuke` | `IMPLEMENTING` | 123 |
 
-210 sections, every one verbatim harvested text.
+123 sections, every one verbatim harvested text.
 
 ## Provenance
 

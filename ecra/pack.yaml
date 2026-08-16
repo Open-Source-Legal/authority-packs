@@ -1,0 +1,36 @@
+# ECRA, IEEPA and the National Emergencies Act (50 U.S.C.) — schema v2 manifest.
+#
+# An ATOMIC base pack: one publisher, one update cadence, one provenance story,
+# one approval status. Composed into a working assembly by a domain pack, which
+# supplies the corpus group, the orchestrator and the cross-pack equivalences —
+# none of which belong to any single body of law.
+#
+# HARVESTED, NOT LEGALLY REVIEWED. Every section body is verbatim text from the
+# official source — no stubs, no paraphrase — but no attorney has reviewed it,
+# which is what `approval_status: harvested_unreviewed` in each charter records.
+#
+# `source_hosts` is unioned into the SSRF allowlist at runtime, so it lists the
+# hosts THIS pack's content was harvested from and no others.
+schema_version: 2
+name: ecra
+display_name: ECRA, IEEPA and the National Emergencies Act (50 U.S.C.)
+description: 'The statutory authority for the EAR, and the emergency-powers chain the pre-2018 EAR rested
+  on. The AECA''s peer: where the AECA authorises the ITAR, ECRA authorises the EAR.'
+jurisdiction: us
+mappings: authority_mappings.ecra.yaml
+source_hosts:
+- uscode.house.gov
+- xml.house.gov
+corpora:
+- slug: ecra
+  title: ECRA, IEEPA and the National Emergencies Act (50 U.S.C.)
+  authority_prefixes:
+  - ecra
+  description: 'Provide the statutory authority for the EAR, and the emergency-powers chain the pre-2018
+    EAR rested on.
+
+    '
+  charter: charters/ecra.yaml
+  spec: specs/ecra.json
+  persona: personas/ecra.txt
+  default_authority_weight: CONTROLLING

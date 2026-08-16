@@ -1,15 +1,14 @@
-# `itar` — ITAR and the United States Munitions List (22 C.F.R. 120-130)
+# `ofac` — OFAC sanctions regulations (31 C.F.R. Chapter V)
 
-The regulations implementing the AECA, and the USML they turn on. The USML is a separate CORPUS so that `usml:viii` is addressable as itself, but it is not a separate PACK: 22 C.F.R. § 121.1 comes from the same eCFR harvest on the same version date as the rest of Parts 120-130.
+The sanctions programs, part by part. Carries the RULES only — the SDN List and the other restricted-party rosters are deliberately absent, because screening is a lookup against current list data and a roster frozen at harvest time is worse than no roster at all.
 
 ## Corpora
 
 | Corpus | Prefixes | Weight | Sections |
 |---|---|---|---|
-| `itar-regulations` | `itar` | `IMPLEMENTING` | 189 |
-| `usml` | `usml` | `IMPLEMENTING` | 21 |
+| `ofac` | `ofac` | `IMPLEMENTING` | 978 |
 
-210 sections, every one verbatim harvested text.
+978 sections, every one verbatim harvested text.
 
 ## Provenance
 
