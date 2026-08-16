@@ -43,6 +43,9 @@ NAME_RE = re.compile(r"^[a-z0-9][a-z0-9_-]*$")
 SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9-]*$")
 KEY_RE = re.compile(r"^[a-z0-9][a-z0-9-]*:.+$")
 
+# Mirrors AuthorityKeyEquivalence.note = CharField(max_length=255).
+MAX_NOTE = 255
+
 # Tools a domain pack may request for its orchestrator. Closed on purpose: a
 # typo here is otherwise discovered as "the agent never calls the tool", which
 # is indistinguishable from the model choosing not to.
@@ -234,6 +237,17 @@ def validate_domain(domain_dir: Path, root: Path) -> Findings:
         for label, key in (("from_key", frm), ("to_key", to)):
             if not isinstance(key, str) or not KEY_RE.match(key):
                 f.error(f"equivalences[{i}].{label} malformed: {key!r}")
+        note = row.get("note")
+        if isinstance(note, str) and len(note) > MAX_NOTE:
+            # The platform stores this in a CharField(max_length=255); Postgres
+            # rejects anything longer with a DataError raised part-way through
+            # the install, after the base packs are already written. A static,
+            # platform-independent fact about the schema, so a pack author
+            # should learn it at PR time rather than at install time.
+            f.error(
+                f"equivalences[{i}].note is {len(note)} chars; the platform "
+                f"column holds {MAX_NOTE}"
+            )
         if not isinstance(frm, str) or not isinstance(to, str):
             continue
         if frm == to:
@@ -329,6 +343,12 @@ def self_test() -> int:
         check("self-mapping equivalence is rejected",
               lambda m, d: m["equivalences"].__setitem__(
                   0, {"from_key": "aa:1", "to_key": "aa:1"}), True)
+        # The platform stores `note` in a CharField(255) and does not truncate;
+        # an over-long one is a DataError raised part-way through the install,
+        # after the base packs are written. Cheap to catch here instead.
+        check("an over-long equivalence note is rejected",
+              lambda m, d: m["equivalences"][0].__setitem__(
+                  "note", "x" * (MAX_NOTE + 1)), True)
 
     print(f"\nself-test: {cases - failures}/{cases} checks behaved as expected")
     return 1 if failures else 0
