@@ -27,6 +27,25 @@ jobs:
       - name: Validate all packs
         run: python scripts/validate_pack.py --all
 
+      - name: Domain validator self-test (prove the checks can fail)
+        run: python scripts/validate_domain.py --self-test
+
+      - name: Validate all domain packs
+        run: python scripts/validate_domain.py --all
+
+      - name: A directory is a base pack or a domain pack, never both
+        run: |
+          bad=0
+          for manifest in */pack.yaml domains/*/pack.yaml; do
+            [ -e "$manifest" ] || continue
+            dir=$(dirname "$manifest")
+            if [ -f "$dir/domain.yaml" ]; then
+              echo "::error::'$dir' has both pack.yaml and domain.yaml"
+              bad=1
+            fi
+          done
+          exit $bad
+
       - name: Every pack is listed in the catalog README
         run: |
           missing=0

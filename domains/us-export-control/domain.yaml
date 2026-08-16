@@ -1,0 +1,54 @@
+schema_version: 1
+name: us-export-control
+title: US export control
+description: >
+  Composes the bodies of law a US export-control question actually collides
+  with, and states how they interact. The question this domain exists to answer
+  correctly is not "what does the ITAR say" — it is "which regime governs this
+  transfer, and what else must clear before it can proceed".
+
+requires:
+  - pack: itar
+    reason: >
+      The Arms Export Control Act, the ITAR and the USML, DDTC's published
+      practice, and the adjacent regimes an ITAR answer is wrong without — the
+      EAR and CCL, OFAC sanctions, CFIUS, ECRA/IEEPA, the DOJ Data Security
+      Program, nuclear controls, NISPOM, DFARS flowdown, the Federal Register
+      rulemaking record, case law, and the multilateral regime lists.
+
+      NOTE: this is currently one large base pack rather than one pack per body
+      of law. Splitting it is the point of the atomic-base-pack direction; the
+      domain layer is useful before that work lands, because the group, the
+      orchestrator and the cross-pack rows are needed either way.
+
+corpus_group:
+  slug: us-export-control
+  title: US export control — all regimes
+  # Excluded because the consuming document corpus cites these heavily, so
+  # citation edges already resolve into them; the exclusion buys headroom under
+  # the platform's group-size cap. Excluding a corpus is a claim that it is
+  # reachable WITHOUT the group — if that stops being true, remove the entry.
+  exclude_corpora:
+    - aeca
+    - itar-regulations
+    - usml
+
+orchestrator:
+  instructions_file: orchestrator.txt
+  tools:
+    - search_across_corpora
+
+equivalences:
+  # Title 31 is shared: OFAC's sanctions programmes and the CFIUS regulations at
+  # Parts 800/802. A namespace alias maps a whole CFR TITLE to one prefix, so
+  # "31 C.F.R. § 800.215" extracts as `ofac:800.215` — a key that does not
+  # exist. These rows fold the citation onto the corpus that holds the text.
+  #
+  # They live here rather than in the base pack because they exist only because
+  # both bodies of law are installed together. Generated, not hand-written:
+  # every section of the borrowing corpus, so the next document citing Part 800
+  # works without anyone remembering this.
+  - {from_key: "ofac:800", to_key: "cfius:800", note: "shared CFR title 31"}
+  - {from_key: "ofac:800.215", to_key: "cfius:800.215", note: "shared CFR title 31"}
+  - {from_key: "ofac:800.401", to_key: "cfius:800.401", note: "shared CFR title 31"}
+  - {from_key: "ofac:802", to_key: "cfius:802", note: "shared CFR title 31"}
