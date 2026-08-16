@@ -41,10 +41,37 @@ python manage.py load_authority_pack --path /srv/authority-packs/fort_worth --cr
 
 ## Catalog
 
-| Pack | Jurisdiction | Corpora | Sections |
-|---|---|---|---|
-| [`fort_worth`](fort_worth/) | City of Fort Worth, Texas (us-tx-fort-worth) | City Code procurement **and construction** provisions · City Charter (selected chapters) · Texas procurement & contract-verification statutes · Building Administrative Code · local amendments to the 2021 IRC · Zoning Ordinance (residential) · Texas residential trade licensing & restrictive covenants | 881 |
-| [`itar`](itar/) | United States, federal (us) | Arms Export Control Act · ITAR (22 C.F.R. 120-130) · U.S. Munitions List (Categories I-XXI) · DDTC guidance, enforcement, commodity-jurisdiction and advisory-opinion record · Export Administration Regulations **and** the Commerce Control List · OFAC sanctions · ECRA/IEEPA · CFIUS · DOJ Data Security Program · nuclear export controls · NISPOM · DFARS/FAR flowdown · executive orders · Federal Register rulemaking preambles · federal case law · Wassenaar, MTCR, NSG and Australia Group control lists | 4,679 |
+A pack is **one body of law**: one publisher, one update cadence, one
+provenance story, one approval status. That is deliberately small. A pack that
+spans several bodies of law forces every revision to the reasoning to
+re-release megabytes of unchanged text, and every routine currency refresh to
+reopen the reasoning for review. Assemblies are built by composing packs — see
+[Domains](#domains) below.
+
+### United States, federal (`us`)
+
+| Pack | Corpora | Sections |
+|---|---|---|
+| [`aeca`](aeca/) | Arms Export Control Act, by OLRC release point | 55 |
+| [`itar`](itar/) | ITAR (22 C.F.R. 120-130) · U.S. Munitions List (Categories I-XXI) | 210 |
+| [`ddtc`](ddtc/) | DDTC FAQs and guidance · enforcement and consent agreements · commodity-jurisdiction practice · advisory opinions | 76 |
+| [`ear`](ear/) | Export Administration Regulations · Commerce Control List (638 ECCNs) | 1,270 |
+| [`ofac`](ofac/) | OFAC sanctions regulations, 31 C.F.R. Chapter V (rules, not rosters) | 978 |
+| [`cfius`](cfius/) | CFIUS / FIRRMA, 31 C.F.R. Parts 800 and 802 | 194 |
+| [`ecra`](ecra/) | Export Control Reform Act · IEEPA · National Emergencies Act | 38 |
+| [`export_fedreg`](export_fedreg/) | Federal Register rule preambles (State/BIS/OFAC) · executive orders | 901 |
+| [`export_caselaw`](export_caselaw/) | Federal court decisions construing the AECA, ITAR and EAR | 5 |
+| [`multilateral_regimes`](multilateral_regimes/) | Wassenaar · MTCR · Nuclear Suppliers Group · Australia Group control lists | 59 |
+| [`doj_data_security`](doj_data_security/) | DOJ Data Security Program, 28 C.F.R. Part 202 | 104 |
+| [`nuclear_exports`](nuclear_exports/) | NRC 10 C.F.R. Part 110 · DOE 10 C.F.R. Part 810 | 123 |
+| [`nispom`](nispom/) | NISPOM, 32 C.F.R. Part 117 | 25 |
+| [`dfars`](dfars/) | DFARS and FAR export-control clauses, 48 C.F.R. | 641 |
+
+### City of Fort Worth, Texas (`us-tx-fort-worth`)
+
+| Pack | Corpora | Sections |
+|---|---|---|
+| [`fort_worth`](fort_worth/) | City Code procurement **and construction** provisions · City Charter (selected chapters) · Texas procurement & contract-verification statutes · Building Administrative Code · local amendments to the 2021 IRC · Zoning Ordinance (residential) · Texas residential trade licensing & restrictive covenants | 881 |
 
 Each pack's `README.md` documents its contents, provenance, and design notes.
 
@@ -57,7 +84,7 @@ or no text of its own.
 
 | Domain | Composes | Purpose |
 |---|---|---|
-| [`us-export-control`](domains/us-export-control/) | `itar` | Which regime governs a transfer, and what else must clear before it proceeds |
+| [`us-export-control`](domains/us-export-control/) | 14 packs: `aeca` `itar` `ddtc` `ear` `ofac` `cfius` `ecra` `export_fedreg` `export_caselaw` `multilateral_regimes` `doj_data_security` `nuclear_exports` `nispom` `dfars` | Which regime governs a transfer, and what else must clear before it proceeds |
 
 See [DOMAIN_PACKS.md](DOMAIN_PACKS.md) for the shape and the install contract.
 

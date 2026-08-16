@@ -1,0 +1,59 @@
+# Export Administration Regulations and the Commerce Control List — schema v2 manifest.
+#
+# An ATOMIC base pack: one publisher, one update cadence, one provenance story,
+# one approval status. Composed into a working assembly by a domain pack, which
+# supplies the corpus group, the orchestrator and the cross-pack equivalences —
+# none of which belong to any single body of law.
+#
+# HARVESTED, NOT LEGALLY REVIEWED. Every section body is verbatim text from the
+# official source — no stubs, no paraphrase — but no attorney has reviewed it,
+# which is what `approval_status: harvested_unreviewed` in each charter records.
+#
+# `source_hosts` is unioned into the SSRF allowlist at runtime, so it lists the
+# hosts THIS pack's content was harvested from and no others.
+schema_version: 2
+name: ear
+display_name: Export Administration Regulations and the Commerce Control List
+description: 'The dual-use half of the system: scope and the ITAR carve-out (Part 734), de minimis, deemed
+  exports, the ten General Prohibitions (Part 736), the Country Chart (Part 738), Part 772 definitions
+  one document per defined term, and every ECCN as its own addressable document.
+
+
+  ECCN keys are LOWERCASE (`ccl:3a611`). Authority-key matching is case-sensitive on the section part
+  and the extractor lowercases what it finds, so an ECCN keyed the conventional uppercase way is unreachable
+  from every real citation.'
+jurisdiction: us
+mappings: authority_mappings.ear.yaml
+source_hosts:
+- www.ecfr.gov
+corpora:
+- slug: ear-regulations
+  title: Export Administration Regulations — scope, prohibitions, definitions (15 C.F.R.)
+  authority_prefixes:
+  - ear
+  description: 'The dual-use half of the system, scoped to what an ITAR question actually collides with:
+    scope and the ITAR carve-out (Part 734), the de minimis rules and their calculation (§ 734.4 and Supplement
+    No. 2), deemed exports including the most-recent-country rule at § 734.13(b), the ten General Prohibitions
+    (Part 736), the Country Chart (Part 738), and Part 772 definitions carried one document per defined
+    term.
+
+    '
+  charter: charters/ear-regulations.yaml
+  spec: specs/ear-regulations.json
+  persona: personas/ear-regulations.txt
+  default_authority_weight: IMPLEMENTING
+- slug: ccl
+  title: Commerce Control List (15 C.F.R. Part 774, Supplement No. 1)
+  authority_prefixes:
+  - ccl
+  description: 'Every ECCN as its own addressable document, keyed LOWERCASE (ccl:3a611) because authority-key
+    matching is case-sensitive on the section part and the extractor lowercases — an ECCN keyed the conventional
+    uppercase way is unreachable from every real citation. Split out from `ear` for the same reason the
+    USML is split out from `itar`: practitioners cite the ECCN, not "Supplement No. 1 to Part 774", and
+    collapsing 638 entries into one document makes the thing people cite unaddressable.
+
+    '
+  charter: charters/ccl.yaml
+  spec: specs/ccl.json
+  persona: personas/ccl.txt
+  default_authority_weight: IMPLEMENTING

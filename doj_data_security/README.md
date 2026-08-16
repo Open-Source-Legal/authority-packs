@@ -1,15 +1,14 @@
-# `itar` — ITAR and the United States Munitions List (22 C.F.R. 120-130)
+# `doj_data_security` — DOJ Data Security Program (28 C.F.R. Part 202)
 
-The regulations implementing the AECA, and the USML they turn on. The USML is a separate CORPUS so that `usml:viii` is addressable as itself, but it is not a separate PACK: 22 C.F.R. § 121.1 comes from the same eCFR harvest on the same version date as the rest of Parts 120-130.
+Access to bulk U.S. sensitive personal data and government-related data by countries of concern and covered persons. Overlaps export-control reasoning about foreign-person access without being the same test, which is exactly why it needs to be quotable rather than remembered.
 
 ## Corpora
 
 | Corpus | Prefixes | Weight | Sections |
 |---|---|---|---|
-| `itar-regulations` | `itar` | `IMPLEMENTING` | 189 |
-| `usml` | `usml` | `IMPLEMENTING` | 21 |
+| `dsp` | `dsp` | `IMPLEMENTING` | 104 |
 
-210 sections, every one verbatim harvested text.
+104 sections, every one verbatim harvested text.
 
 ## Provenance
 

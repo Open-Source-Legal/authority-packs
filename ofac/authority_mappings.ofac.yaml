@@ -1,0 +1,36 @@
+# OFAC sanctions regulations (31 C.F.R. Chapter V)
+#
+# Namespace registry + citation taxonomy for the `ofac` base pack.
+# Split out of the monolithic `itar` pack; prefixes and rows are unchanged.
+#
+# Aliases are LOWERCASED surface strings and drive Tier-1 extraction
+# ("Section N of the <alias>" / "<alias> Section N"). Citation SHAPES are not
+# declarable here — they are compiled into the extractor — so a row whose
+# `from_key` uses a shape prefix (`act:`, `cfr-22:`) is the taxonomy catching
+# what the shape grammar emitted and folding it onto a real key.
+#
+# `rewrite_rules` is deliberately empty and stays that way: a pack's rewrite
+# rules are never loaded, only its equivalences are, so every mapping has to be
+# an explicit {from_key, to_key} row.
+
+prefixes:
+  ofac:
+    display_name: Office of Foreign Assets Control regulations
+    jurisdiction: us
+    authority_type: regulation
+    aliases:
+    - office of foreign assets control
+    - ofac
+    - 31 c.f.r.
+    - 31 cfr
+
+equivalences: []
+
+rewrite_rules: []
+shape_rules:
+- pattern: ^usml$
+  jurisdiction: us
+  authority_type: regulation
+- pattern: ^ddtc$
+  jurisdiction: us
+  authority_type: guidance

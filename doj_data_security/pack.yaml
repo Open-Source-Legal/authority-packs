@@ -1,0 +1,36 @@
+# DOJ Data Security Program (28 C.F.R. Part 202) — schema v2 manifest.
+#
+# An ATOMIC base pack: one publisher, one update cadence, one provenance story,
+# one approval status. Composed into a working assembly by a domain pack, which
+# supplies the corpus group, the orchestrator and the cross-pack equivalences —
+# none of which belong to any single body of law.
+#
+# HARVESTED, NOT LEGALLY REVIEWED. Every section body is verbatim text from the
+# official source — no stubs, no paraphrase — but no attorney has reviewed it,
+# which is what `approval_status: harvested_unreviewed` in each charter records.
+#
+# `source_hosts` is unioned into the SSRF allowlist at runtime, so it lists the
+# hosts THIS pack's content was harvested from and no others.
+schema_version: 2
+name: doj_data_security
+display_name: DOJ Data Security Program (28 C.F.R. Part 202)
+description: Access to bulk U.S. sensitive personal data and government-related data by countries of concern
+  and covered persons. Overlaps export-control reasoning about foreign-person access without being the
+  same test, which is exactly why it needs to be quotable rather than remembered.
+jurisdiction: us
+mappings: authority_mappings.doj_data_security.yaml
+source_hosts:
+- www.ecfr.gov
+corpora:
+- slug: dsp
+  title: DOJ Data Security Program (28 C.F.R. Part 202)
+  authority_prefixes:
+  - dsp
+  description: 'Carry the bulk-sensitive-data regime, which overlaps ITAR technical-data reasoning for
+    foreign-person access without being the same test.
+
+    '
+  charter: charters/dsp.yaml
+  spec: specs/data-security.json
+  persona: personas/dsp.txt
+  default_authority_weight: IMPLEMENTING

@@ -1,0 +1,40 @@
+# Arms Export Control Act (22 U.S.C. §§ 2751 et seq.) — schema v2 manifest.
+#
+# An ATOMIC base pack: one publisher, one update cadence, one provenance story,
+# one approval status. Composed into a working assembly by a domain pack, which
+# supplies the corpus group, the orchestrator and the cross-pack equivalences —
+# none of which belong to any single body of law.
+#
+# HARVESTED, NOT LEGALLY REVIEWED. Every section body is verbatim text from the
+# official source — no stubs, no paraphrase — but no attorney has reviewed it,
+# which is what `approval_status: harvested_unreviewed` in each charter records.
+#
+# `source_hosts` is unioned into the SSRF allowlist at runtime, so it lists the
+# hosts THIS pack's content was harvested from and no others.
+schema_version: 2
+name: aeca
+display_name: Arms Export Control Act (22 U.S.C. §§ 2751 et seq.)
+description: 'The statute authorising control of defense articles and defense services, including § 38
+  (22 U.S.C. § 2778), § 39 (§ 2779) and § 40 (§ 2780). Separate from the ITAR pack because a statute and
+  the regulations under it are different publishers on different cadences: the AECA changes by act of
+  Congress, the ITAR by rule.'
+jurisdiction: us
+mappings: authority_mappings.aeca.yaml
+source_hosts:
+- uscode.house.gov
+- xml.house.gov
+corpora:
+- slug: aeca
+  title: Arms Export Control Act (22 U.S.C. §§ 2751 et seq.)
+  authority_prefixes:
+  - aeca
+  description: 'The statute authorising control of defense articles and defense services, including §
+    38 (22 U.S.C. § 2778, control of arms exports and imports), § 39 (§ 2779), and § 40 (§ 2780, transactions
+    with countries supporting terrorism). Note the dual numbering: practitioners cite both the Act''s
+    own section numbers and the codified U.S.C. sections, often interchangeably.
+
+    '
+  charter: charters/aeca.yaml
+  spec: specs/aeca.json
+  persona: personas/aeca.txt
+  default_authority_weight: CONTROLLING

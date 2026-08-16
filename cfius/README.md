@@ -1,15 +1,14 @@
-# `itar` — ITAR and the United States Munitions List (22 C.F.R. 120-130)
+# `cfius` — CFIUS / FIRRMA (31 C.F.R. Parts 800, 802)
 
-The regulations implementing the AECA, and the USML they turn on. The USML is a separate CORPUS so that `usml:viii` is addressable as itself, but it is not a separate PACK: 22 C.F.R. § 121.1 comes from the same eCFR harvest on the same version date as the rest of Parts 120-130.
+Inbound investment review. Shares CFR title 31 with OFAC, which is a trap rather than a convenience: a namespace alias maps a whole title to one prefix, so `31 C.F.R. § 800.215` extracts as `ofac:800.215` and resolves to nothing. The folding rows that fix it span two packs and therefore live in the domain layer, not here.
 
 ## Corpora
 
 | Corpus | Prefixes | Weight | Sections |
 |---|---|---|---|
-| `itar-regulations` | `itar` | `IMPLEMENTING` | 189 |
-| `usml` | `usml` | `IMPLEMENTING` | 21 |
+| `cfius` | `cfius` | `IMPLEMENTING` | 194 |
 
-210 sections, every one verbatim harvested text.
+194 sections, every one verbatim harvested text.
 
 ## Provenance
 

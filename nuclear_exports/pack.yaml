@@ -1,0 +1,35 @@
+# Nuclear export controls (10 C.F.R. Parts 110 and 810) — schema v2 manifest.
+#
+# An ATOMIC base pack: one publisher, one update cadence, one provenance story,
+# one approval status. Composed into a working assembly by a domain pack, which
+# supplies the corpus group, the orchestrator and the cross-pack equivalences —
+# none of which belong to any single body of law.
+#
+# HARVESTED, NOT LEGALLY REVIEWED. Every section body is verbatim text from the
+# official source — no stubs, no paraphrase — but no attorney has reviewed it,
+# which is what `approval_status: harvested_unreviewed` in each charter records.
+#
+# `source_hosts` is unioned into the SSRF allowlist at runtime, so it lists the
+# hosts THIS pack's content was harvested from and no others.
+schema_version: 2
+name: nuclear_exports
+display_name: Nuclear export controls (10 C.F.R. Parts 110 and 810)
+description: 'NRC export and import licensing at Part 110, and DOE authorisation of assistance to foreign
+  atomic energy activities at Part 810. Mostly a routing fact: Part 810 covers ASSISTANCE — unclassified
+  nuclear technology and services — which is easy to mistake for an ITAR defense service.'
+jurisdiction: us
+mappings: authority_mappings.nuclear_exports.yaml
+source_hosts:
+- www.ecfr.gov
+corpora:
+- slug: nuke
+  title: Nuclear export controls (10 C.F.R. Parts 110 and 810)
+  authority_prefixes:
+  - nuke
+  description: 'Let the agent recognise when a question has left ITAR/EAR entirely for NRC or DOE authority.
+
+    '
+  charter: charters/nuke.yaml
+  spec: specs/nuclear.json
+  persona: personas/nuke.txt
+  default_authority_weight: IMPLEMENTING

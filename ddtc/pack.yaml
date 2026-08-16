@@ -1,0 +1,91 @@
+# DDTC published practice — guidance, enforcement, CJ and advisory opinions — schema v2 manifest.
+#
+# An ATOMIC base pack: one publisher, one update cadence, one provenance story,
+# one approval status. Composed into a working assembly by a domain pack, which
+# supplies the corpus group, the orchestrator and the cross-pack equivalences —
+# none of which belong to any single body of law.
+#
+# HARVESTED, NOT LEGALLY REVIEWED. Every section body is verbatim text from the
+# official source — no stubs, no paraphrase — but no attorney has reviewed it,
+# which is what `approval_status: harvested_unreviewed` in each charter records.
+#
+# `source_hosts` is unioned into the SSRF allowlist at runtime, so it lists the
+# hosts THIS pack's content was harvested from and no others.
+schema_version: 2
+name: ddtc
+display_name: DDTC published practice — guidance, enforcement, CJ and advisory opinions
+description: 'What the Directorate of Defense Trade Controls says and does, as distinct from what the
+  ITAR provides. Five corpora because practitioners cite these separately, one pack because they are one
+  publisher on one portal with no release cadence at all — the provenance story is identical for every
+  section in it.
+
+
+  Carried below IMPLEMENTING weight throughout. After Loper Bright the legal status of agency guidance
+  is more contestable, and the distinction should be structural rather than a caveat the model has to
+  remember.'
+jurisdiction: us
+mappings: authority_mappings.ddtc.yaml
+source_hosts:
+- www.pmddtc.state.gov
+corpora:
+- slug: ddtc-guidance
+  title: DDTC Guidance, FAQs and Commodity Jurisdiction Practice
+  authority_prefixes:
+  - ddtc
+  description: 'The interpretive layer that functions as working law without being binding: DDTC FAQs,
+    advisory opinions, guidelines, and the commodity jurisdiction process. Carried at INTERPRETIVE weight
+    deliberately -- after Loper Bright the legal status of agency guidance is more contestable, and the
+    distinction should be structural rather than a caveat the model has to remember.
+
+    '
+  charter: charters/ddtc-guidance.yaml
+  spec: specs/ddtc-guidance.json
+  persona: personas/ddtc-guidance.txt
+  default_authority_weight: INTERPRETIVE
+- slug: ddtc-enf
+  title: DDTC compliance actions, consent agreements and debarment
+  authority_prefixes:
+  - ddtc-enf
+  description: 'Carry what the agency actually does when there is a violation, which regulatory text cannot
+    tell you.
+
+    '
+  charter: charters/ddtc-enf.yaml
+  spec: specs/ddtc-enforcement.json
+  persona: personas/ddtc-enf.txt
+  default_authority_weight: EVIDENTIARY
+- slug: cj
+  title: DDTC commodity jurisdiction determinations and process
+  authority_prefixes:
+  - cj
+  description: 'Carry how CJ actually works and what determinations have said, since the corpus centrepiece
+    is a CJ memo.
+
+    '
+  charter: charters/cj.yaml
+  spec: specs/commodity-jurisdiction.json
+  persona: personas/cj.txt
+  default_authority_weight: INTERPRETIVE
+- slug: ao
+  title: DDTC advisory opinions
+  authority_prefixes:
+  - ao
+  description: 'Carry the advisory-opinion layer, applicant-specific and non-binding by its own terms.
+
+    '
+  charter: charters/ao.yaml
+  spec: specs/advisory-opinions.json
+  persona: personas/ao.txt
+  default_authority_weight: INTERPRETIVE
+- slug: redline
+  title: DDTC ITAR guidance, exemptions and the reorganisation redline
+  authority_prefixes:
+  - redline
+  description: 'Carry DDTC''s own explanations of the ITAR — registration, licensing, exemptions, the
+    AUKUS and Canadian exemptions — which practitioners use as working law.
+
+    '
+  charter: charters/redline.yaml
+  spec: specs/ddtc-itar-guidance.json
+  persona: personas/redline.txt
+  default_authority_weight: INTERPRETIVE

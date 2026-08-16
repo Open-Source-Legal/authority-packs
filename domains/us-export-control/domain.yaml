@@ -7,19 +7,112 @@ description: >
   correctly is not "what does the ITAR say" — it is "which regime governs this
   transfer, and what else must clear before it can proceed".
 
+# Fourteen atomic base packs, each one publisher on one cadence. The ordering
+# below is the order the regimes apply in, which is also the order the
+# orchestrator reasons in: jurisdiction first, then authorisation, then the
+# clearances that an authorisation does not grant.
 requires:
+  - pack: aeca
+    reason: >
+      The statute. Everything else on the munitions side is delegated authority,
+      and the delegation has limits that only the statute states — § 2778(h) on
+      the reviewability of designations is the usual one, and it is invisible
+      from the regulations.
+
   - pack: itar
     reason: >
-      The Arms Export Control Act, the ITAR and the USML, DDTC's published
-      practice, and the adjacent regimes an ITAR answer is wrong without — the
-      EAR and CCL, OFAC sanctions, CFIUS, ECRA/IEEPA, the DOJ Data Security
-      Program, nuclear controls, NISPOM, DFARS flowdown, the Federal Register
-      rulemaking record, case law, and the multilateral regime lists.
+      The regulations and the USML. The centre of the domain: whether an item is
+      a defense article is the first question, and it decides which of the two
+      lists and which of the two agencies the rest of the analysis belongs to.
 
-      NOTE: this is currently one large base pack rather than one pack per body
-      of law. Splitting it is the point of the atomic-base-pack direction; the
-      domain layer is useful before that work lands, because the group, the
-      orchestrator and the cross-pack rows are needed either way.
+  - pack: ddtc
+    reason: >
+      What the agency says and does, as distinct from what the regulation
+      provides — FAQs, commodity-jurisdiction practice, advisory opinions,
+      consent agreements. Practitioners treat this as working law, so an answer
+      that ignores it is wrong in practice while being right on the text. It is
+      carried below IMPLEMENTING weight precisely so the model can use it
+      without mistaking it for the rule.
+
+  - pack: ear
+    reason: >
+      The other half of the system, and the one an ITAR answer is most often
+      wrong about. The ITAR/EAR boundary is the single most consequential error
+      in this field, and it cannot be reasoned about from one side: de minimis,
+      the deemed-export most-recent-country rule and the "specially designed"
+      carve-outs are all defined in the text this pack holds. Measured directly
+      — with this pack absent, boundary questions scored identically whether
+      retrieval was on or off, because the corpus held only one side.
+
+  - pack: ofac
+    reason: >
+      A licence is not a clearance. An export can be ITAR-authorised and still
+      prohibited because of who is on the other end, and ITAR § 126.1 is not
+      coextensive with the sanctions programmes. Rules only — the restricted-
+      party rosters are deliberately not carried, because screening is a lookup
+      against current data and a frozen roster is worse than none.
+
+  - pack: cfius
+    reason: >
+      The inbound-investment consequence of an export classification. "Critical
+      technology" keys directly off USML and ECCN status, so a jurisdiction
+      answer can create a mandatory declaration the client did not ask about.
+      Also the reason this domain needs cross-pack equivalences at all: CFIUS
+      shares CFR title 31 with OFAC.
+
+  - pack: ecra
+    reason: >
+      The EAR's statutory authority, and the emergency-powers chain it ran on
+      before 2018. The peer of the AECA pack: it is what makes an EAR control
+      traceable to something Congress passed.
+
+  - pack: export_fedreg
+    reason: >
+      Rule preambles and the delegating executive orders. The preamble is where
+      the agency answers comments and says what a term means, and it is the best
+      interpretive source in this field — it exists nowhere in the codified
+      text. The executive orders supply the delegation chain that makes the ITAR
+      an exercise of the President's authority rather than the State
+      Department's own.
+
+  - pack: export_caselaw
+    reason: >
+      Penalty exposure turns on the willfulness standard, which is a holding
+      rather than a regulation. Advising on exposure without the cases is a
+      substantive defect, not a thoroughness gap.
+
+  - pack: multilateral_regimes
+    reason: >
+      Why a control exists, and whether it is multilateral or US-unique — the
+      question that decides how a transfer to an ally is argued. A '600 series'
+      ECCN exists because Wassenaar agreed a control; without these lists the
+      domain can say what the US controls and never why.
+
+  - pack: doj_data_security
+    reason: >
+      Foreign-person access to bulk sensitive data. Overlaps ITAR technical-data
+      reasoning closely enough to be mistaken for it, and is a different test
+      with a different trigger — which is exactly why it has to be quotable
+      rather than remembered.
+
+  - pack: nuclear_exports
+    reason: >
+      Mostly a routing fact, and an expensive one to get wrong: DOE Part 810
+      covers ASSISTANCE — unclassified nuclear technology and services — which
+      reads like an ITAR defense service and is not one.
+
+  - pack: nispom
+    reason: >
+      The classified side that USML Category XVII and classified technical data
+      run into. A facility clearance is not an export authorisation, and
+      clearing one regime does not clear the other.
+
+  - pack: dfars
+    reason: >
+      How most suppliers actually encounter export control: as a contract clause
+      that flowed down to them. DFARS 252.225-7048 obliges compliance regardless
+      of what the contract otherwise says, and a supplier questionnaire is
+      usually that clause in disguise.
 
 corpus_group:
   slug: us-export-control
@@ -28,6 +121,10 @@ corpus_group:
   # citation edges already resolve into them; the exclusion buys headroom under
   # the platform's group-size cap. Excluding a corpus is a claim that it is
   # reachable WITHOUT the group — if that stops being true, remove the entry.
+  #
+  # The split did not change this. Corpus count is a property of the corpora,
+  # not of how they are packaged: the same 21 authority corpora arrive whether
+  # they come from one pack or fourteen.
   exclude_corpora:
     - aeca
     - itar-regulations
@@ -38,17 +135,595 @@ orchestrator:
   tools:
     - search_across_corpora
 
+# --- BEGIN GENERATED EQUIVALENCES (build/split_pack.py) ---
+# Title 31 is shared: OFAC's sanctions programmes and the CFIUS regulations at
+# Parts 800/802. A namespace alias maps a whole CFR TITLE to one prefix, so
+# "31 C.F.R. § 800.215" extracts as `ofac:800.215` — a key that does not exist
+# and resolves to nothing.
+#
+# These rows live here rather than in either base pack because they exist only
+# because both are installed together. Neither pack can carry them: `ofac`
+# would be asserting keys it does not own, and `cfius` would be mapping from a
+# prefix it does not declare.
+#
+# Generated rather than hand-written, and generated for EVERY section of the
+# borrowing corpus rather than the ones some document happens to cite — so the
+# next document to cite Part 800 works without anyone remembering this.
 equivalences:
-  # Title 31 is shared: OFAC's sanctions programmes and the CFIUS regulations at
-  # Parts 800/802. A namespace alias maps a whole CFR TITLE to one prefix, so
-  # "31 C.F.R. § 800.215" extracts as `ofac:800.215` — a key that does not
-  # exist. These rows fold the citation onto the corpus that holds the text.
-  #
-  # They live here rather than in the base pack because they exist only because
-  # both bodies of law are installed together. Generated, not hand-written:
-  # every section of the borrowing corpus, so the next document citing Part 800
-  # works without anyone remembering this.
-  - {from_key: "ofac:800", to_key: "cfius:800", note: "shared CFR title 31"}
-  - {from_key: "ofac:800.215", to_key: "cfius:800.215", note: "shared CFR title 31"}
-  - {from_key: "ofac:800.401", to_key: "cfius:800.401", note: "shared CFR title 31"}
-  - {from_key: "ofac:802", to_key: "cfius:802", note: "shared CFR title 31"}
+  - from_key: "ofac:800"
+    to_key: "cfius:800"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.101"
+    to_key: "cfius:800.101"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.102"
+    to_key: "cfius:800.102"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.103"
+    to_key: "cfius:800.103"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.104"
+    to_key: "cfius:800.104"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.105"
+    to_key: "cfius:800.105"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.201"
+    to_key: "cfius:800.201"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.202"
+    to_key: "cfius:800.202"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.203"
+    to_key: "cfius:800.203"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.204"
+    to_key: "cfius:800.204"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.205"
+    to_key: "cfius:800.205"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.206"
+    to_key: "cfius:800.206"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.207"
+    to_key: "cfius:800.207"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.208"
+    to_key: "cfius:800.208"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.209"
+    to_key: "cfius:800.209"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.210"
+    to_key: "cfius:800.210"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.211"
+    to_key: "cfius:800.211"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.212"
+    to_key: "cfius:800.212"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.213"
+    to_key: "cfius:800.213"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.214"
+    to_key: "cfius:800.214"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.215"
+    to_key: "cfius:800.215"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.216"
+    to_key: "cfius:800.216"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.217"
+    to_key: "cfius:800.217"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.218"
+    to_key: "cfius:800.218"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.219"
+    to_key: "cfius:800.219"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.220"
+    to_key: "cfius:800.220"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.221"
+    to_key: "cfius:800.221"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.222"
+    to_key: "cfius:800.222"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.223"
+    to_key: "cfius:800.223"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.224"
+    to_key: "cfius:800.224"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.225"
+    to_key: "cfius:800.225"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.226"
+    to_key: "cfius:800.226"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.227"
+    to_key: "cfius:800.227"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.228"
+    to_key: "cfius:800.228"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.229"
+    to_key: "cfius:800.229"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.230"
+    to_key: "cfius:800.230"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.231"
+    to_key: "cfius:800.231"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.232"
+    to_key: "cfius:800.232"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.233"
+    to_key: "cfius:800.233"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.234"
+    to_key: "cfius:800.234"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.235"
+    to_key: "cfius:800.235"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.236"
+    to_key: "cfius:800.236"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.237"
+    to_key: "cfius:800.237"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.238"
+    to_key: "cfius:800.238"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.239"
+    to_key: "cfius:800.239"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.240"
+    to_key: "cfius:800.240"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.241"
+    to_key: "cfius:800.241"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.242"
+    to_key: "cfius:800.242"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.243"
+    to_key: "cfius:800.243"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.244"
+    to_key: "cfius:800.244"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.245"
+    to_key: "cfius:800.245"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.246"
+    to_key: "cfius:800.246"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.247"
+    to_key: "cfius:800.247"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.248"
+    to_key: "cfius:800.248"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.249"
+    to_key: "cfius:800.249"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.250"
+    to_key: "cfius:800.250"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.251"
+    to_key: "cfius:800.251"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.252"
+    to_key: "cfius:800.252"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.253"
+    to_key: "cfius:800.253"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.254"
+    to_key: "cfius:800.254"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.255"
+    to_key: "cfius:800.255"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.256"
+    to_key: "cfius:800.256"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.301"
+    to_key: "cfius:800.301"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.302"
+    to_key: "cfius:800.302"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.303"
+    to_key: "cfius:800.303"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.304"
+    to_key: "cfius:800.304"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.305"
+    to_key: "cfius:800.305"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.306"
+    to_key: "cfius:800.306"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.307"
+    to_key: "cfius:800.307"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.308"
+    to_key: "cfius:800.308"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.401"
+    to_key: "cfius:800.401"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.402"
+    to_key: "cfius:800.402"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.403"
+    to_key: "cfius:800.403"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.404"
+    to_key: "cfius:800.404"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.405"
+    to_key: "cfius:800.405"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.406"
+    to_key: "cfius:800.406"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.407"
+    to_key: "cfius:800.407"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.501"
+    to_key: "cfius:800.501"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.502"
+    to_key: "cfius:800.502"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.503"
+    to_key: "cfius:800.503"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.504"
+    to_key: "cfius:800.504"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.505"
+    to_key: "cfius:800.505"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.506"
+    to_key: "cfius:800.506"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.507"
+    to_key: "cfius:800.507"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.508"
+    to_key: "cfius:800.508"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.509"
+    to_key: "cfius:800.509"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.601"
+    to_key: "cfius:800.601"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.602"
+    to_key: "cfius:800.602"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.603"
+    to_key: "cfius:800.603"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.604"
+    to_key: "cfius:800.604"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.701"
+    to_key: "cfius:800.701"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.801"
+    to_key: "cfius:800.801"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.802"
+    to_key: "cfius:800.802"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.901"
+    to_key: "cfius:800.901"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.902"
+    to_key: "cfius:800.902"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.1001"
+    to_key: "cfius:800.1001"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.1002"
+    to_key: "cfius:800.1002"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.1101"
+    to_key: "cfius:800.1101"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.1102"
+    to_key: "cfius:800.1102"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.1103"
+    to_key: "cfius:800.1103"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.1104"
+    to_key: "cfius:800.1104"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.1105"
+    to_key: "cfius:800.1105"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.1106"
+    to_key: "cfius:800.1106"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.1107"
+    to_key: "cfius:800.1107"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:800.1108"
+    to_key: "cfius:800.1108"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802"
+    to_key: "cfius:802"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.101"
+    to_key: "cfius:802.101"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.102"
+    to_key: "cfius:802.102"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.103"
+    to_key: "cfius:802.103"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.104"
+    to_key: "cfius:802.104"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.105"
+    to_key: "cfius:802.105"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.201"
+    to_key: "cfius:802.201"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.202"
+    to_key: "cfius:802.202"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.203"
+    to_key: "cfius:802.203"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.204"
+    to_key: "cfius:802.204"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.205"
+    to_key: "cfius:802.205"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.206"
+    to_key: "cfius:802.206"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.207"
+    to_key: "cfius:802.207"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.208"
+    to_key: "cfius:802.208"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.209"
+    to_key: "cfius:802.209"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.210"
+    to_key: "cfius:802.210"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.211"
+    to_key: "cfius:802.211"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.212"
+    to_key: "cfius:802.212"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.213"
+    to_key: "cfius:802.213"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.214"
+    to_key: "cfius:802.214"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.215"
+    to_key: "cfius:802.215"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.216"
+    to_key: "cfius:802.216"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.217"
+    to_key: "cfius:802.217"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.218"
+    to_key: "cfius:802.218"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.219"
+    to_key: "cfius:802.219"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.220"
+    to_key: "cfius:802.220"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.221"
+    to_key: "cfius:802.221"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.222"
+    to_key: "cfius:802.222"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.223"
+    to_key: "cfius:802.223"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.224"
+    to_key: "cfius:802.224"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.225"
+    to_key: "cfius:802.225"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.226"
+    to_key: "cfius:802.226"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.227"
+    to_key: "cfius:802.227"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.228"
+    to_key: "cfius:802.228"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.229"
+    to_key: "cfius:802.229"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.230"
+    to_key: "cfius:802.230"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.231"
+    to_key: "cfius:802.231"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.232"
+    to_key: "cfius:802.232"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.233"
+    to_key: "cfius:802.233"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.234"
+    to_key: "cfius:802.234"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.235"
+    to_key: "cfius:802.235"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.236"
+    to_key: "cfius:802.236"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.237"
+    to_key: "cfius:802.237"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.238"
+    to_key: "cfius:802.238"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.239"
+    to_key: "cfius:802.239"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.240"
+    to_key: "cfius:802.240"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.241"
+    to_key: "cfius:802.241"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.242"
+    to_key: "cfius:802.242"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.243"
+    to_key: "cfius:802.243"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.244"
+    to_key: "cfius:802.244"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.301"
+    to_key: "cfius:802.301"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.302"
+    to_key: "cfius:802.302"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.303"
+    to_key: "cfius:802.303"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.304"
+    to_key: "cfius:802.304"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.401"
+    to_key: "cfius:802.401"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.402"
+    to_key: "cfius:802.402"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.403"
+    to_key: "cfius:802.403"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.404"
+    to_key: "cfius:802.404"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.405"
+    to_key: "cfius:802.405"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.501"
+    to_key: "cfius:802.501"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.502"
+    to_key: "cfius:802.502"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.503"
+    to_key: "cfius:802.503"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.504"
+    to_key: "cfius:802.504"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.505"
+    to_key: "cfius:802.505"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.506"
+    to_key: "cfius:802.506"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.507"
+    to_key: "cfius:802.507"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.508"
+    to_key: "cfius:802.508"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.509"
+    to_key: "cfius:802.509"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.601"
+    to_key: "cfius:802.601"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.602"
+    to_key: "cfius:802.602"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.603"
+    to_key: "cfius:802.603"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.604"
+    to_key: "cfius:802.604"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.701"
+    to_key: "cfius:802.701"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.801"
+    to_key: "cfius:802.801"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.802"
+    to_key: "cfius:802.802"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.901"
+    to_key: "cfius:802.901"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.902"
+    to_key: "cfius:802.902"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.1001"
+    to_key: "cfius:802.1001"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.1002"
+    to_key: "cfius:802.1002"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.1101"
+    to_key: "cfius:802.1101"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.1102"
+    to_key: "cfius:802.1102"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.1103"
+    to_key: "cfius:802.1103"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.1104"
+    to_key: "cfius:802.1104"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.1105"
+    to_key: "cfius:802.1105"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.1106"
+    to_key: "cfius:802.1106"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.1107"
+    to_key: "cfius:802.1107"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+  - from_key: "ofac:802.1108"
+    to_key: "cfius:802.1108"
+    note: "ofac and cfius share a CFR title; the title alias binds it to ofac, so a cfius citation extracts under ofac"
+# --- END GENERATED EQUIVALENCES ---

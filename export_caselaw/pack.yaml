@@ -1,0 +1,42 @@
+# Federal decisions construing the AECA, the ITAR and the EAR — schema v2 manifest.
+#
+# An ATOMIC base pack: one publisher, one update cadence, one provenance story,
+# one approval status. Composed into a working assembly by a domain pack, which
+# supplies the corpus group, the orchestrator and the cross-pack equivalences —
+# none of which belong to any single body of law.
+#
+# HARVESTED, NOT LEGALLY REVIEWED. Every section body is verbatim text from the
+# official source — no stubs, no paraphrase — but no attorney has reviewed it,
+# which is what `approval_status: harvested_unreviewed` in each charter records.
+#
+# `source_hosts` is unioned into the SSRF allowlist at runtime, so it lists the
+# hosts THIS pack's content was harvested from and no others.
+schema_version: 2
+name: export_caselaw
+display_name: Federal decisions construing the AECA, the ITAR and the EAR
+description: 'The judicial gloss. Penalty exposure turns on the willfulness standard, which is a holding
+  rather than a regulation.
+
+
+  Every opinion here had to satisfy two independent gates: matched by NAME and confirmed by SUBJECT. Passing
+  one hides failing the other — matching by name alone put an unrelated 2024 case in the layer, and matching
+  by subject alone filed a real export-control case under the key of a different one.'
+jurisdiction: us
+mappings: authority_mappings.export_caselaw.yaml
+source_hosts:
+- api.govinfo.gov
+- www.govinfo.gov
+corpora:
+- slug: caselaw
+  title: Federal court decisions construing the AECA, the ITAR and the EAR
+  authority_prefixes:
+  - case
+  description: 'Carry the judicial gloss. The seed document advises on penalty exposure, and exposure
+    turns on the willfulness standard — which is a holding, not a regulation. Advising on it without the
+    cases is a substantive defect.
+
+    '
+  charter: charters/caselaw.yaml
+  spec: specs/caselaw.json
+  persona: personas/caselaw.txt
+  default_authority_weight: INTERPRETIVE

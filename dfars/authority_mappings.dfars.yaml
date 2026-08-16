@@ -1,0 +1,35 @@
+# DFARS and FAR export-control clauses (48 C.F.R.)
+#
+# Namespace registry + citation taxonomy for the `dfars` base pack.
+# Split out of the monolithic `itar` pack; prefixes and rows are unchanged.
+#
+# Aliases are LOWERCASED surface strings and drive Tier-1 extraction
+# ("Section N of the <alias>" / "<alias> Section N"). Citation SHAPES are not
+# declarable here — they are compiled into the extractor — so a row whose
+# `from_key` uses a shape prefix (`act:`, `cfr-22:`) is the taxonomy catching
+# what the shape grammar emitted and folding it onto a real key.
+#
+# `rewrite_rules` is deliberately empty and stays that way: a pack's rewrite
+# rules are never loaded, only its equivalences are, so every mapping has to be
+# an explicit {from_key, to_key} row.
+
+prefixes:
+  dfars:
+    display_name: Defense Federal Acquisition Regulation Supplement
+    jurisdiction: us
+    authority_type: regulation
+    aliases:
+    - dfars
+    - 48 c.f.r.
+    - 48 cfr
+
+equivalences: []
+
+rewrite_rules: []
+shape_rules:
+- pattern: ^usml$
+  jurisdiction: us
+  authority_type: regulation
+- pattern: ^ddtc$
+  jurisdiction: us
+  authority_type: guidance

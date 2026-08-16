@@ -465,6 +465,52 @@ def self_test() -> int:
         )
         mixed = validate_pack(mixed_dir)
 
+        # Two packs, each valid alone, colliding on a prefix and a slug. The
+        # per-pack validation must stay silent and the registry check must not.
+        twins = []
+        for name in ("twin_a", "twin_b"):
+            twin_dir = Path(tmp) / name
+            twin_dir.mkdir()
+            (twin_dir / "pack.yaml").write_text(
+                yaml.safe_dump(
+                    {
+                        "name": name,
+                        "schema_version": 2,
+                        "mappings": "m.yaml",
+                        "corpora": [
+                            {
+                                "slug": "shared-corpus",
+                                "title": "T",
+                                "authority_prefixes": ["dup"],
+                                "spec": "s.json",
+                                "charter": "c.yaml",
+                            }
+                        ],
+                    }
+                )
+            )
+            (twin_dir / "m.yaml").write_text(
+                yaml.safe_dump(
+                    {
+                        "prefixes": {
+                            "dup": {
+                                "display_name": "D",
+                                "jurisdiction": "zz",
+                                "authority_type": "statute",
+                            }
+                        }
+                    }
+                )
+            )
+            (twin_dir / "s.json").write_text(
+                json.dumps({"sections": [{"key": "dup:1", "heading": "H", "text": "T"}]})
+            )
+            (twin_dir / "c.yaml").write_text(yaml.safe_dump({"purpose": "p"}))
+            (twin_dir / "README.md").write_text("readme")
+            twins.append(twin_dir)
+        twin_findings = [validate_pack(d) for d in twins]
+        collisions = cross_pack_collisions(twins)
+
     failures = []
     if ok.errors:
         failures.append(f"valid pack produced errors: {ok.errors}")
@@ -472,12 +518,87 @@ def self_test() -> int:
         failures.append("broken pack produced no errors")
     if not any("span multiple prefixes" in e for e in mixed.errors):
         failures.append("mixed-prefix spec aliases not caught")
+    if any(f.errors for f in twin_findings):
+        failures.append(
+            "colliding packs must each be valid ALONE — otherwise the registry "
+            "check is not what caught the collision"
+        )
+    if not any("prefix 'dup'" in c for c in collisions):
+        failures.append("cross-pack prefix collision not caught")
+    if not any("corpus slug 'shared-corpus'" in c for c in collisions):
+        failures.append("cross-pack corpus slug collision not caught")
+    if cross_pack_collisions(twins[:1]):
+        failures.append("a single pack collided with itself")
     if failures:
         for msg in failures:
             print(f"SELF-TEST FAIL: {msg}")
         return 1
     print(f"self-test ok (broken pack raised {len(bad.errors)} errors as expected)")
     return 0
+
+
+def cross_pack_collisions(pack_dirs: list[Path]) -> list[str]:
+    """Two packs must never declare the same prefix or the same corpus slug.
+
+    Every other check here is per-pack, and this one cannot be: each pack is
+    individually valid while declaring `ofac`, and the conflict only exists in
+    the registry as a whole. It matters more than its size suggests, because a
+    prefix binds to exactly one corpus PERMANENTLY — the installer refuses to
+    move a bound prefix, so whichever pack installs second is not merely
+    rejected, it is unshippable against every deployment that installed the
+    first. There is no remedy short of a new prefix.
+
+    Atomic base packs make this reachable in a way a registry of monoliths did
+    not: splitting one body of law across packs, or copying a pack as the
+    starting point for a neighbouring one, both produce it silently.
+    """
+    problems: list[str] = []
+    prefix_owner: dict[str, str] = {}
+    slug_owner: dict[str, str] = {}
+
+    for pack_dir in pack_dirs:
+        try:
+            manifest = yaml.safe_load((pack_dir / "pack.yaml").read_text(encoding="utf-8"))
+        except (OSError, yaml.YAMLError):
+            continue  # already reported by the per-pack validation
+        if not isinstance(manifest, dict):
+            continue
+
+        declared: set[str] = set()
+        mappings_rel = manifest.get("mappings")
+        if mappings_rel:
+            mappings_path = pack_dir / str(mappings_rel)
+            try:
+                mappings = yaml.safe_load(mappings_path.read_text(encoding="utf-8"))
+                declared = set((mappings or {}).get("prefixes") or {})
+            except (OSError, yaml.YAMLError):
+                declared = set()
+
+        for prefix in sorted(declared):
+            if prefix in prefix_owner:
+                problems.append(
+                    f"prefix {prefix!r} is declared by both {prefix_owner[prefix]!r} "
+                    f"and {pack_dir.name!r} — a prefix binds to one corpus "
+                    "permanently, so the second pack to install is unshippable"
+                )
+            else:
+                prefix_owner[prefix] = pack_dir.name
+
+        for entry in manifest.get("corpora") or []:
+            if not isinstance(entry, dict):
+                continue
+            slug = entry.get("slug")
+            if not slug:
+                continue
+            if slug in slug_owner:
+                problems.append(
+                    f"corpus slug {slug!r} is declared by both "
+                    f"{slug_owner[slug]!r} and {pack_dir.name!r}"
+                )
+            else:
+                slug_owner[slug] = pack_dir.name
+
+    return problems
 
 
 def main() -> int:
@@ -507,6 +628,14 @@ def main() -> int:
             print(f"  ERROR: {msg}")
         for msg in findings.warnings:
             print(f"  warn:  {msg}")
+
+    # Only meaningful over the whole registry; validating a subset by name
+    # cannot see a collision with a pack that was not named.
+    if args.all:
+        for msg in cross_pack_collisions(targets):
+            exit_code = 1
+            print(f"REGISTRY ERROR: {msg}")
+
     return exit_code
 
 

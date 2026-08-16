@@ -1,0 +1,36 @@
+# OFAC sanctions regulations (31 C.F.R. Chapter V) — schema v2 manifest.
+#
+# An ATOMIC base pack: one publisher, one update cadence, one provenance story,
+# one approval status. Composed into a working assembly by a domain pack, which
+# supplies the corpus group, the orchestrator and the cross-pack equivalences —
+# none of which belong to any single body of law.
+#
+# HARVESTED, NOT LEGALLY REVIEWED. Every section body is verbatim text from the
+# official source — no stubs, no paraphrase — but no attorney has reviewed it,
+# which is what `approval_status: harvested_unreviewed` in each charter records.
+#
+# `source_hosts` is unioned into the SSRF allowlist at runtime, so it lists the
+# hosts THIS pack's content was harvested from and no others.
+schema_version: 2
+name: ofac
+display_name: OFAC sanctions regulations (31 C.F.R. Chapter V)
+description: The sanctions programs, part by part. Carries the RULES only — the SDN List and the other
+  restricted-party rosters are deliberately absent, because screening is a lookup against current list
+  data and a roster frozen at harvest time is worse than no roster at all.
+jurisdiction: us
+mappings: authority_mappings.ofac.yaml
+source_hosts:
+- www.ecfr.gov
+corpora:
+- slug: ofac
+  title: OFAC Sanctions Regulations (31 C.F.R. Chapter V)
+  authority_prefixes:
+  - ofac
+  description: 'Carry the sanctions layer, because an ITAR licence does not clear a blocked party and
+    § 126.1 is not coextensive with the SDN List.
+
+    '
+  charter: charters/ofac.yaml
+  spec: specs/ofac.json
+  persona: personas/ofac.txt
+  default_authority_weight: IMPLEMENTING

@@ -1,21 +1,20 @@
-# `itar` — ITAR and the United States Munitions List (22 C.F.R. 120-130)
+# `ecra` — ECRA, IEEPA and the National Emergencies Act (50 U.S.C.)
 
-The regulations implementing the AECA, and the USML they turn on. The USML is a separate CORPUS so that `usml:viii` is addressable as itself, but it is not a separate PACK: 22 C.F.R. § 121.1 comes from the same eCFR harvest on the same version date as the rest of Parts 120-130.
+The statutory authority for the EAR, and the emergency-powers chain the pre-2018 EAR rested on. The AECA's peer: where the AECA authorises the ITAR, ECRA authorises the EAR.
 
 ## Corpora
 
 | Corpus | Prefixes | Weight | Sections |
 |---|---|---|---|
-| `itar-regulations` | `itar` | `IMPLEMENTING` | 189 |
-| `usml` | `usml` | `IMPLEMENTING` | 21 |
+| `ecra` | `ecra` | `CONTROLLING` | 38 |
 
-210 sections, every one verbatim harvested text.
+38 sections, every one verbatim harvested text.
 
 ## Provenance
 
 | | |
 |---|---|
-| Sources | `www.ecfr.gov` |
+| Sources | `uscode.house.gov` · `xml.house.gov` |
 | Approval status | `harvested_unreviewed` — no attorney review |
 
 ## Composition

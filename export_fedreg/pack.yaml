@@ -1,0 +1,52 @@
+# Export-control rulemaking record and executive orders — schema v2 manifest.
+#
+# An ATOMIC base pack: one publisher, one update cadence, one provenance story,
+# one approval status. Composed into a working assembly by a domain pack, which
+# supplies the corpus group, the orchestrator and the cross-pack equivalences —
+# none of which belong to any single body of law.
+#
+# HARVESTED, NOT LEGALLY REVIEWED. Every section body is verbatim text from the
+# official source — no stubs, no paraphrase — but no attorney has reviewed it,
+# which is what `approval_status: harvested_unreviewed` in each charter records.
+#
+# `source_hosts` is unioned into the SSRF allowlist at runtime, so it lists the
+# hosts THIS pack's content was harvested from and no others.
+schema_version: 2
+name: export_fedreg
+display_name: Export-control rulemaking record and executive orders
+description: 'Rule PREAMBLES — where the agency answers comments and says what a term means — plus the
+  executive orders that delegate the statutory authority in the first place. The preamble is the best
+  interpretive source in this field and exists nowhere in the codified text.
+
+
+  Named `export_fedreg`, not `fedreg`: this is the export-control slice of the Federal Register (State,
+  BIS, OFAC, 2013-present), not the Federal Register. Another domain''s slice is a different pack.'
+jurisdiction: us
+mappings: authority_mappings.export_fedreg.yaml
+source_hosts:
+- www.federalregister.gov
+corpora:
+- slug: fr
+  title: Federal Register rulemaking docket (State, BIS, OFAC), 2013-present
+  authority_prefixes:
+  - fr
+  description: 'Carry rule PREAMBLES — where the agency answers comments and says what a term means —
+    which is the best interpretive source in this field and exists nowhere in the codified text.
+
+    '
+  charter: charters/fr.yaml
+  spec: specs/fedreg-rulemaking.json
+  persona: personas/fr.txt
+  default_authority_weight: INTERPRETIVE
+- slug: eo
+  title: Executive orders and presidential directives on export control
+  authority_prefixes:
+  - eo
+  description: 'Carry the delegation chain from statute to agency, which is otherwise invisible: the ITAR
+    exists because an EO delegated AECA authority.
+
+    '
+  charter: charters/eo.yaml
+  spec: specs/executive-orders.json
+  persona: personas/eo.txt
+  default_authority_weight: CONTROLLING

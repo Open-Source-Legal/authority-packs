@@ -1,0 +1,36 @@
+# DFARS and FAR export-control clauses (48 C.F.R.) — schema v2 manifest.
+#
+# An ATOMIC base pack: one publisher, one update cadence, one provenance story,
+# one approval status. Composed into a working assembly by a domain pack, which
+# supplies the corpus group, the orchestrator and the cross-pack equivalences —
+# none of which belong to any single body of law.
+#
+# HARVESTED, NOT LEGALLY REVIEWED. Every section body is verbatim text from the
+# official source — no stubs, no paraphrase — but no attorney has reviewed it,
+# which is what `approval_status: harvested_unreviewed` in each charter records.
+#
+# `source_hosts` is unioned into the SSRF allowlist at runtime, so it lists the
+# hosts THIS pack's content was harvested from and no others.
+schema_version: 2
+name: dfars
+display_name: DFARS and FAR export-control clauses (48 C.F.R.)
+description: The contract clauses that impose export-control obligations by agreement, which is how most
+  suppliers actually encounter them. DFARS 252.225-7048 flows down to subcontractors at every tier; a
+  supplier questionnaire is usually that clause in disguise.
+jurisdiction: us
+mappings: authority_mappings.dfars.yaml
+source_hosts:
+- www.ecfr.gov
+corpora:
+- slug: dfars
+  title: Contractual flowdown — DFARS and FAR export-control clauses (48 C.F.R.)
+  authority_prefixes:
+  - dfars
+  description: 'Carry the contract clauses that impose export-control obligations by agreement, which
+    is how most suppliers actually encounter them.
+
+    '
+  charter: charters/dfars.yaml
+  spec: specs/contractual.json
+  persona: personas/dfars.txt
+  default_authority_weight: IMPLEMENTING
