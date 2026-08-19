@@ -88,6 +88,15 @@ or no text of its own.
 
 See [DOMAIN_PACKS.md](DOMAIN_PACKS.md) for the shape and the install contract.
 
+## Source providers
+
+A pack may ship the code that fetches its own authority text, under
+`<pack>/providers/`. No pack does yet. See
+[SOURCE_PROVIDERS.md](SOURCE_PROVIDERS.md) for the contract — including why most
+packs should ship a key *translator* that delegates to the platform's CFR /
+U.S. Code / Federal Register providers rather than a scraper, and what it means
+that installing such a pack executes its Python.
+
 ## Licensing
 
 Pack content in this repository is licensed under
