@@ -6,8 +6,9 @@
     python scripts/validate_domain.py --self-test   # prove the checks can fail
 
 A domain pack composes base packs and supplies the wiring that belongs to none
-of them: the corpus group, the orchestrator persona, and cross-pack
-equivalences. See DOMAIN_PACKS.md for the shape and the install contract.
+of them: the corpus group, the orchestrator persona, cross-pack equivalences,
+and optionally a consumer_agent increment for whichever corpus ends up
+consuming it. See DOMAIN_PACKS.md for the shape and the install contract.
 
 This script checks the parts of that contract that are decidable WITHOUT a
 platform — statically, from the files in this repository:
@@ -52,9 +53,9 @@ KEY_RE = re.compile(r"^[a-z0-9][a-z0-9-]*:.+$")
 # Mirrors AuthorityKeyEquivalence.note = CharField(max_length=255).
 MAX_NOTE = 255
 
-# Tools a domain pack may request for its orchestrator. Closed on purpose: a
-# typo here is otherwise discovered as "the agent never calls the tool", which
-# is indistinguishable from the model choosing not to.
+# Tools a domain pack may request for its orchestrator or consumer_agent.
+# Closed on purpose: a typo here is otherwise discovered as "the agent never
+# calls the tool", which is indistinguishable from the model choosing not to.
 KNOWN_TOOLS = {
     "search_across_corpora",
     "ask_document",
@@ -110,6 +111,53 @@ def _base_pack_index(root: Path) -> dict[str, dict]:
             "corpora": corpora,
         }
     return index
+
+
+def _validate_instructions_block(f: Findings, domain_dir: Path, group,
+                                  block: dict, *, label: str,
+                                  warn_if_no_tools: bool,
+                                  missing_file_hint: str = "") -> None:
+    """Shared shape between `orchestrator` and `consumer_agent`: an
+    instructions file that must live inside the domain dir and be readable
+    and non-empty; tools drawn from KNOWN_TOOLS; and, if
+    `search_across_corpora` is among them, instructions that name the corpus
+    group's slug — the tool takes it as a required argument, so an agent
+    never told the slug cannot call it (C3 for the orchestrator, C8 for a
+    consumer_agent)."""
+    rel = block.get("instructions_file")
+    if not rel:
+        hint = f" — {missing_file_hint}" if missing_file_hint else ""
+        f.error(f"{label}.instructions_file is required{hint}")
+    else:
+        candidate = (domain_dir / str(rel)).resolve()
+        if not str(candidate).startswith(str(domain_dir.resolve()) + "/"):
+            f.error(f"{label}.instructions_file escapes the domain "
+                    f"directory: {rel}")
+        elif not candidate.is_file():
+            f.error(f"{label}.instructions_file missing: {rel}")
+        elif not candidate.read_text(encoding="utf-8").strip():
+            f.error(f"{label}.instructions_file is empty: {rel}")
+
+    tools = [str(t) for t in (block.get("tools") or [])]
+    if warn_if_no_tools and not tools:
+        f.warn(f"{label} declares no tools; without search_across_corpora "
+               "the group is not actually reachable")
+    for tool in tools:
+        if tool not in KNOWN_TOOLS:
+            f.error(f"{label}.tools: unknown tool {tool!r} (known: "
+                    f"{', '.join(sorted(KNOWN_TOOLS))})")
+
+    if "search_across_corpora" in tools and isinstance(group, dict) and rel:
+        slug = str(group.get("slug") or "")
+        if slug:
+            path = domain_dir / str(rel)
+            if path.is_file() and slug not in path.read_text(encoding="utf-8"):
+                f.error(
+                    f"{label} declares search_across_corpora but its "
+                    f"instructions never name the group slug {slug!r}. The "
+                    "tool takes corpus_group as a REQUIRED argument, so an "
+                    "agent that is not told the slug cannot call it."
+                )
 
 
 def validate_domain(domain_dir: Path, root: Path) -> Findings:
@@ -198,41 +246,12 @@ def validate_domain(domain_dir: Path, root: Path) -> Findings:
     if not isinstance(orch, dict):
         f.error("orchestrator is required")
     else:
-        rel = orch.get("instructions_file")
-        if not rel:
-            f.error("orchestrator.instructions_file is required — the "
-                    "orchestration story is the substance of a domain pack")
-        else:
-            candidate = (domain_dir / str(rel)).resolve()
-            if not str(candidate).startswith(str(domain_dir.resolve()) + "/"):
-                f.error(f"orchestrator.instructions_file escapes the domain "
-                        f"directory: {rel}")
-            elif not candidate.is_file():
-                f.error(f"orchestrator.instructions_file missing: {rel}")
-            elif not candidate.read_text(encoding="utf-8").strip():
-                f.error(f"orchestrator.instructions_file is empty: {rel}")
-        tools = orch.get("tools") or []
-        if not tools:
-            f.warn("orchestrator declares no tools; without search_across_corpora "
-                   "the group is not actually reachable")
-        for tool in tools:
-            if str(tool) not in KNOWN_TOOLS:
-                f.error(f"orchestrator.tools: unknown tool {tool!r} (known: "
-                        f"{', '.join(sorted(KNOWN_TOOLS))})")
-        # C3 in spirit: the tool takes the group slug as a REQUIRED argument, so
-        # an orchestrator that never names it cannot call the tool at all.
-        if "search_across_corpora" in [str(t) for t in tools] and isinstance(group, dict):
-            slug = str(group.get("slug") or "")
-            rel = orch.get("instructions_file")
-            if slug and rel:
-                path = domain_dir / str(rel)
-                if path.is_file() and slug not in path.read_text(encoding="utf-8"):
-                    f.error(
-                        f"orchestrator declares search_across_corpora but its "
-                        f"instructions never name the group slug {slug!r}. The "
-                        "tool takes corpus_group as a REQUIRED argument, so an "
-                        "agent that is not told the slug cannot call it."
-                    )
+        _validate_instructions_block(
+            f, domain_dir, group, orch, label="orchestrator",
+            warn_if_no_tools=True,
+            missing_file_hint="the orchestration story is the substance of "
+                               "a domain pack",
+        )
 
     # --- consumer agent (C8) --------------------------------------------- #
     #
@@ -263,38 +282,10 @@ def validate_domain(domain_dir: Path, root: Path) -> Findings:
                     "REPLACE would overwrite the consuming corpus's persona "
                     "with text shipped by this pack."
                 )
-
-            rel = consumer.get("instructions_file")
-            if not rel:
-                f.error("consumer_agent.instructions_file is required")
-            else:
-                candidate = (domain_dir / str(rel)).resolve()
-                if not str(candidate).startswith(str(domain_dir.resolve()) + "/"):
-                    f.error(f"consumer_agent.instructions_file escapes the "
-                            f"domain directory: {rel}")
-                elif not candidate.is_file():
-                    f.error(f"consumer_agent.instructions_file missing: {rel}")
-                elif not candidate.read_text(encoding="utf-8").strip():
-                    f.error(f"consumer_agent.instructions_file is empty: {rel}")
-
-            ctools = [str(t) for t in (consumer.get("tools") or [])]
-            for tool in ctools:
-                if tool not in KNOWN_TOOLS:
-                    f.error(f"consumer_agent.tools: unknown tool {tool!r} "
-                            f"(known: {', '.join(sorted(KNOWN_TOOLS))})")
-            # Same rule the orchestrator is held to, same reason.
-            if "search_across_corpora" in ctools and isinstance(group, dict):
-                slug = str(group.get("slug") or "")
-                if slug and rel:
-                    path = domain_dir / str(rel)
-                    if path.is_file() and slug not in path.read_text(encoding="utf-8"):
-                        f.error(
-                            f"consumer_agent declares search_across_corpora but "
-                            f"its instructions never name the group slug "
-                            f"{slug!r}. The tool takes corpus_group as a "
-                            "REQUIRED argument, so an agent that is not told "
-                            "the slug cannot call it."
-                        )
+            _validate_instructions_block(
+                f, domain_dir, group, consumer, label="consumer_agent",
+                warn_if_no_tools=False,
+            )
 
     # --- equivalences (C4, C7) ------------------------------------------- #
     for i, row in enumerate(data.get("equivalences") or []):

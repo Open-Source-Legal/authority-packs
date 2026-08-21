@@ -79,8 +79,9 @@ Each pack's `README.md` documents its contents, provenance, and design notes.
 
 A **domain pack** composes atomic base packs and supplies the wiring that
 belongs to none of them — the corpus group, the orchestrator persona describing
-how those bodies of law interact, and cross-pack equivalences. It carries little
-or no text of its own.
+how those bodies of law interact, cross-pack equivalences, and optionally a
+`consumer_agent` increment for whichever corpus ends up consuming the domain.
+It carries little or no text of its own.
 
 | Domain | Composes | Purpose |
 |---|---|---|
