@@ -62,6 +62,15 @@ prefixes or section text of its own. Its `equivalences` may only map between
 keys owned by its required base packs. Authority text belongs to a base pack,
 where its provenance and approval status live.
 
+**C8 — Additive consumer wiring.** A domain pack MAY declare a `consumer_agent`
+for the corpus that consumes the domain. Its `mode` MUST be `EXTEND`; an
+installer MUST refuse `REPLACE`. The binding — which corpus — is supplied by
+the operator at install time, never by the manifest. An installer that is given
+a `consumer_agent` but no corpus to bind it to MUST report that it was not
+applied (**C5**); it does not fail. If the declared tools include
+`search_across_corpora`, the same rule as **C3** applies: the instructions must
+name the group slug, because the tool takes it as a required argument.
+
 ## File shape
 
 A directory containing `domain.yaml` is a domain pack. A directory containing
@@ -95,6 +104,26 @@ orchestrator:
     - search_across_corpora
   preferred_llm: <optional model id>
 
+# OPTIONAL (C8). Instructions for the agent scoped to the corpus that CONSUMES
+# this domain — the one holding the documents users ask about. The orchestrator
+# above knows the domain but not those documents; this agent needs both, which
+# is why it EXTENDS the corpus persona rather than replacing it.
+#
+# The pack supplies only the text, because the group slug the text must name is
+# the pack's own invention. The operator supplies the binding, because which
+# corpus consumes a domain is unknowable at authoring time:
+#
+#     install_domain_pack <name> --consumer-corpus <pk>
+#
+# Declared without that argument, an installer reports it was not applied (C5)
+# rather than failing — the pack is still valid, just not fully wired.
+consumer_agent:
+  instructions_file: consumer_agent.txt
+  mode: EXTEND                      # required; REPLACE is refused (C8)
+  tools:
+    - search_across_corpora
+  preferred_llm: <optional model id>
+
 # Rows that span two base packs and belong to neither. Same shape as a base
 # pack's mappings equivalences.
 equivalences:
@@ -118,9 +147,24 @@ neither base pack alone — they exist only because both are installed together.
 
 - Declare `prefixes` or ship `specs/`. That is a base pack's job (**C7**).
 - Silently drop a required pack or corpus (**C1**, **C2**).
-- Depend on a consuming corpus's persona to make its tools reachable. If the
-  orchestrator needs the group slug in order to call a tool, the orchestrator's
-  own instructions carry it.
+- Depend on a consuming corpus's persona to make its tools reachable. If an
+  agent needs the group slug in order to call a tool, that agent's own
+  instructions carry it — the orchestrator's, and equally a `consumer_agent`'s
+  (**C3**, **C8**).
+- **Replace** a consuming corpus's persona. A `consumer_agent` is `EXTEND`-only
+  (**C8**): it appends its increment and leaves the corpus's own text
+  single-sourced on the corpus.
+
+> **On the second and third clauses together.** They are the same principle
+> stated from two sides: a pack may add to a corpus it does not own, and may
+> not depend on it or overwrite it. The first clause was written when `REPLACE`
+> was the only instructions mode available, so "contribute instructions to a
+> consuming corpus" and "substitute for that corpus's persona" were necessarily
+> the same act. `EXTEND` separates them, which is why `consumer_agent` requires
+> it: the increment is self-contained (it names the group slug itself, so its
+> tools are reachable on its own terms) and additive (the persona survives).
+> A `REPLACE` consumer agent would violate the clause as originally written and
+> is refused for exactly that reason.
 
 ## Validation
 
@@ -128,7 +172,9 @@ neither base pack alone — they exist only because both are installed together.
     python scripts/validate_domain.py --all        # domain packs
     python scripts/validate_domain.py --self-test  # prove the checks can fail
 
-`validate_domain.py` checks C4 and C7 statically — it can see whether a
-`to_key` exists in a required base pack, and whether a domain pack is smuggling
-authority text. C1, C2, C3, C5 and C6 are install-time and belong to the
-platform; they are stated here so both sides implement the same contract.
+`validate_domain.py` checks C4, C7 and the file-decidable half of C8 statically
+— it can see whether a `to_key` exists in a required base pack, whether a domain
+pack is smuggling authority text, and whether a declared `consumer_agent` is
+`EXTEND`, readable, tool-legal and names the group slug. C1, C2, C3, C5, C6 and
+C8's binding half are install-time and belong to the platform; they are stated
+here so both sides implement the same contract.

@@ -18,9 +18,15 @@ platform — statically, from the files in this repository:
     C7  a domain pack introduces no authority of its own: no `prefixes`, no
         `specs/`, and both sides of every equivalence row use a prefix owned by
         a required base pack.
+    C8  a declared `consumer_agent` is EXTEND-mode, its instructions file is
+        present, readable and non-empty, its tools are grantable, and — when it
+        declares `search_across_corpora` — its instructions name the group slug.
+        Only the file-decidable half: the BINDING (which corpus consumes the
+        domain) is supplied at install time and cannot be checked here.
 
-C1/C2/C3/C5/C6 are install-time assertions and belong to the platform. They are
-stated in DOMAIN_PACKS.md so both sides implement the same contract.
+C1/C2/C3/C5/C6 and C8's binding half are install-time assertions and belong to
+the platform. They are stated in DOMAIN_PACKS.md so both sides implement the
+same contract.
 
 Deliberately mirrors validate_pack.py's structure and exit conventions so CI can
 run them side by side.
@@ -228,6 +234,68 @@ def validate_domain(domain_dir: Path, root: Path) -> Findings:
                         "agent that is not told the slug cannot call it."
                     )
 
+    # --- consumer agent (C8) --------------------------------------------- #
+    #
+    # Optional. The orchestrator above is GLOBAL and knows the domain; this one
+    # is scoped at install time to the corpus holding the documents a user asks
+    # about, and needs BOTH that corpus's persona and reach into the group.
+    #
+    # The pack supplies only the text, because the group slug it must name is
+    # the pack's own invention. The binding — which corpus — is supplied by the
+    # operator via `install_domain_pack --consumer-corpus`, because a pack
+    # cannot know which corpus will consume it. That split is what keeps this
+    # inside the prohibition on coupling to a consuming corpus's persona rather
+    # than outside it.
+    consumer = data.get("consumer_agent")
+    if consumer is not None:
+        if not isinstance(consumer, dict):
+            f.error("consumer_agent must be a mapping")
+        else:
+            # EXTEND is required, not merely recommended. REPLACE would
+            # overwrite the consuming corpus's own persona with pack-supplied
+            # text — the coupling this document forbids. EXTEND appends, so the
+            # persona stays single-sourced on the corpus and the pack
+            # contributes only its increment.
+            mode = str(consumer.get("mode") or "")
+            if mode != "EXTEND":
+                f.error(
+                    f"consumer_agent.mode must be 'EXTEND' (got {mode!r}). "
+                    "REPLACE would overwrite the consuming corpus's persona "
+                    "with text shipped by this pack."
+                )
+
+            rel = consumer.get("instructions_file")
+            if not rel:
+                f.error("consumer_agent.instructions_file is required")
+            else:
+                candidate = (domain_dir / str(rel)).resolve()
+                if not str(candidate).startswith(str(domain_dir.resolve()) + "/"):
+                    f.error(f"consumer_agent.instructions_file escapes the "
+                            f"domain directory: {rel}")
+                elif not candidate.is_file():
+                    f.error(f"consumer_agent.instructions_file missing: {rel}")
+                elif not candidate.read_text(encoding="utf-8").strip():
+                    f.error(f"consumer_agent.instructions_file is empty: {rel}")
+
+            ctools = [str(t) for t in (consumer.get("tools") or [])]
+            for tool in ctools:
+                if tool not in KNOWN_TOOLS:
+                    f.error(f"consumer_agent.tools: unknown tool {tool!r} "
+                            f"(known: {', '.join(sorted(KNOWN_TOOLS))})")
+            # Same rule the orchestrator is held to, same reason.
+            if "search_across_corpora" in ctools and isinstance(group, dict):
+                slug = str(group.get("slug") or "")
+                if slug and rel:
+                    path = domain_dir / str(rel)
+                    if path.is_file() and slug not in path.read_text(encoding="utf-8"):
+                        f.error(
+                            f"consumer_agent declares search_across_corpora but "
+                            f"its instructions never name the group slug "
+                            f"{slug!r}. The tool takes corpus_group as a "
+                            "REQUIRED argument, so an agent that is not told "
+                            "the slug cannot call it."
+                        )
+
     # --- equivalences (C4, C7) ------------------------------------------- #
     for i, row in enumerate(data.get("equivalences") or []):
         if not isinstance(row, dict):
@@ -349,6 +417,40 @@ def self_test() -> int:
         check("an over-long equivalence note is rejected",
               lambda m, d: m["equivalences"][0].__setitem__(
                   "note", "x" * (MAX_NOTE + 1)), True)
+
+        # --- C8: the consumer agent --------------------------------------- #
+        def with_consumer(m, d, *, mode="EXTEND", tools=None, text=None,
+                          rel="consumer.txt"):
+            (d / "consumer.txt").write_text(
+                text if text is not None else "reach via corpus_group=d-group",
+                encoding="utf-8")
+            m["consumer_agent"] = {
+                "instructions_file": rel,
+                "tools": ["search_across_corpora"] if tools is None else tools,
+                "mode": mode,
+            }
+
+        check("consumer_agent is optional",
+              lambda m, d: None, False)
+        check("a well-formed consumer_agent validates",
+              lambda m, d: with_consumer(m, d), False)
+        check("C8: consumer_agent.mode REPLACE is rejected",
+              lambda m, d: with_consumer(m, d, mode="REPLACE"), True)
+        check("C8: consumer_agent with no mode is rejected",
+              lambda m, d: (with_consumer(m, d),
+                            m["consumer_agent"].pop("mode")), True)
+        check("C8: consumer_agent whose instructions_file is missing is rejected",
+              lambda m, d: with_consumer(m, d, rel="absent.txt"), True)
+        check("C8: consumer_agent that never names the group slug is rejected",
+              lambda m, d: with_consumer(m, d, text="answer from the corpus"), True)
+        check("C8: unknown consumer_agent tool is rejected",
+              lambda m, d: with_consumer(m, d, tools=["teleport"]), True)
+        # A consumer that declares no reach is a legitimate (if odd) shape: it
+        # contributes answering rules and nothing else, so the slug rule that
+        # only exists to make search_across_corpora callable does not apply.
+        check("a consumer_agent with no tools need not name the slug",
+              lambda m, d: with_consumer(m, d, tools=[],
+                                         text="answer from the corpus"), False)
 
     print(f"\nself-test: {cases - failures}/{cases} checks behaved as expected")
     return 1 if failures else 0
