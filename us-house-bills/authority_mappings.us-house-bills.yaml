@@ -1,0 +1,30 @@
+# The `hr` prefix and the citation-form folds for House bills.
+#
+# NOTE (same rule the itar pack documents): a pack's rewrite_rules are NEVER
+# loaded — only equivalences are. Every unqualified-form fold is therefore an
+# explicit {from_key, to_key} row.
+#
+# The core Tier-2a grammar emits congress-UNQUALIFIED keys ("H.R. 1234" ->
+# hr:1234) because a citation carries no congress number. POLICY: an
+# unqualified bill citation means the NEWEST congress carrying that number.
+# The rows below are the pack-owned seed for the seeded bills; the ingest
+# drain upserts a row per bill as the harvester pushes (source
+# "worker:<account>"), and the pack re-points its rows when a new congress
+# starts.
+#
+# authority_type `bill` is deliberate — a proposed bill is NOT a statute, and
+# classifying it as one would let retrieval present proposed text with
+# enacted law's classification.
+prefixes:
+  hr:
+    display_name: U.S. House Bill
+    jurisdiction: us
+    authority_type: bill
+    aliases: [h.r., house bill]
+equivalences:
+- {from_key: 'hr:41', to_key: 'hr:119-41', note: 'unqualified -> current congress'}
+- {from_key: 'hr:10132', to_key: 'hr:119-10132', note: 'unqualified -> current congress'}
+- {from_key: 'hr:10133', to_key: 'hr:119-10133', note: 'unqualified -> current congress'}
+- {from_key: 'hr:10139', to_key: 'hr:119-10139', note: 'unqualified -> current congress'}
+- {from_key: 'hr:10142', to_key: 'hr:119-10142', note: 'unqualified -> current congress'}
+- {from_key: 'hr:10146', to_key: 'hr:119-10146', note: 'unqualified -> current congress'}

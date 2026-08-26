@@ -42,6 +42,7 @@ ALL_AUTHORITY_TYPES = {
     "court-rule",
     "guidance",
     "treaty",
+    "bill",
 }
 
 # Mirrors opencontractserver/enrichment/data/mappings.py key grammar.

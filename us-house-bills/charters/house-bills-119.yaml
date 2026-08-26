@@ -1,0 +1,40 @@
+title: "U.S. House Bills — 119th Congress (rolling window)"
+slug: "house-bills-119"
+purpose: >
+  Answer what a proposed House bill does, what existing law it would change,
+  and what authorities it references — accurately, with the proposed/enacted
+  line always drawn.
+include:
+  - "latest published text version of every H.R. with activity inside the rolling window"
+  - "sponsor, status, committee, policy-area and stage metadata as of each harvest"
+  - "verified AMENDS/CITES relationships parsed from GPO's parsable-cite markup"
+exclude:
+  - "other measure types (H.Res., H.J.Res., H.Con.Res.) — recognised by the citation grammar, not carried as content"
+  - "House amendments (H.Amdt.) and committee reports"
+  - "prior congresses as bulk content (a cited older bill can arrive via the on-demand provider)"
+authority_tiers:
+  default: "PROPOSED"
+notes: >
+  WHAT SILENCE MEANS HERE — the OPPOSITE of full-coverage packs like itar:
+  this corpus carries a rolling recent-activity window, so an absent bill
+  number usually means "outside the window or no recent activity", NEVER "no
+  such bill". The persona says so, because a user cannot otherwise tell the
+  two apart.
+
+  UNQUALIFIED CITATIONS: "H.R. 1234" without a congress means the newest
+  congress carrying that number; the equivalence rows encode this policy and
+  are re-pointed when a new congress starts.
+
+  BILLS ARE PROPOSED LEGISLATION. Nothing in this corpus is current law, and
+  text changes version to version until enrollment. Every document names its
+  version code (IH/RH/EH/...) in the heading and metadata.
+
+  VERSION CHOICE IS STATUS-DRIVEN, NOT MTIME-DRIVEN: BILLSTATUS textVersions
+  names the latest version; the bulkdata listing's lastModified only drives
+  the activity window (GPO re-touches old files, so newest-modified is not
+  reliably the latest version — this bit the first live harvest).
+update_expectation: "continuous"
+current_as_of: "2026-08-26 (govinfo bulkdata, seed build)"
+approval_status: "harvested_unreviewed"
+legal_owner: null
+technical_owner: null

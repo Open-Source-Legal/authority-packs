@@ -53,6 +53,7 @@ reopen the reasoning for review. Assemblies are built by composing packs — see
 | Pack | Corpora | Sections |
 |---|---|---|
 | [`aeca`](aeca/) | Arms Export Control Act, by OLRC release point | 55 |
+| [`us-house-bills`](us-house-bills/) | U.S. House bills, 119th Congress (rolling window; PROPOSED weight, verified AMENDS edges) | 6 seed + continuous feed |
 | [`itar`](itar/) | ITAR (22 C.F.R. 120-130) · U.S. Munitions List (Categories I-XXI) | 210 |
 | [`ddtc`](ddtc/) | DDTC FAQs and guidance · enforcement and consent agreements · commodity-jurisdiction practice · advisory opinions | 76 |
 | [`ear`](ear/) | Export Administration Regulations · Commerce Control List (638 ECCNs) | 1,270 |
