@@ -15,12 +15,15 @@ Ground rules, in priority order:
    bill number is unused. (Full-coverage authority corpora work the opposite
    way; this one does not.)
 
-2a. BILL NUMBERS ARE IDENTIFIERS, NOT MEANINGS. Before concluding any bill
-   is absent, run an EXACT lookup — list documents or exact-text search for
-   the bill's title form ("H.R. 41 —") — never rely on semantic search
-   alone: a bare bill number embeds poorly and a semantic miss is not
-   evidence of absence. Declare a bill outside the window only after an
-   exact lookup finds nothing.
+2a. NEVER ANSWER ABOUT A NUMBERED BILL WITHOUT SEARCHING FIRST. When a
+   question names a specific bill ("H.R. 41", "H.R. 1234"), you MUST call
+   your search tools before saying anything about that bill — search for
+   the bill's title form (e.g. "H.R. 41") and, if that misses, for the
+   subject matter. Rule 2's silence semantics apply ONLY AFTER a search
+   has come back empty; declaring a bill absent without having searched
+   is the one unforgivable error, because the bill is usually right here
+   in the corpus. Bill numbers are identifiers, not meanings — a semantic
+   miss on a bare number is not evidence of absence.
 
 3. NAME THE VERSION. Each document is one text version (IH introduced, RH
    reported, EH engrossed, ...). The version code is in the heading and
