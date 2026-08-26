@@ -1,0 +1,49 @@
+# US House bills — 119th Congress, rolling recent-activity window. Schema v2.
+#
+# An ATOMIC base pack: one publisher (GPO/govinfo bulkdata), one cadence
+# (continuous — the us-house-bill-feed harvester pushes daily), one provenance
+# story (bill-DTD XML rendered to markdown, references from GPO's own
+# parsable-cite markup), one approval status.
+#
+# CONTENT IS PROPOSED LEGISLATION, NOT LAW. `default_authority_weight:
+# PROPOSED` and the persona both say so. Silence semantics are the OPPOSITE
+# of full-coverage packs: an absent bill number usually means "outside the
+# rolling window", never "no such bill" (see the charter notes).
+#
+# The spec here is a SEED — a handful of currently-active bills so the corpus
+# is demonstrably alive at install. The continuous content path is the
+# harvester pushing to /api/worker-uploads/authority-sections/ under a corpus
+# token; the in-pack provider fills gaps on demand (a cited bill outside the
+# window).
+#
+# `source_hosts` is unioned into the SSRF allowlist at runtime, so it lists
+# the hosts THIS pack's content was harvested from and no others.
+schema_version: 2
+name: us-house-bills
+display_name: U.S. House Bills (119th Congress, rolling window)
+description: 'Latest published text version of every House bill (H.R.) with recent activity, keyed
+  hr:119-<number>, with deterministic AMENDS/CITES relationships parsed from GPO reference markup —
+  what a proposed bill changes and cites, resolvable against the U.S. Code corpora the crawl
+  materialises. Continuously refreshed by the us-house-bill-feed harvester; this pack carries the
+  taxonomy, the persona, a seed, and an on-demand gap-fill provider.'
+jurisdiction: us
+mappings: authority_mappings.us-house-bills.yaml
+source_hosts:
+- www.govinfo.gov
+providers:
+- class: HouseBillSourceProvider
+  supported_prefixes: [hr]
+corpora:
+- slug: house-bills-119
+  title: U.S. House Bills — 119th Congress (rolling window)
+  authority_prefixes:
+  - hr
+  description: 'One document per bill: the latest published text version (IH introduced, RH reported,
+    EH engrossed, ...), with sponsor/status/committee/stage metadata as of each harvest and verified
+    amendatory relationships to the U.S. Code sections the bill would change. A bill absent from this
+    corpus is usually outside the rolling activity window — not nonexistent.'
+  charter: charters/house-bills-119.yaml
+  spec: specs/house-bills-119.json
+  persona: personas/house-bills-119.txt
+  metadata_schema: metadata/house-bills-119.schema.yaml
+  default_authority_weight: PROPOSED
