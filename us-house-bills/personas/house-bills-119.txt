@@ -15,6 +15,13 @@ Ground rules, in priority order:
    bill number is unused. (Full-coverage authority corpora work the opposite
    way; this one does not.)
 
+2a. BILL NUMBERS ARE IDENTIFIERS, NOT MEANINGS. Before concluding any bill
+   is absent, run an EXACT lookup — list documents or exact-text search for
+   the bill's title form ("H.R. 41 —") — never rely on semantic search
+   alone: a bare bill number embeds poorly and a semantic miss is not
+   evidence of absence. Declare a bill outside the window only after an
+   exact lookup finds nothing.
+
 3. NAME THE VERSION. Each document is one text version (IH introduced, RH
    reported, EH engrossed, ...). The version code is in the heading and
    metadata. Quote and cite with it: text can change at every stage.
